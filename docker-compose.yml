@@ -1,0 +1,30 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: aorus22/banyuanyar-web:latest
+    container_name: banyuanyar-web
+    restart: always
+    environment:
+      DATABASE_URL: "postgresql://banyuanyar_user:banyuanyar_password@postgres:5432/banyuanyardb?schema=public"
+    ports:
+      - 7672:3000
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:alpine
+    container_name: banyuanyar-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: banyuanyardb
+      POSTGRES_USER: banyuanyar_user
+      POSTGRES_PASSWORD: banyuanyar_password
+    ports:
+      - 7671:5432
+    volumes:
+      - banyuanyar-pgdata:/var/lib/postgresql/data
+
+volumes:
+  banyuanyar-pgdata:

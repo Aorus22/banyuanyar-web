@@ -1,0 +1,300 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./db"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+model User {
+  id           Int            @id @default(autoincrement())
+  username     String         @unique
+  email        String         @unique
+  password     String
+  name         String
+  phone        String
+  avatar       String?
+  role         UserRole       @default(USER)
+
+  news         News[]
+}
+
+model VillageProfile {
+  id          Int      @id @default(autoincrement())
+  key         String   @unique
+  value       String?  @db.Text
+  name        String?  @db.Text
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model GovernmentOfficial {
+  id          Int      @id @default(autoincrement())
+  name        String
+  position    String
+  photoUrl    String?
+  bio         String?  @db.Text
+  socialMedia Json?
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model OrganizationalStructure {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?  @db.Text
+  imageUrl    String?
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum NewsStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model NewsCategory {
+  id          Int      @id @default(autoincrement())
+  name        String
+  slug        String   @unique
+  description String?  @db.Text
+  color       String   @default("#000000")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  news News[]
+}
+
+model News {
+  id            Int          @id @default(autoincrement())
+  title         String
+  slug          String       @unique
+  content       String       @db.Text
+  excerpt       String?      @db.Text
+  featuredImage String?
+  authorId      Int?
+  categoryId    Int?
+  status        NewsStatus   @default(DRAFT)
+  publishedAt   DateTime?
+  viewCount     Int          @default(0)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  author   User?        @relation(fields: [authorId], references: [id])
+  category NewsCategory? @relation(fields: [categoryId], references: [id])
+}
+
+model Event {
+  id            Int           @id @default(autoincrement())
+  title         String
+  description   String?       @db.Text
+  startDate     DateTime
+  endDate       DateTime?
+  startTime     String?
+  endTime       String?
+  location      String?
+  organizer     String?
+  contactPerson String?
+  contactPhone  String?
+  imageUrl      String?
+  status        EventStatus   @default(UPCOMING)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+enum EventStatus {
+  UPCOMING
+  ONGOING
+  COMPLETED
+  CANCELLED
+}
+
+model Gallery {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?  @db.Text
+  eventDate   DateTime?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Document {
+  id            Int      @id @default(autoincrement())
+  title         String
+  description   String?  @db.Text
+  fileUrl       String
+  fileSize      BigInt?
+  fileType      String?
+  downloadCount Int      @default(0)
+  category      String?
+  isPublic      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model TourismCategory {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  packages TourismPackage[]
+}
+
+model TourismPackage {
+  id               Int              @id @default(autoincrement())
+  name             String
+  description      String?          @db.Text
+  price            Decimal?         @db.Decimal(10, 2)
+  duration         String?
+  maxParticipants  Int?
+  imageUrl         String?
+  categoryId       Int
+  isActive         Boolean          @default(true)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  category TourismCategory @relation(fields: [categoryId], references: [id])
+}
+
+model TourismHouse {
+  id            Int      @id @default(autoincrement())
+  name          String
+  description   String?  @db.Text
+  category      String?
+  imageUrl      String?
+  location      String?
+  contactPerson String?
+  contactPhone  String?
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Umkm {
+  id          Int      @id @default(autoincrement())
+  name        String
+  ownerName   String?
+  description String?  @db.Text
+  productType String?
+  address     String?  @db.Text
+  phone       String?
+  email       String?
+  socialMedia Json?
+  latitude    Float?
+  longitude   Float?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  products UmkmProduct[]
+}
+
+model UmkmProduct {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?  @db.Text
+  price       Decimal  @db.Decimal(10, 2)
+  unit        String   // satuan: kg, pcs, pack, dll
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  umkmId Int
+  umkm   Umkm @relation(fields: [umkmId], references: [id], onDelete: Cascade)
+}
+
+// Universal Media table for all images
+model Media {
+  id          Int      @id @default(autoincrement())
+  fileName    String
+  originalName String
+  filePath    String
+  fileSize    Int
+  mimeType    String
+  altText     String?
+  caption     String?
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Polymorphic relationship
+  entityType  String   // 'gallery', 'umkm', 'umkm_product', 'news', 'tourism_package', etc.
+  entityId    Int      // ID of the related entity
+
+  // Index for better query performance
+  @@index([entityType, entityId])
+}
+
+model VillagePotential {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?  @db.Text
+  category    String?
+  imageUrl    String?
+  linkUrl     String?
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Achievement {
+  id             Int      @id @default(autoincrement())
+  title          String
+  description    String?  @db.Text
+  awardDate      DateTime?
+  organizer      String?
+  imageUrl       String?
+  certificateUrl String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model VisitorStatistic {
+  id         Int      @id @default(autoincrement())
+  pageUrl    String?
+  visitorIp  String?
+  userAgent  String?  @db.Text
+  referrer   String?
+  visitDate  DateTime @default(now())
+  visitTime  DateTime @default(now())
+  createdAt  DateTime @default(now())
+}
+
+model SiteSetting {
+  id          Int           @id @default(autoincrement())
+  settingKey  String        @unique
+  settingValue String?      @db.Text
+  settingType SettingType   @default(STRING)
+  description String?       @db.Text
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+enum SettingType {
+  STRING
+  NUMBER
+  BOOLEAN
+  JSON
+}
