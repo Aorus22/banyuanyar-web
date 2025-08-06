@@ -14,6 +14,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 
+// Import Leaflet CSS
+import "leaflet/dist/leaflet.css"
+
 export interface Location {
   lat: number
   lng: number
@@ -63,12 +66,12 @@ export function MapSelector({
       // Dynamically import Leaflet
       const L = await import("leaflet")
 
-      // Fix Leaflet marker icon issue
+      // Fix Leaflet marker icon issue with better fallback
       delete (L.Icon.Default.prototype as any)._getIconUrl
       L.Icon.Default.mergeOptions({
-        iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
-        iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
-        shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+        iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+        iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+        shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
       })
 
       // Clean up existing map if any
@@ -78,21 +81,42 @@ export function MapSelector({
         markerRef.current = null
       }
 
+      // Wait a bit for the container to be ready
+      await new Promise(resolve => setTimeout(resolve, 100))
+
       mapRef.current = L.map(mapContainerRef.current, {
         center: [selectedLat, selectedLng],
-        zoom: 13
+        zoom: 13,
+        zoomControl: true,
+        scrollWheelZoom: true,
+        doubleClickZoom: true,
+        boxZoom: true,
+        keyboard: true,
+        dragging: true,
+        touchZoom: true,
       })
 
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: "© OpenStreetMap contributors",
-        maxZoom: 19
+        maxZoom: 19,
+        subdomains: ['a', 'b', 'c']
       }).addTo(mapRef.current)
 
-      markerRef.current = L.marker([selectedLat, selectedLng]).addTo(mapRef.current)
+      markerRef.current = L.marker([selectedLat, selectedLng], {
+        draggable: true,
+        autoPan: true
+      }).addTo(mapRef.current)
 
       // Direct click to update coordinates
       mapRef.current.on("click", (e: any) => {
         updateMarker(e.latlng.lat, e.latlng.lng)
+      })
+
+      // Marker drag events
+      markerRef.current.on("dragend", (e: any) => {
+        const marker = e.target
+        const position = marker.getLatLng()
+        updateMarker(position.lat, position.lng)
       })
 
       setMapLoaded(true)
@@ -207,7 +231,6 @@ export function MapSelector({
     handleClose()
   }, [isValidLocation, selectedLat, selectedLng, onLocationSelected, handleClose])
 
-
   // Load recent locations from localStorage
   React.useEffect(() => {
     const saved = localStorage.getItem("mapSelector_recentLocations")
@@ -229,19 +252,22 @@ export function MapSelector({
   React.useEffect(() => {
     if (open) {
       setMapLoaded(false)
-      setTimeout(() => {
+      // Give more time for the modal to fully render
+      const timer = setTimeout(() => {
         initMap()
-      }, 100)
+      }, 300)
+      
+      return () => clearTimeout(timer)
     }
   }, [open, initMap])
 
   // Update marker when coordinates change
   React.useEffect(() => {
-    if (mapRef.current && markerRef.current) {
+    if (mapRef.current && markerRef.current && mapLoaded) {
       markerRef.current.setLatLng([selectedLat, selectedLng])
       mapRef.current.panTo([selectedLat, selectedLng])
     }
-  }, [selectedLat, selectedLng])
+  }, [selectedLat, selectedLng, mapLoaded])
 
   // Cleanup on unmount
   React.useEffect(() => {
@@ -348,7 +374,6 @@ export function MapSelector({
                 size="lg"
                 onClick={confirmSelection}
                 disabled={!isValidLocation}
-
               >
                 Pilih Lokasi
               </Button>
