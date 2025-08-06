@@ -10,7 +10,6 @@ import {
   MultiSelect,
   Pagination,
   SearchableValueSelect,
-  WYSIForm,
   MapSelector,
   MapLocation,
 } from "@/components/ui"
@@ -152,31 +151,6 @@ export default function ComponentsDemoPage() {
             />
             <div className="text-sm text-muted-foreground">
               Selected: {selectedCity || "None"}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* WYSIForm */}
-        <Card className="md:col-span-2">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <FileText className="h-5 w-5" />
-              WYSIForm
-            </CardTitle>
-            <CardDescription>
-              Rich text editor dengan toolbar formatting
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <WYSIForm
-              value={editorContent}
-              onValueChange={setEditorContent}
-              placeholder="Masukkan teks disini..."
-              minHeight="8rem"
-              maxHeight="200px"
-            />
-            <div className="text-sm text-muted-foreground">
-              Content length: {editorContent.length} characters
             </div>
           </CardContent>
         </Card>

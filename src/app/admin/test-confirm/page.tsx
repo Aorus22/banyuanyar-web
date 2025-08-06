@@ -1,103 +1,57 @@
 "use client"
 
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { confirmModal } from "@/components/ui"
-import { toast } from "sonner"
+import { MapSelector, Location } from "@/components/ui/map-selector"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function TestConfirmPage() {
-  const handleTestConfirm = async () => {
-    const result = await confirmModal(
-      "Test Confirmation", 
-      "Ini adalah test confirmation dialog. Apakah Anda ingin melanjutkan?"
-    )
-    
-    if (result) {
-      alert("Anda memilih Ya!")
-    } else {
-      alert("Anda memilih Batal!")
-    }
-  }
+  const [isMapOpen, setIsMapOpen] = useState(false)
+  const [selectedLocation, setSelectedLocation] = useState<Location | null>(null)
 
-  const handleDeleteTest = async () => {
-    if (!(await confirmModal("Apakah yakin ingin menghapus item ini?"))) {
-      console.log("Delete dibatalkan")
-      return
-    }
-    
-    console.log("Item dihapus!")
-    toast.success("Item berhasil dihapus!")
-  }
-
-  const handleTestToast = () => {
-    toast.success("Ini adalah toast success!")
-  }
-
-  const handleTestToastError = () => {
-    toast.error("Ini adalah toast error!")
-  }
-
-  const handleTestToastInfo = () => {
-    toast.info("Ini adalah toast info!")
-  }
-
-  const handleTestToastWarning = () => {
-    toast.warning("Ini adalah toast warning!")
-  }
-
-  const handleTestToastPromise = () => {
-    toast.promise(
-      new Promise((resolve) => setTimeout(resolve, 2000)),
-      {
-        loading: 'Loading...',
-        success: 'Berhasil!',
-        error: 'Error!',
-      }
-    )
+  const handleLocationSelected = (location: Location) => {
+    setSelectedLocation(location)
+    console.log("Selected location:", location)
   }
 
   return (
-    <div className="container mx-auto py-8 space-y-4">
-      <h1 className="text-2xl font-bold">Test Confirmation Dialog</h1>
-      
-      <div className="space-y-4">
-        <div className="space-y-2">
-          <h2 className="text-lg font-semibold">Confirmation Dialog Tests</h2>
-          <div className="flex gap-2">
-            <Button onClick={handleTestConfirm}>
-              Test Confirmation Dialog
-            </Button>
-            
-            <Button onClick={handleDeleteTest} variant="destructive">
-              Test Delete Pattern
-            </Button>
-          </div>
-        </div>
+    <div className="container mx-auto p-6 space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>Test Map Selector</CardTitle>
+          <CardDescription>
+            Test halaman untuk komponen Map Selector
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <Button 
+            onClick={() => setIsMapOpen(true)}
+            className="w-full md:w-auto"
+          >
+            Buka Map Selector
+          </Button>
 
-        <div className="space-y-2">
-          <h2 className="text-lg font-semibold">Toast Tests</h2>
-          <div className="flex flex-wrap gap-2">
-            <Button onClick={handleTestToast} variant="default">
-              Success Toast
-            </Button>
-            
-            <Button onClick={handleTestToastError} variant="destructive">
-              Error Toast
-            </Button>
-            
-            <Button onClick={handleTestToastInfo} variant="secondary">
-              Info Toast
-            </Button>
-            
-            <Button onClick={handleTestToastWarning} variant="outline">
-              Warning Toast
-            </Button>
-            
-            <Button onClick={handleTestToastPromise} variant="ghost">
-              Promise Toast
-            </Button>
-          </div>
-        </div>
-      </div>
+          {selectedLocation && (
+            <div className="p-4 border rounded-lg bg-muted/50">
+              <h3 className="font-semibold mb-2">Lokasi yang Dipilih:</h3>
+              <p className="text-sm">
+                <strong>Latitude:</strong> {selectedLocation.lat}
+              </p>
+              <p className="text-sm">
+                <strong>Longitude:</strong> {selectedLocation.lng}
+              </p>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      <MapSelector
+        open={isMapOpen}
+        onOpenChange={setIsMapOpen}
+        onLocationSelected={handleLocationSelected}
+        initialLat={-6.2088}
+        initialLng={106.8456}
+      />
     </div>
   )
 } 

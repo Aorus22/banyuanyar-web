@@ -60,9 +60,6 @@ export { Pagination } from "./pagination"
 // Searchable Value Select
 export { SearchableValueSelect } from "./searchable-value-select"
 
-// WYSI Form
-export { WYSIForm } from "./wysi-form"
-
 // Map Selector
 export { MapSelector } from "./map-selector"
 export type { Location as MapLocation } from "./map-selector"
