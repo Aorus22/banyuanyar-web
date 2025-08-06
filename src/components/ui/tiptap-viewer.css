@@ -1,0 +1,92 @@
+/* TiptapViewer Styles */
+.tiptap-viewer .ProseMirror {
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  min-height: auto !important;
+  box-shadow: none !important;
+}
+
+.tiptap-viewer .ProseMirror:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.tiptap-viewer .ProseMirror p {
+  margin: 0.5em 0;
+}
+
+.tiptap-viewer .ProseMirror h1,
+.tiptap-viewer .ProseMirror h2,
+.tiptap-viewer .ProseMirror h3,
+.tiptap-viewer .ProseMirror h4,
+.tiptap-viewer .ProseMirror h5,
+.tiptap-viewer .ProseMirror h6 {
+  margin: 1em 0 0.5em 0;
+}
+
+.tiptap-viewer .ProseMirror ul,
+.tiptap-viewer .ProseMirror ol {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+
+.tiptap-viewer .ProseMirror blockquote {
+  margin: 0.5em 0;
+  padding-left: 1em;
+  border-left: 3px solid #e5e7eb;
+}
+
+.tiptap-viewer .ProseMirror pre {
+  margin: 0.5em 0;
+  padding: 0.5em;
+  background: #f3f4f6;
+  border-radius: 0.375rem;
+  overflow-x: auto;
+}
+
+.tiptap-viewer .ProseMirror code {
+  background: #f3f4f6;
+  padding: 0.125em 0.25em;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+.tiptap-viewer .ProseMirror pre code {
+  background: transparent;
+  padding: 0;
+}
+
+/* Dark mode support */
+.dark .tiptap-viewer .ProseMirror blockquote {
+  border-left-color: #374151;
+}
+
+.dark .tiptap-viewer .ProseMirror pre {
+  background: #1f2937;
+}
+
+.dark .tiptap-viewer .ProseMirror code {
+  background: #1f2937;
+} 
+
+.tiptap-viewer .ProseMirror ul,
+.tiptap-viewer .ProseMirror ol {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+
+.tiptap-viewer .ProseMirror ul {
+  list-style-type: disc;
+}
+
+.tiptap-viewer .ProseMirror ol {
+  list-style-type: decimal;
+}
+
+.tiptap-viewer .ProseMirror li {
+  margin: 0.25em 0;
+  display: list-item;
+}

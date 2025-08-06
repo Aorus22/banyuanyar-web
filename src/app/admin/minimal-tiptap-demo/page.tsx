@@ -1,6 +1,7 @@
 "use client"
 
 import { MinimalTiptapEditor } from "@/components/ui/minimal-tiptap"
+import { TiptapViewer } from "@/components/ui/tiptap-viewer"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import {
@@ -84,6 +85,9 @@ export default function MinimalTiptapDemoPage() {
       // Also update rendered content
       const text = editorRef.current.getText()
       setRenderedContent(text)
+      
+      // Update form field value
+      form.setValue("description", html)
     }
   }
 
@@ -181,7 +185,11 @@ export default function MinimalTiptapDemoPage() {
                     <FormLabel>Description</FormLabel>
                     <FormControl>
                       <MinimalTiptapEditor
-                        {...field}
+                        value={field.value}
+                        onChange={(content) => {
+                          handleEditorChange(content)
+                          field.onChange(content)
+                        }}
                         throttleDelay={0}
                         className={cn("w-full", {
                           "border-destructive focus-within:border-destructive":
@@ -190,7 +198,6 @@ export default function MinimalTiptapDemoPage() {
                         output="html"
                         placeholder="Type your description here..."
                         onCreate={handleCreate}
-                        onChange={handleEditorChange}
                         autofocus={true}
                         immediatelyRender={false}
                         editable={true}
@@ -238,10 +245,12 @@ export default function MinimalTiptapDemoPage() {
         </CardHeader>
         <CardContent>
           <div className="prose prose-sm max-w-none dark:prose-invert">
-            <div 
-              className="min-h-[100px] p-4 border rounded-lg"
-              dangerouslySetInnerHTML={{ __html: rawHtml }}
-            />
+            <div className="min-h-[100px] border rounded-lg">
+              <TiptapViewer 
+                content={rawHtml || "<p>No content yet. Start typing in the editor above...</p>"}
+                className="min-h-[100px]"
+              />
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -261,6 +270,23 @@ export default function MinimalTiptapDemoPage() {
               <p className="text-sm bg-gray-100 dark:bg-gray-800 p-2 rounded">
                 {form.watch("title") || "No title entered"}
               </p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-2">Description (Form Field Value):</h4>
+              <div className="text-sm bg-gray-100 dark:bg-gray-800 p-2 rounded min-h-[50px]">
+                <pre className="whitespace-pre-wrap overflow-x-auto">
+                  {form.watch("description") || "No description entered"}
+                </pre>
+              </div>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-2">Description (Rendered HTML):</h4>
+              <div className="text-sm bg-gray-100 dark:bg-gray-800 p-2 rounded min-h-[50px] prose prose-sm max-w-none">
+                <TiptapViewer 
+                  content={rawHtml || "<p>No description entered</p>"}
+                  className="min-h-[50px]"
+                />
+              </div>
             </div>
             <div>
               <h4 className="font-semibold mb-2">Description (Text Only):</h4>
