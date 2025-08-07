@@ -1,3 +1,6 @@
+/* Import minimal-tiptap styles for consistency */
+@import './minimal-tiptap/styles/index.css';
+
 /* TiptapViewer Styles */
 .tiptap-viewer .ProseMirror {
   border: none !important;
@@ -89,4 +92,12 @@
 .tiptap-viewer .ProseMirror li {
   margin: 0.25em 0;
   display: list-item;
+}
+
+/* Ensure images work properly in viewer */
+.minimal-tiptap-editor .ProseMirror img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0.5em auto;
 }

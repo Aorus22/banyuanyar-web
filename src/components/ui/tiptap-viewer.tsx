@@ -4,6 +4,7 @@ import { EditorContent } from '@tiptap/react'
 import { cn } from '@/lib/utils'
 import { useEffect, useState } from 'react'
 import { useMinimalTiptapEditor } from './minimal-tiptap/hooks/use-minimal-tiptap'
+import { MeasuredContainer } from './minimal-tiptap/components/measured-container'
 import './tiptap-viewer.css'
 
 interface TiptapViewerProps {
@@ -28,7 +29,10 @@ export function TiptapViewer({ content, className }: TiptapViewerProps) {
   // Update content when it changes
   useEffect(() => {
     if (editor && content !== editor.getHTML()) {
-      editor.commands.setContent(content)
+      // Use queueMicrotask to avoid React rendering conflicts
+      queueMicrotask(() => {
+        editor.commands.setContent(content)
+      })
     }
   }, [editor, content])
 
@@ -58,13 +62,19 @@ export function TiptapViewer({ content, className }: TiptapViewerProps) {
   }
 
   return (
-    <div className={cn("tiptap-viewer", className)}>
-      <div className="min-data-[orientation=vertical]:h-72 flex h-auto w-full flex-col">
-        <EditorContent
-          editor={editor}
-          className="minimal-tiptap-editor p-4 min-h-[100px] focus:outline-none"
-        />
-      </div>
-    </div>
+    <MeasuredContainer
+      as="div"
+      name="viewer"
+      className={cn(
+        "border-input min-data-[orientation=vertical]:h-72 flex h-auto w-full flex-col rounded-md border shadow-xs",
+        "focus-within:border-ring focus-within:ring-ring/50 focus-within:ring-[3px]",
+        className
+      )}
+    >
+      <EditorContent
+        editor={editor}
+        className="minimal-tiptap-editor p-4 min-h-[100px] focus:outline-none"
+      />
+    </MeasuredContainer>
   )
 } 

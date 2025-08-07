@@ -50,6 +50,21 @@ export default function MinimalTiptapDemoPage() {
         editor.commands.setContent(form.getValues("description"))
       }
       editorRef.current = editor
+      
+      // Debug: Check if Image extension is loaded
+      console.log('=== EDITOR DEBUG ===')
+      console.log('Editor extensions:', editor.extensionManager.extensions.map(ext => ext.name))
+      
+      const imageExtension = editor.extensionManager.extensions.find(ext => ext.name === 'image')
+      console.log('Image extension found:', !!imageExtension)
+      
+      if (imageExtension) {
+        console.log('Image extension options:', imageExtension.options)
+      }
+      
+      console.log('Current content:', editor.getHTML())
+      console.log('Current JSON:', editor.getJSON())
+      console.log('====================')
     },
     [form]
   )
