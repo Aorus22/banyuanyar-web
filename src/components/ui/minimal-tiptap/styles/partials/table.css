@@ -1,0 +1,80 @@
+/* Table styles */
+.minimal-tiptap-editor .ProseMirror table {
+  @apply border-collapse table-auto w-full;
+  @apply border border-border;
+  @apply my-4;
+}
+
+.minimal-tiptap-editor .ProseMirror .table-node {
+  @apply relative;
+}
+
+.minimal-tiptap-editor .ProseMirror .table-row-node {
+  @apply border-b border-border;
+}
+
+.minimal-tiptap-editor .ProseMirror .table-cell-node,
+.minimal-tiptap-editor .ProseMirror .table-header-node {
+  @apply border-r border-border p-3;
+  @apply relative;
+  @apply min-w-[100px];
+  @apply align-top;
+}
+
+.minimal-tiptap-editor .ProseMirror .table-header-node {
+  @apply bg-muted/50 font-semibold;
+}
+
+.minimal-tiptap-editor .ProseMirror .table-cell-node:last-child,
+.minimal-tiptap-editor .ProseMirror .table-header-node:last-child {
+  @apply border-r-0;
+}
+
+.minimal-tiptap-editor .ProseMirror .table-row-node:last-child {
+  @apply border-b-0;
+}
+
+/* Table selection styles */
+.minimal-tiptap-editor .ProseMirror .selectedCell {
+  @apply bg-primary/10;
+}
+
+/* Table resize handle */
+.minimal-tiptap-editor .ProseMirror .column-resize-handle {
+  @apply absolute top-0 right-0 w-1 h-full;
+  @apply bg-primary/50;
+  @apply opacity-0;
+  @apply cursor-col-resize;
+  @apply z-10;
+}
+
+.minimal-tiptap-editor .ProseMirror .column-resize-handle:hover,
+.minimal-tiptap-editor .ProseMirror .column-resize-handle.dragging {
+  @apply opacity-100;
+}
+
+/* Table focus styles */
+.minimal-tiptap-editor .ProseMirror table:focus-within {
+  @apply outline-none;
+}
+
+.minimal-tiptap-editor .ProseMirror .table-cell-node:focus,
+.minimal-tiptap-editor .ProseMirror .table-header-node:focus {
+  @apply outline-none;
+}
+
+/* Table empty cell placeholder */
+.minimal-tiptap-editor .ProseMirror .table-cell-node.is-empty::before,
+.minimal-tiptap-editor .ProseMirror .table-header-node.is-empty::before {
+  @apply content-[''] absolute;
+  @apply text-muted-foreground/50;
+  @apply pointer-events-none;
+}
+
+.minimal-tiptap-editor .ProseMirror .table-cell-node.is-empty::before {
+  content: 'Cell';
+}
+
+.minimal-tiptap-editor .ProseMirror .table-header-node.is-empty::before {
+  content: 'Header';
+} 

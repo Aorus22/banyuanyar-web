@@ -57,7 +57,7 @@ export const ToolbarSection: React.FC<ToolbarSectionProps> = ({
         onClick={() => action.action(editor)}
         disabled={!action.canExecute(editor)}
         isActive={action.isActive(editor)}
-        tooltip={`${action.label} ${action.shortcuts.map((s) => getShortcutKey(s).symbol).join(" ")}`}
+        tooltip={`${action.label} ${action.shortcuts?.map((s) => getShortcutKey(s).symbol).join(" ") || ""}`}
         aria-label={action.label}
         size={size}
         variant={variant}

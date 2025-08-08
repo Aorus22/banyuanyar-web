@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils"
 import { getShortcutKey } from "../utils"
 
 export interface ShortcutKeyProps extends React.ComponentProps<"span"> {
-  keys: string[]
+  keys?: string[]
 }
 
 export const ShortcutKey = ({
@@ -12,6 +12,11 @@ export const ShortcutKey = ({
   keys,
   ...props
 }: ShortcutKeyProps) => {
+  // Return null if no keys provided
+  if (!keys || keys.length === 0) {
+    return null
+  }
+
   const modifiedKeys = keys.map((key) => getShortcutKey(key))
   const ariaLabel = modifiedKeys
     .map((shortcut) => shortcut.readable)

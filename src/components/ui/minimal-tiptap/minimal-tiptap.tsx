@@ -10,6 +10,7 @@ import { SectionTwo } from "./components/section/two"
 import { SectionThree } from "./components/section/three"
 import { SectionFour } from "./components/section/four"
 import { SectionFive } from "./components/section/five"
+import { SectionTable } from "./components/section/table"
 import { useMinimalTiptapEditor } from "./hooks/use-minimal-tiptap"
 import { MeasuredContainer } from "./components/measured-container"
 
@@ -23,10 +24,10 @@ export interface MinimalTiptapProps
 
 const Toolbar = ({ editor }: { editor: Editor }) => (
   <div className="border-border flex h-12 shrink-0 overflow-x-auto border-b">
-    <div className="flex w-max items-center gap-px px-2">
+    <div className="flex items-center gap-1 px-2 flex-nowrap">
       <SectionOne editor={editor} activeLevels={[1, 2, 3, 4, 5, 6]} />
 
-      <Separator orientation="vertical" className="mx-2" />
+      <Separator orientation="vertical" className="mx-1" />
 
       <SectionTwo
         editor={editor}
@@ -41,11 +42,11 @@ const Toolbar = ({ editor }: { editor: Editor }) => (
         mainActionCount={3}
       />
 
-      <Separator orientation="vertical" className="mx-2" />
+      <Separator orientation="vertical" className="mx-1" />
 
       <SectionThree editor={editor} />
 
-      <Separator orientation="vertical" className="mx-2" />
+      <Separator orientation="vertical" className="mx-1" />
 
       <SectionFour
         editor={editor}
@@ -53,12 +54,20 @@ const Toolbar = ({ editor }: { editor: Editor }) => (
         mainActionCount={0}
       />
 
-      <Separator orientation="vertical" className="mx-2" />
+      <Separator orientation="vertical" className="mx-1" />
 
       <SectionFive
         editor={editor}
         activeActions={["codeBlock", "blockquote", "horizontalRule"]}
         mainActionCount={0}
+      />
+
+      <Separator orientation="vertical" className="mx-1" />
+
+      <SectionTable
+        editor={editor}
+        activeActions={["insertTable", "addColumnBefore", "addColumnAfter", "deleteColumn", "addRowBefore", "addRowAfter", "deleteRow", "deleteTable"]}
+        mainActionCount={1}
       />
     </div>
   </div>

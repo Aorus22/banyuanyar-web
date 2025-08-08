@@ -51,15 +51,22 @@ export default function MinimalTiptapDemoPage() {
       }
       editorRef.current = editor
       
-      // Debug: Check if Image extension is loaded
+      // Debug: Check if extensions are loaded
       console.log('=== EDITOR DEBUG ===')
       console.log('Editor extensions:', editor.extensionManager.extensions.map(ext => ext.name))
       
       const imageExtension = editor.extensionManager.extensions.find(ext => ext.name === 'image')
       console.log('Image extension found:', !!imageExtension)
       
+      const tableExtension = editor.extensionManager.extensions.find(ext => ext.name === 'table')
+      console.log('Table extension found:', !!tableExtension)
+      
       if (imageExtension) {
         console.log('Image extension options:', imageExtension.options)
+      }
+      
+      if (tableExtension) {
+        console.log('Table extension options:', tableExtension.options)
       }
       
       console.log('Current content:', editor.getHTML())
@@ -154,6 +161,7 @@ export default function MinimalTiptapDemoPage() {
               <p>• Code blocks with syntax highlighting</p>
               <p>• Blockquotes</p>
               <p>• Horizontal rules</p>
+              <p>• Tables with resizable columns</p>
               <p>• Text color customization</p>
             </div>
             

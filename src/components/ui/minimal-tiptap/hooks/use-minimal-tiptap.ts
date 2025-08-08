@@ -14,6 +14,7 @@ import {
   UnsetAllMarks,
   ResetMarksOnEnter,
   FileHandler,
+  TableExtensions,
 } from "../extensions"
 import { cn } from "@/lib/utils"
 import { fileToBase64, getOutput, randomId } from "../utils"
@@ -180,6 +181,7 @@ const createExtensions = ({
   HorizontalRule,
   ResetMarksOnEnter,
   CodeBlockLowlight,
+  ...TableExtensions,
   Placeholder.configure({ placeholder: () => placeholder }),
 ]
 
