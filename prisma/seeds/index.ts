@@ -1,0 +1,14 @@
+export { seedUser } from './user.seed';
+export { seedVillageProfile } from './village-profile.seed';
+export { seedGovernmentOfficial } from './government-official.seed';
+export { seedNewsCategory } from './news-category.seed';
+export { seedNews } from './news.seed';
+export { seedEvent } from './event.seed';
+export { seedTourismCategory } from './tourism-category.seed';
+export { seedTourismPackage } from './tourism-package.seed';
+export { seedTourismHouse } from './tourism-house.seed';
+export { seedGallery } from './gallery.seed';
+export { seedUmkm } from './umkm.seed';
+export { seedUmkmProduct } from './umkm-product.seed';
+export { seedMedia } from './media.seed';
+export { seedDocument } from './document.seed'; 

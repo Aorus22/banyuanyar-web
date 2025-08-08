@@ -55,16 +55,6 @@ model GovernmentOfficial {
   updatedAt   DateTime @updatedAt
 }
 
-model OrganizationalStructure {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String?  @db.Text
-  imageUrl    String?
-  sortOrder   Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
 enum NewsStatus {
   DRAFT
   PUBLISHED
@@ -88,7 +78,6 @@ model News {
   title         String
   slug          String       @unique
   content       String       @db.Text
-  excerpt       String?      @db.Text
   featuredImage String?
   authorId      Int?
   categoryId    Int?
@@ -98,8 +87,8 @@ model News {
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
 
-  author   User?        @relation(fields: [authorId], references: [id])
-  category NewsCategory? @relation(fields: [categoryId], references: [id])
+  author   User?        @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  category NewsCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
 }
 
 model Event {
@@ -108,13 +97,8 @@ model Event {
   description   String?       @db.Text
   startDate     DateTime
   endDate       DateTime?
-  startTime     String?
-  endTime       String?
   location      String?
   organizer     String?
-  contactPerson String?
-  contactPhone  String?
-  imageUrl      String?
   status        EventStatus   @default(UPCOMING)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
@@ -141,12 +125,9 @@ model Document {
   id            Int      @id @default(autoincrement())
   title         String
   description   String?  @db.Text
-  fileUrl       String
+  filename      String
   fileSize      BigInt?
   fileType      String?
-  downloadCount Int      @default(0)
-  category      String?
-  isPublic      Boolean  @default(true)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
@@ -167,7 +148,6 @@ model TourismPackage {
   price            Decimal?         @db.Decimal(10, 2)
   duration         String?
   maxParticipants  Int?
-  imageUrl         String?
   categoryId       Int
   isActive         Boolean          @default(true)
   createdAt        DateTime         @default(now())
@@ -181,7 +161,6 @@ model TourismHouse {
   name          String
   description   String?  @db.Text
   category      String?
-  imageUrl      String?
   location      String?
   contactPerson String?
   contactPhone  String?
@@ -223,18 +202,11 @@ model UmkmProduct {
   umkm   Umkm @relation(fields: [umkmId], references: [id], onDelete: Cascade)
 }
 
-// Universal Media table for all images
 model Media {
   id          Int      @id @default(autoincrement())
   fileName    String
-  originalName String
-  filePath    String
   fileSize    Int
   mimeType    String
-  altText     String?
-  caption     String?
-  sortOrder   Int      @default(0)
-  isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -242,59 +214,33 @@ model Media {
   entityType  String   // 'gallery', 'umkm', 'umkm_product', 'news', 'tourism_package', etc.
   entityId    Int      // ID of the related entity
 
-  // Index for better query performance
   @@index([entityType, entityId])
 }
 
-model VillagePotential {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String?  @db.Text
-  category    String?
-  imageUrl    String?
-  linkUrl     String?
-  sortOrder   Int      @default(0)
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
+// model VisitorStatistic {
+//   id         Int      @id @default(autoincrement())
+//   pageUrl    String?
+//   visitorIp  String?
+//   userAgent  String?  @db.Text
+//   referrer   String?
+//   visitDate  DateTime @default(now())
+//   visitTime  DateTime @default(now())
+//   createdAt  DateTime @default(now())
+// }
 
-model Achievement {
-  id             Int      @id @default(autoincrement())
-  title          String
-  description    String?  @db.Text
-  awardDate      DateTime?
-  organizer      String?
-  imageUrl       String?
-  certificateUrl String?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-}
+// model SiteSetting {
+//   id          Int           @id @default(autoincrement())
+//   settingKey  String        @unique
+//   settingValue String?      @db.Text
+//   settingType SettingType   @default(STRING)
+//   description String?       @db.Text
+//   createdAt   DateTime      @default(now())
+//   updatedAt   DateTime      @updatedAt
+// }
 
-model VisitorStatistic {
-  id         Int      @id @default(autoincrement())
-  pageUrl    String?
-  visitorIp  String?
-  userAgent  String?  @db.Text
-  referrer   String?
-  visitDate  DateTime @default(now())
-  visitTime  DateTime @default(now())
-  createdAt  DateTime @default(now())
-}
-
-model SiteSetting {
-  id          Int           @id @default(autoincrement())
-  settingKey  String        @unique
-  settingValue String?      @db.Text
-  settingType SettingType   @default(STRING)
-  description String?       @db.Text
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-}
-
-enum SettingType {
-  STRING
-  NUMBER
-  BOOLEAN
-  JSON
-}
+// enum SettingType {
+//   STRING
+//   NUMBER
+//   BOOLEAN
+//   JSON
+// }
