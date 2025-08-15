@@ -12,9 +12,9 @@ import { id } from 'date-fns/locale';
 import UmkmProductTable from './umkm-product-table';
 
 interface UmkmDetailPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function UmkmDetailPage({ params }: UmkmDetailPageProps) {

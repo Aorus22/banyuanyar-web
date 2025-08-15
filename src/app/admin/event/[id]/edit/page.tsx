@@ -6,13 +6,14 @@ import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 
 interface EditEventPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function EditEventPage({ params }: EditEventPageProps) {
-  const event = await getEventById(parseInt(params.id));
+  const { id } = await params;
+  const event = await getEventById(parseInt(id));
 
   if (!event) {
     notFound();

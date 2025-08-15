@@ -5,11 +5,12 @@ import { notFound } from 'next/navigation';
 export const dynamic = 'force-dynamic';
 
 interface Props {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default async function Page({ params }: Props) {
-  const galleryId = Number(params.id);
+  const { id } = await params;
+  const galleryId = Number(id);
   if (isNaN(galleryId)) return notFound();
 
   const galeri = await prisma.gallery.findUnique({

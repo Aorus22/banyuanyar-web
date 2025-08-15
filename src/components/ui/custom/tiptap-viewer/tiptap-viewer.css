@@ -1,5 +1,5 @@
 /* Import minimal-tiptap styles for consistency */
-@import './minimal-tiptap/styles/index.css';
+@import '../minimal-tiptap/styles/index.css';
 
 /* TiptapViewer Styles */
 .tiptap-viewer .ProseMirror {

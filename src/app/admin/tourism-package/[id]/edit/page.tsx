@@ -6,14 +6,15 @@ import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 
 interface EditTourismPackagePageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function EditTourismPackagePage({ params }: EditTourismPackagePageProps) {
+  const { id } = await params;
   const [package_, categories] = await Promise.all([
-    getTourismPackageById(parseInt(params.id)),
+    getTourismPackageById(parseInt(id)),
     getTourismCategories()
   ]);
 

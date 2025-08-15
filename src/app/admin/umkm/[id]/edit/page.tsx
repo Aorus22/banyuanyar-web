@@ -6,9 +6,9 @@ import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 
 interface EditUmkmPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function EditUmkmPage({ params }: EditUmkmPageProps) {

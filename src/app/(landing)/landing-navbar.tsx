@@ -13,6 +13,7 @@ import {
   NavigationMenuLink
 } from '@/components/ui/navigation-menu';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import Link from 'next/link';
 
 const menus = [
   {
@@ -60,7 +61,7 @@ export function LandingNavbar() {
       <div className='h-full flex items-center justify-between mx-auto px-4'>
         {/* Logo */}
         <div className='flex items-center'>
-          <a href='/' className='text-xl font-bold'>Banyuanyar</a>
+          <Link href='/' className='text-xl font-bold'>Banyuanyar</Link>
         </div>
 
         {/* Desktop Menu */}

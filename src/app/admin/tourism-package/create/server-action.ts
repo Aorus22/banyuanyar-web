@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import type { Prisma } from '#/prisma/db';
 
 export async function createTourismPackage(formData: FormData) {
   try {
@@ -12,17 +13,17 @@ export async function createTourismPackage(formData: FormData) {
     const duration = formData.get('duration') as string;
     const maxParticipants = formData.get('maxParticipants') as string;
 
-    const package_ = await prisma.tourismPackage.create({
-      data: {
-        name,
-        description: description || null,
-        categoryId: categoryId && !isNaN(parseInt(categoryId)) ? parseInt(categoryId) : undefined,
-        price: price && !isNaN(parseFloat(price)) ? parseFloat(price) : null,
-        duration: duration || null,
-        maxParticipants: maxParticipants && !isNaN(parseInt(maxParticipants)) ? parseInt(maxParticipants) : null,
-        isActive: true
-      }
-    });
+    const data: Prisma.TourismPackageUncheckedCreateInput = {
+      name,
+      description: description || null,
+      categoryId: categoryId && !isNaN(parseInt(categoryId)) ? parseInt(categoryId) : 1,
+      price: price && !isNaN(parseFloat(price)) ? parseFloat(price) : null,
+      duration: duration || null,
+      maxParticipants: maxParticipants && !isNaN(parseInt(maxParticipants)) ? parseInt(maxParticipants) : null,
+      isActive: true
+    };
+
+    const package_ = await prisma.tourismPackage.create({ data });
 
     // Convert Decimal to number for response
     return { 

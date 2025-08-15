@@ -6,13 +6,14 @@ import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 
 interface EditNewsCategoryPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function EditNewsCategoryPage({ params }: EditNewsCategoryPageProps) {
-  const category = await getNewsCategoryById(parseInt(params.id));
+  const { id } = await params;
+  const category = await getNewsCategoryById(parseInt(id));
 
   if (!category) {
     notFound();

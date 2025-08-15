@@ -1,12 +1,12 @@
-import { UmkmProductForm } from '../umkm-product-form';
+import { UmkmProductForm } from '../../umkm-product-form';
 import { createUmkmProduct } from '../[productId]/edit/server-action';
 import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 
 interface CreateUmkmProductPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function CreateUmkmProductPage({ params }: CreateUmkmProductPageProps) {

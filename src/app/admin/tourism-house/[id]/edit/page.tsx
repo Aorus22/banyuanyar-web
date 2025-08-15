@@ -6,13 +6,14 @@ import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
 
 interface EditTourismHousePageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function EditTourismHousePage({ params }: EditTourismHousePageProps) {
-  const house = await getTourismHouseById(parseInt(params.id));
+  const { id } = await params;
+  const house = await getTourismHouseById(parseInt(id));
 
   if (!house) {
     notFound();

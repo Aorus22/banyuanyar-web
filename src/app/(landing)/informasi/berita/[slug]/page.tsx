@@ -8,14 +8,15 @@ import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 import { Eye, Calendar, User, Tag } from 'lucide-react';
 
 interface NewsPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export default async function NewsPage({ params }: NewsPageProps) {
+  const { slug } = await params;
   const news = await prisma.news.findUnique({
-    where: { slug: params.slug },
+    where: { slug },
     include: {
       author: true,
       category: true
