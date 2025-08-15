@@ -20,7 +20,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
-// Interface untuk data Product
 interface Product {
   id: number
   photo_url: string
@@ -303,13 +302,13 @@ export default function ProductPage() {
             <CardTitle>Daftar Product yang Tersedia</CardTitle>
           </CardHeader>
           <CardContent className="px-3 sm:px-6">
-                      <DataTable
-            columns={columns}
-            data={data}
-            isLoading={isLoading}
-            enableBulkActions={true}
-            onRowSelectionChange={setSelectedRows}
-            toolbarActions={
+            <DataTable
+              columns={columns}
+              data={data}
+              isLoading={isLoading}
+              enableBulkActions={true}
+              onRowSelectionChange={setSelectedRows}
+              toolbarActions={
                 <>
                   <Button className="flex items-center gap-2 button-primary">
                     <Upload className="h-4 w-4" /> Import Product
@@ -323,7 +322,7 @@ export default function ProductPage() {
                   </Button>
                 </>
               }
-                          bulkActions={
+            bulkActions={
               <Button
                 variant="destructive"
                 size="sm"
