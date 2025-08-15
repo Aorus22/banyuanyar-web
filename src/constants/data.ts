@@ -14,7 +14,7 @@ export type Product = {
 export const navItems: NavItem[] = [
   {
     title: 'admin',
-    url: '/admin/overview',
+    url: '/admin/dashboard',
     icon: 'dashboard',
     isActive: false,
     shortcut: ['d', 'd'],
@@ -87,14 +87,6 @@ export const navItems: NavItem[] = [
     url: '/admin/umkm',
     icon: 'shopping-bag',
     shortcut: ['u', 'u'],
-    isActive: false,
-    items: []
-  },
-  {
-    title: 'Product',
-    url: '/admin/product',
-    icon: 'product',
-    shortcut: ['p', 'p'],
     isActive: false,
     items: []
   },

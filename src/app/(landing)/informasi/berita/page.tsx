@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 import { User, Eye, ArrowRight } from 'lucide-react';
+import { PageHeaderEffect } from '@/components/layout/landing/PageBackgroundHeader/PageHeaderEffect';
 
 export default async function NewsIndexPage() {
   const news = await prisma.news.findMany({
@@ -23,16 +24,12 @@ export default async function NewsIndexPage() {
   });
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-4">Berita Desa</h1>
-        <p className="text-lg text-muted-foreground">
-          Temukan berita dan informasi terbaru seputar desa kami
-        </p>
-      </div>
-
-      <Separator className="mb-8" />
-
+    <>
+      <PageHeaderEffect 
+        title="Berita Desa"
+        description="Temukan berita dan informasi terbaru seputar desa kami"
+      />
+      
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {news.map((item) => (
           <Card key={item.id} className="hover:shadow-lg transition-shadow pt-0">
@@ -69,7 +66,7 @@ export default async function NewsIndexPage() {
               
               <CardTitle className="line-clamp-2 text-lg">
                 <Link 
-                  href={`/news/${item.slug}`}
+                  href={`/informasi/berita/${item.slug}`}
                   className="hover:text-primary transition-colors"
                 >
                   {item.title}
@@ -90,7 +87,7 @@ export default async function NewsIndexPage() {
               </div>
               
               <Button asChild size="sm" className="w-full">
-                <Link href={`/news/${item.slug}`}>
+                <Link href={`/informasi/berita/${item.slug}`}>
                   Baca Selengkapnya
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -106,14 +103,9 @@ export default async function NewsIndexPage() {
             <p className="text-muted-foreground mb-4">
               Belum ada berita yang dipublikasikan
             </p>
-            <Button asChild>
-              <Link href="/admin/news/create">
-                Buat Berita Pertama
-              </Link>
-            </Button>
           </CardContent>
         </Card>
       )}
-    </div>
+    </>
   );
 } 

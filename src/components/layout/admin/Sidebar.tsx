@@ -43,8 +43,8 @@ import {
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import * as React from 'react';
-import { Icons } from '../icons';
-import { OrgSwitcher } from '../org-switcher';
+import { Icons } from '../../icons';
+import { OrgSwitcher } from '../../org-switcher';
 export const company = {
   name: 'Acme Inc',
   logo: IconPhotoUp,

@@ -1,10 +1,14 @@
 import React from 'react';
+import { PageHeaderEffect } from '@/components/layout/landing/PageBackgroundHeader/PageHeaderEffect';
 
 export default function Page() {
   return (
-    <div className="min-h-screen pt-24 container mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Agenda Kegiatan</h1>
+    <>
+      <PageHeaderEffect 
+        title="Agenda Kegiatan"
+        description="Jadwal dan agenda kegiatan desa Banyuanyar"
+      />
       <p>Konten akan segera hadir.</p>
-    </div>
+    </>
   );
 } 

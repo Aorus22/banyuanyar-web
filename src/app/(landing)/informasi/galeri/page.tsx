@@ -1,5 +1,8 @@
 import React from 'react';
 import { prisma } from '@/lib/prisma';
+import { ImageWithFallback } from '@/components/ui/image-with-fallback';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { PageHeaderEffect } from '@/components/layout/landing/PageBackgroundHeader/PageHeaderEffect';
 
 export const dynamic = 'force-dynamic';
 
@@ -43,13 +46,11 @@ export default async function Page() {
   }));
 
   return (
-    <div className="min-h-screen pt-24 container mx-auto py-16">
-      <div className="mb-10">
-        <div className="bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-8 md:p-10 text-center text-primary-foreground shadow">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">Galeri Desa</h1>
-          <p className="text-base md:text-lg opacity-90">Dokumentasi kegiatan dan destinasi Desa Banyuanyar</p>
-        </div>
-      </div>
+    <>
+      <PageHeaderEffect 
+        title="Galeri Desa"
+        description="Dokumentasi kegiatan dan destinasi Desa Banyuanyar"
+      />
 
       <div className="max-w-4xl mx-auto">
         {galleries.length === 0 ? (
@@ -64,16 +65,20 @@ export default async function Page() {
                   href={`/informasi/galeri/${galeri.id}`}
                   className="group block rounded-xl overflow-hidden shadow hover:shadow-lg transition relative bg-white dark:bg-muted"
                 >
-                  <div className="aspect-w-1 aspect-h-1 w-full">
-                    {thumbnail ? (
-                      <img
-                        src={`/gallery/${thumbnail.fileName}`}
-                        alt={galeri.title}
-                        className="object-cover w-full h-full"
-                      />
-                    ) : (
-                      <div className="flex items-center justify-center h-full text-muted-foreground">Tidak ada gambar</div>
-                    )}
+                  <div className="relative">
+                    <AspectRatio ratio={1}>
+                      {thumbnail ? (
+                        <ImageWithFallback
+                          src={`/gallery/${thumbnail.fileName}`}
+                          alt={galeri.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                          className="object-cover"
+                        />
+                      ) : (
+                        <div className="flex items-center justify-center h-full text-muted-foreground">Tidak ada gambar</div>
+                      )}
+                    </AspectRatio>
                   </div>
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col justify-center items-center transition-opacity">
                     <div className="text-lg font-semibold text-white mb-2 text-center px-2">{galeri.title}</div>
@@ -90,6 +95,6 @@ export default async function Page() {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 }

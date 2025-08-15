@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { prisma } from '@/lib/prisma';
+import { PageHeaderEffect } from '@/components/layout/landing/PageBackgroundHeader/PageHeaderEffect';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,13 +14,11 @@ export default async function Page() {
   });
 
   return (
-    <div className="min-h-screen pt-24 container mx-auto py-16">
-      <div className="mb-10">
-        <div className="bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-8 md:p-10 text-center text-primary-foreground shadow">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">Demografi & Geografis</h1>
-          <p className="text-base md:text-lg opacity-90">Informasi demografi dan geografis desa Banyuanyar</p>
-        </div>
-      </div>
+    <>
+      <PageHeaderEffect 
+        title="Demografi & Geografis"
+        description="Informasi demografi dan geografis desa Banyuanyar"
+      />
 
       <div className="max-w-3xl mx-auto space-y-8">
         <div className="bg-white dark:bg-muted rounded-xl shadow p-6 md:p-8">
@@ -35,6 +34,6 @@ export default async function Page() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

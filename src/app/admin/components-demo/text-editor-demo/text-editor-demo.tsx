@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { TextEditor } from "../../../components/ui/text-editor";
-import { Button } from "../../../components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../components/ui/card";
-import { Separator } from "../../../components/ui/separator";
-import { Switch } from "../../../components/ui/switch";
-import { Label } from "../../../components/ui/label";
+import { TextEditor } from "../../../../components/ui/text-editor";
+import { Button } from "../../../../components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../components/ui/card";
+import { Separator } from "../../../../components/ui/separator";
+import { Switch } from "../../../../components/ui/switch";
+import { Label } from "../../../../components/ui/label";
 
 export const TextEditorDemo = () => {
   const [content, setContent] = useState("");

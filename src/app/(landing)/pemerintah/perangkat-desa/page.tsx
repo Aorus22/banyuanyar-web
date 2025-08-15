@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { ImageWithFallback } from '@/components/ui/image-with-fallback'
+import { PageHeaderEffect } from '@/components/layout/landing/PageBackgroundHeader/PageHeaderEffect'
 
 export const dynamic = 'force-dynamic'
 
@@ -14,14 +15,11 @@ export default async function Page() {
   })
 
   return (
-    <div className="min-h-screen pt-24 container mx-auto py-16">
-      {/* Header themed box */}
-      <div className="mb-10">
-        <div className="bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-8 md:p-10 text-center text-primary-foreground">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">Perangkat Desa</h1>
-          <p className="text-base md:text-lg opacity-90">Profil singkat perangkat desa Banyuanyar</p>
-        </div>
-      </div>
+    <>
+      <PageHeaderEffect 
+        title="Perangkat Desa"
+        description="Profil singkat perangkat desa Banyuanyar"
+      />
 
       {officials.length === 0 ? (
         <div className="text-center text-muted-foreground">Belum ada data perangkat desa.</div>
@@ -80,6 +78,6 @@ export default async function Page() {
           ))}
         </div>
       )}
-    </div>
+    </>
   )
 } 

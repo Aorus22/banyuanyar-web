@@ -1,6 +1,8 @@
 import React from 'react';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
+import { ImageWithFallback } from '@/components/ui/image-with-fallback';
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,7 +26,7 @@ export default async function Page({ params }: Props) {
   });
 
   return (
-    <div className="min-h-screen pt-24 container mx-auto py-16">
+    <>
       <div className="mb-10">
         <div className="bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-8 md:p-10 text-center text-primary-foreground shadow">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">{galeri.title}</h1>
@@ -43,17 +45,21 @@ export default async function Page({ params }: Props) {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
             {media.map((m) => (
-              <div key={m.id} className="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden border">
-                <img
-                  src={`/gallery/${m.fileName}`}
-                  alt={galeri.title}
-                  className="object-cover w-full h-full"
-                />
+              <div key={m.id} className="rounded-lg overflow-hidden border">
+                <AspectRatio ratio={1}>
+                  <ImageWithFallback
+                    src={`/gallery/${m.fileName}`}
+                    alt={galeri.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover"
+                  />
+                </AspectRatio>
               </div>
             ))}
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 }
