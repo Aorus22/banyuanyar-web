@@ -21,12 +21,43 @@ export const navItems: NavItem[] = [
     items: []
   },
   {
+    title: 'Event',
+    url: '/admin/event',
+    icon: 'calendar',
+    shortcut: ['e', 'e'],
+    isActive: false,
+    items: []
+  },
+  {
+    title: 'News',
+    url: '/admin/news',
+    icon: 'post',
+    shortcut: ['n', 'n'],
+    isActive: false,
+    items: [
+      {
+        title: 'Daftar News',
+        url: '/admin/news',
+        icon: 'post',
+        shortcut: ['n', 'l'],
+        isActive: false,
+      },
+      {
+        title: 'Kategori',
+        url: '/admin/news-category',
+        icon: 'tag',
+        shortcut: ['n', 'c'],
+        isActive: false,
+      }
+    ]
+  },
+  {
     title: 'Product',
     url: '/admin/product',
     icon: 'product',
     shortcut: ['p', 'p'],
     isActive: false,
-    items: [] // No child items
+    items: []
   },
   {
     title: 'Account',

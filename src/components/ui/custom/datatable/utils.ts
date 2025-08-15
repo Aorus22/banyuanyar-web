@@ -2,10 +2,10 @@ import type {
   ExtendedColumnFilter,
   FilterOperator,
   FilterVariant
-} from '@/types/data-table';
+} from './types';
 import type { Column } from '@tanstack/react-table';
 
-import { dataTableConfig } from '@/config/data-table';
+import { dataTableConfig } from './config';
 
 export function getCommonPinningStyles<TData>({
   column,
@@ -75,4 +75,4 @@ export function getValidFilters<TData>(
           filter.value !== null &&
           filter.value !== undefined)
   );
-}
+} 
