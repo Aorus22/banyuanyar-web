@@ -3,8 +3,8 @@
 import { EditorContent } from '@tiptap/react'
 import { cn } from '@/lib/utils'
 import { useEffect, useState } from 'react'
-import { useMinimalTiptapEditor } from './minimal-tiptap/hooks/use-minimal-tiptap'
-import { MeasuredContainer } from './minimal-tiptap/components/measured-container'
+import { useMinimalTiptapEditor } from '@/components/ui/custom/minimal-tiptap/hooks/use-minimal-tiptap'
+import { MeasuredContainer } from '@/components/ui/custom/minimal-tiptap/components/measured-container'
 import './tiptap-viewer.css'
 
 interface TiptapViewerProps {

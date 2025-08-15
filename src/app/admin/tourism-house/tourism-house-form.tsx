@@ -5,10 +5,8 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Loader2 } from "lucide-react"
-import { DatePickerMonthYear } from "@/components/ui/custom/date-picker-month-year"
 import {
   Form,
   FormControl,
@@ -22,48 +20,44 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { toast } from "sonner"
 
-
 const formSchema = z.object({
-  title: z.string().min(1, "Judul event harus diisi"),
+  name: z.string().min(1, "Nama penginapan harus diisi"),
   description: z.string().optional(),
-  startDate: z.string().min(1, "Tanggal mulai harus dipilih"),
-  endDate: z.string().optional(),
+  category: z.string().optional(),
   location: z.string().optional(),
-  organizer: z.string().optional(),
-  status: z.enum(["UPCOMING", "ONGOING", "COMPLETED", "CANCELLED"]).default("UPCOMING")
+  contactPerson: z.string().optional(),
+  contactPhone: z.string().optional()
 })
 
 type FormValues = z.infer<typeof formSchema>
 
-interface EventFormProps {
-  event?: {
+interface TourismHouseFormProps {
+  house?: {
     id: number
-    title: string
+    name: string
     description: string | null
-    startDate: Date
-    endDate: Date | null
+    category: string | null
     location: string | null
-    organizer: string | null
-    status: "UPCOMING" | "ONGOING" | "COMPLETED" | "CANCELLED"
+    contactPerson: string | null
+    contactPhone: string | null
   }
-  createEvent?: (formData: FormData) => Promise<{ success: boolean; data?: any; error?: string }>
-  updateEvent?: (id: number, formData: FormData) => Promise<{ success: boolean; data?: any; error?: string }>
+  createTourismHouse?: (formData: FormData) => Promise<{ success: boolean; data?: any; error?: string }>
+  updateTourismHouse?: (id: number, formData: FormData) => Promise<{ success: boolean; data?: any; error?: string }>
 }
 
-export function EventForm({ event, createEvent, updateEvent }: EventFormProps) {
+export function TourismHouseForm({ house, createTourismHouse, updateTourismHouse }: TourismHouseFormProps) {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: event?.title || "",
-      description: event?.description || "",
-      startDate: event?.startDate ? event.startDate.toISOString().split('T')[0] : "",
-      endDate: event?.endDate ? event.endDate.toISOString().split('T')[0] : "",
-      location: event?.location || "",
-      organizer: event?.organizer || "",
-      status: event?.status || "UPCOMING"
+      name: house?.name || "",
+      description: house?.description || "",
+      category: house?.category || "",
+      location: house?.location || "",
+      contactPerson: house?.contactPerson || "",
+      contactPhone: house?.contactPhone || ""
     },
   })
 
@@ -72,33 +66,32 @@ export function EventForm({ event, createEvent, updateEvent }: EventFormProps) {
 
     try {
       const formData = new FormData()
-      formData.append('title', values.title)
+      formData.append('name', values.name)
       formData.append('description', values.description || '')
-      formData.append('startDate', values.startDate)
-      formData.append('endDate', values.endDate || '')
+      formData.append('category', values.category || '')
       formData.append('location', values.location || '')
-      formData.append('organizer', values.organizer || '')
-      formData.append('status', values.status)
+      formData.append('contactPerson', values.contactPerson || '')
+      formData.append('contactPhone', values.contactPhone || '')
 
       let result
-      if (event && updateEvent) {
-        result = await updateEvent(event.id, formData)
-      } else if (createEvent) {
-        result = await createEvent(formData)
+      if (house && updateTourismHouse) {
+        result = await updateTourismHouse(house.id, formData)
+      } else if (createTourismHouse) {
+        result = await createTourismHouse(formData)
       } else {
         throw new Error('Server action not provided')
       }
 
       if (result.success) {
-        toast.success(event ? "Event berhasil diupdate" : "Event berhasil dibuat");
-        router.push('/admin/event')
+        toast.success(house ? "Penginapan berhasil diupdate" : "Penginapan berhasil dibuat");
+        router.push('/admin/tourism-house')
         router.refresh()
       } else {
-        throw new Error(result.error || 'Failed to save event')
+        throw new Error(result.error || 'Failed to save house')
       }
     } catch (error) {
-      console.error('Error saving event:', error)
-      toast.error(event ? "Gagal update event" : "Gagal membuat event")
+      console.error('Error saving house:', error)
+      toast.error(house ? "Gagal update penginapan" : "Gagal membuat penginapan")
     } finally {
       setIsLoading(false)
     }
@@ -107,9 +100,9 @@ export function EventForm({ event, createEvent, updateEvent }: EventFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Informasi Event</CardTitle>
+        <CardTitle>Informasi Penginapan</CardTitle>
         <CardDescription>
-          Isi detail event yang akan dibuat
+          Isi detail penginapan yang akan dibuat
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -118,13 +111,13 @@ export function EventForm({ event, createEvent, updateEvent }: EventFormProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <FormField
                 control={form.control}
-                name="title"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Judul Event *</FormLabel>
+                    <FormLabel>Nama Penginapan *</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Masukkan judul event"
+                        placeholder="Masukkan nama penginapan"
                         {...field}
                       />
                     </FormControl>
@@ -135,57 +128,14 @@ export function EventForm({ event, createEvent, updateEvent }: EventFormProps) {
 
               <FormField
                 control={form.control}
-                name="status"
+                name="category"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Status *</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Pilih status" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="UPCOMING">Mendatang</SelectItem>
-                        <SelectItem value="ONGOING">Sedang Berlangsung</SelectItem>
-                        <SelectItem value="COMPLETED">Selesai</SelectItem>
-                        <SelectItem value="CANCELLED">Dibatalkan</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="startDate"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Tanggal Mulai *</FormLabel>
+                    <FormLabel>Kategori</FormLabel>
                     <FormControl>
-                      <DatePickerMonthYear
-                        value={field.value}
-                        onValueChange={field.onChange}
-                        placeholder="Pilih tanggal mulai"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="endDate"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Tanggal Selesai</FormLabel>
-                    <FormControl>
-                      <DatePickerMonthYear
-                        value={field.value}
-                        onValueChange={field.onChange}
-                        placeholder="Pilih tanggal selesai"
+                      <Input
+                        placeholder="Contoh: Homestay, Hotel, Villa"
+                        {...field}
                       />
                     </FormControl>
                     <FormMessage />
@@ -201,7 +151,7 @@ export function EventForm({ event, createEvent, updateEvent }: EventFormProps) {
                     <FormLabel>Lokasi</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Masukkan lokasi event"
+                        placeholder="Masukkan lokasi penginapan"
                         {...field}
                       />
                     </FormControl>
@@ -212,13 +162,30 @@ export function EventForm({ event, createEvent, updateEvent }: EventFormProps) {
 
               <FormField
                 control={form.control}
-                name="organizer"
+                name="contactPerson"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Penyelenggara</FormLabel>
+                    <FormLabel>Kontak Person</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Masukkan nama penyelenggara"
+                        placeholder="Nama kontak person"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="contactPhone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>No. Telepon</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Nomor telepon kontak"
                         {...field}
                       />
                     </FormControl>
@@ -236,7 +203,7 @@ export function EventForm({ event, createEvent, updateEvent }: EventFormProps) {
                   <FormLabel>Deskripsi</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Masukkan deskripsi event"
+                      placeholder="Masukkan deskripsi penginapan"
                       rows={4}
                       {...field}
                     />
@@ -249,12 +216,12 @@ export function EventForm({ event, createEvent, updateEvent }: EventFormProps) {
             <div className="flex gap-4">
               <Button type="submit" disabled={isLoading}>
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {event ? 'Update Event' : 'Buat Event'}
+                {house ? 'Update Penginapan' : 'Buat Penginapan'}
               </Button>
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => router.push('/admin/event')}
+                onClick={() => router.push('/admin/tourism-house')}
               >
                 Batal
               </Button>
@@ -264,4 +231,4 @@ export function EventForm({ event, createEvent, updateEvent }: EventFormProps) {
       </CardContent>
     </Card>
   )
-}
+} 

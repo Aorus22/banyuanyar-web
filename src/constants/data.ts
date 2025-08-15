@@ -29,14 +29,14 @@ export const navItems: NavItem[] = [
     items: []
   },
   {
-    title: 'News',
+    title: 'Berita',
     url: '/admin/news',
     icon: 'post',
     shortcut: ['n', 'n'],
     isActive: false,
     items: [
       {
-        title: 'Daftar News',
+        title: 'Daftar Berita',
         url: '/admin/news',
         icon: 'post',
         shortcut: ['n', 'l'],
@@ -52,6 +52,45 @@ export const navItems: NavItem[] = [
     ]
   },
   {
+    title: 'Wisata',
+    url: '/admin/tourism-package',
+    icon: 'map',
+    shortcut: ['t', 't'],
+    isActive: false,
+    items: [
+      {
+        title: 'Paket Wisata',
+        url: '/admin/tourism-package',
+        icon: 'map',
+        shortcut: ['t', 'p'],
+        isActive: false,
+      },
+      {
+        title: 'Kategori Wisata',
+        url: '/admin/tourism-category',
+        icon: 'tag',
+        shortcut: ['t', 'c'],
+        isActive: false,
+      }
+    ]
+  },
+  {
+    title: 'Penginapan',
+    url: '/admin/tourism-house',
+    icon: 'home',
+    shortcut: ['p', 'p'],
+    isActive: false,
+    items: []
+  },
+  {
+    title: 'UMKM',
+    url: '/admin/umkm',
+    icon: 'shopping-bag',
+    shortcut: ['u', 'u'],
+    isActive: false,
+    items: []
+  },
+  {
     title: 'Product',
     url: '/admin/product',
     icon: 'product',
@@ -59,35 +98,6 @@ export const navItems: NavItem[] = [
     isActive: false,
     items: []
   },
-  {
-    title: 'Account',
-    url: '#',
-    icon: 'billing',
-    isActive: true,
-
-    items: [
-      {
-        title: 'Profile',
-        url: '/admin/profile',
-        icon: 'userPen',
-        shortcut: ['m', 'm']
-      },
-      {
-        title: 'Login',
-        shortcut: ['l', 'l'],
-        url: '/',
-        icon: 'login'
-      }
-    ]
-  },
-  {
-    title: 'Kanban',
-    url: '/admin/kanban',
-    icon: 'kanban',
-    shortcut: ['k', 'k'],
-    isActive: false,
-    items: []
-  }
 ];
 
 export interface SaleUser {

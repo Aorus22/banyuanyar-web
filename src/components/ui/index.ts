@@ -47,8 +47,8 @@ export * from "./toggle"
 export * from "./tooltip"
 
 // Date Pickers
-export { DatePickerMonthYear } from "./date-picker-month-year"
-export { DatePickerWithTime } from "./date-picker-with-time"
+export { DatePickerMonthYear } from "./custom/date-picker-month-year"
+export { DatePickerWithTime } from "./custom/date-picker-with-time"
 
 // Multi Select
 export { MultiSelect } from "./multi-select"

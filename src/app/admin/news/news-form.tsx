@@ -20,7 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { toast } from "sonner"
-import { MinimalTiptapEditor } from "@/components/ui/minimal-tiptap"
+import { MinimalTiptapEditor } from "@/components/ui/custom/minimal-tiptap"
 import type { Editor } from "@tiptap/react"
 
 const formSchema = z.object({

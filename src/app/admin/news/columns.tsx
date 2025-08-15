@@ -198,7 +198,7 @@ export const columns: ColumnDef<News>[] = [
             <DropdownMenuLabel>Aksi</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link className="!px-0" href={`/news/${news.slug}`}>
+              <Link className="!px-0" href={`/informasi/berita/${news.slug}`}>
                 <div className="flex items-center w-full px-2 py-1.5 text-sm">
                   <Eye className="mr-2 h-4 w-4" />
                   Lihat

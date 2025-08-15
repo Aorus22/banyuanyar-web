@@ -3,8 +3,7 @@ import { notFound } from 'next/navigation';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
 import { Badge } from '@/components/ui/badge';
-import { TiptapViewer } from '@/components/ui/tiptap-viewer';
-import { Separator } from '@/components/ui/separator';
+import { TiptapViewer } from '@/components/ui/custom/tiptap-viewer/tiptap-viewer';
 import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 import { Eye, Calendar, User, Tag } from 'lucide-react';
 

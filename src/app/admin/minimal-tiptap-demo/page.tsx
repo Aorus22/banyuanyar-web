@@ -1,7 +1,7 @@
 "use client"
 
-import { MinimalTiptapEditor } from "@/components/ui/minimal-tiptap"
-import { TiptapViewer } from "@/components/ui/tiptap-viewer"
+import { MinimalTiptapEditor } from "@/components/ui/custom/minimal-tiptap"
+import { TiptapViewer } from "@/components/ui/custom/tiptap-viewer/tiptap-viewer"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import {
