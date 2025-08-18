@@ -27,7 +27,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <>
-      <div className="mb-10">
+      <div className="mt-24 mb-10">
         <div className="bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-8 md:p-10 text-center text-primary-foreground shadow">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">{galeri.title}</h1>
           <p className="text-base md:text-lg opacity-90">{galeri.description}</p>

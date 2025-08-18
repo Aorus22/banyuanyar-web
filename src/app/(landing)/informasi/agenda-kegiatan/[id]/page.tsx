@@ -45,14 +45,30 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
   });
 
   // Function to calculate status based on current date
-  const getEventStatus = (startDate: Date, endDate: Date | null) => {
+  const getEventStatus = (date: Date, startTime: string | null, endTime: string | null) => {
     const now = new Date();
-    const start = new Date(startDate);
-    const end = endDate ? new Date(endDate) : start;
+    const eventDate = new Date(date);
     
-    if (now < start) {
+    // Set time to start time if available, otherwise 00:00
+    if (startTime) {
+      const [hours, minutes] = startTime.split(':').map(Number);
+      eventDate.setHours(hours, minutes, 0, 0);
+    } else {
+      eventDate.setHours(0, 0, 0, 0);
+    }
+    
+    // Set end time if available
+    let eventEndDate = new Date(date);
+    if (endTime) {
+      const [hours, minutes] = endTime.split(':').map(Number);
+      eventEndDate.setHours(hours, minutes, 0, 0);
+    } else {
+      eventEndDate.setHours(23, 59, 59, 999);
+    }
+    
+    if (now < eventDate) {
       return 'UPCOMING';
-    } else if (now >= start && now <= end) {
+    } else if (now >= eventDate && now <= eventEndDate) {
       return 'ONGOING';
     } else {
       return 'COMPLETED';
@@ -73,7 +89,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
     }
   };
 
-  const eventStatus = getEventStatus(event.startDate, event.endDate);
+  const eventStatus = getEventStatus(event.date, event.startTime, event.endTime);
 
   return (
     <div className="container mx-auto px-4 py-8 mt-24 max-w-4xl">
@@ -92,7 +108,8 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
           {getStatusBadge(eventStatus)}
           <span className="text-sm text-muted-foreground">
-            {format(new Date(event.startDate), "dd MMMM yyyy", { locale: idLocale })}
+            {format(new Date(event.date), "dd MMMM yyyy", { locale: idLocale })}
+            {event.startTime && ` pukul ${event.startTime}`}
           </span>
         </div>
         
@@ -102,10 +119,9 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
           <div className="flex items-center gap-2">
             <Calendar className="h-4 w-4" />
             <span>
-              {format(new Date(event.startDate), "dd MMMM yyyy", { locale: idLocale })}
-              {event.endDate && event.endDate !== event.startDate && (
-                <> - {format(new Date(event.endDate), "dd MMMM yyyy", { locale: idLocale })}</>
-              )}
+              {format(new Date(event.date), "dd MMMM yyyy", { locale: idLocale })}
+              {event.startTime && ` pukul ${event.startTime}`}
+              {event.endTime && event.startTime !== event.endTime && ` - ${event.endTime}`}
             </span>
           </div>
           
@@ -191,17 +207,26 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
               </div>
               
               <div className="space-y-2">
-                <label className="text-sm font-medium text-muted-foreground">Tanggal Mulai</label>
+                <label className="text-sm font-medium text-muted-foreground">Tanggal Event</label>
                 <p className="text-sm">
-                  {format(new Date(event.startDate), "dd MMMM yyyy", { locale: idLocale })}
+                  {format(new Date(event.date), "dd MMMM yyyy", { locale: idLocale })}
                 </p>
               </div>
               
-              {event.endDate && (
+              {event.startTime && (
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-muted-foreground">Tanggal Selesai</label>
+                  <label className="text-sm font-medium text-muted-foreground">Waktu Mulai</label>
                   <p className="text-sm">
-                    {format(new Date(event.endDate), "dd MMMM yyyy", { locale: idLocale })}
+                    {event.startTime}
+                  </p>
+                </div>
+              )}
+              
+              {event.endTime && (
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-muted-foreground">Waktu Selesai</label>
+                  <p className="text-sm">
+                    {event.endTime}
                   </p>
                 </div>
               )}

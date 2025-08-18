@@ -27,7 +27,7 @@ export default async function AgendaKegiatanPage({ searchParams }: AgendaKegiata
 
   const events = await prisma.event.findMany({
     orderBy: {
-      startDate: 'desc' // Show newest events first
+      date: 'desc' // Show newest events first
     },
     skip,
     take: itemsPerPage
@@ -69,14 +69,30 @@ export default async function AgendaKegiatanPage({ searchParams }: AgendaKegiata
   };
 
   // Function to calculate status based on current date
-  const getEventStatus = (startDate: Date, endDate: Date | null) => {
+  const getEventStatus = (date: Date, startTime: string | null, endTime: string | null) => {
     const now = new Date();
-    const start = new Date(startDate);
-    const end = endDate ? new Date(endDate) : start;
+    const eventDate = new Date(date);
     
-    if (now < start) {
+    // Set time to start time if available, otherwise 00:00
+    if (startTime) {
+      const [hours, minutes] = startTime.split(':').map(Number);
+      eventDate.setHours(hours, minutes, 0, 0);
+    } else {
+      eventDate.setHours(0, 0, 0, 0);
+    }
+    
+    // Set end time if available
+    let eventEndDate = new Date(date);
+    if (endTime) {
+      const [hours, minutes] = endTime.split(':').map(Number);
+      eventEndDate.setHours(hours, minutes, 0, 0);
+    } else {
+      eventEndDate.setHours(23, 59, 59, 999);
+    }
+    
+    if (now < eventDate) {
       return 'UPCOMING';
-    } else if (now >= start && now <= end) {
+    } else if (now >= eventDate && now <= eventEndDate) {
       return 'ONGOING';
     } else {
       return 'COMPLETED';
@@ -93,7 +109,7 @@ export default async function AgendaKegiatanPage({ searchParams }: AgendaKegiata
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {events.map((event) => {
-            const eventStatus = getEventStatus(event.startDate, event.endDate);
+            const eventStatus = getEventStatus(event.date, event.startTime, event.endTime);
             const eventImage = mediaMap.get(event.id);
             
             return (
@@ -120,7 +136,8 @@ export default async function AgendaKegiatanPage({ searchParams }: AgendaKegiata
                   <div className="flex items-center gap-2 mb-3">
                     {getStatusBadge(eventStatus)}
                     <span className="text-xs text-muted-foreground">
-                      {format(new Date(event.startDate), "dd MMM yyyy", { locale: idLocale })}
+                      {format(new Date(event.date), "dd MMM yyyy", { locale: idLocale })}
+                      {event.startTime && ` pukul ${event.startTime}`}
                     </span>
                   </div>
                   
@@ -145,10 +162,9 @@ export default async function AgendaKegiatanPage({ searchParams }: AgendaKegiata
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <Calendar className="h-4 w-4" />
                       <span>
-                        {format(new Date(event.startDate), "dd MMM yyyy", { locale: idLocale })}
-                        {event.endDate && event.endDate !== event.startDate && (
-                          <> - {format(new Date(event.endDate), "dd MMM yyyy", { locale: idLocale })}</>
-                        )}
+                        {format(new Date(event.date), "dd MMM yyyy", { locale: idLocale })}
+                        {event.startTime && ` pukul ${event.startTime}`}
+                        {event.endTime && event.startTime !== event.endTime && ` - ${event.endTime}`}
                       </span>
                     </div>
                     
