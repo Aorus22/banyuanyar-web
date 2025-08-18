@@ -43,7 +43,7 @@ export const columns: ColumnDef<TourismHouse>[] = [
   },
   {
     accessorKey: "name",
-    header: "Nama Penginapan",
+    header: "Nama Omah Wisata",
     cell: ({ row }) => (
       <div className="min-w-[250px]">
         <div className="font-medium">{row.getValue("name")}</div>
@@ -177,8 +177,8 @@ export const columns: ColumnDef<TourismHouse>[] = [
                 className="w-full justify-start text-destructive"
                 onClick={async () => {
                   if (!(await confirmModal(
-                    "Hapus Penginapan",
-                    `Apakah Anda yakin ingin menghapus penginapan "${house.name}"? Tindakan ini tidak dapat dibatalkan.`
+                    "Hapus Omah Wisata",
+                    `Apakah Anda yakin ingin menghapus omah wisata "${house.name}"? Tindakan ini tidak dapat dibatalkan.`
                   ))) {
                     return
                   }
@@ -186,14 +186,14 @@ export const columns: ColumnDef<TourismHouse>[] = [
                   try {
                     const result = await deleteTourismHouse(house.id);
                     if (result.success) {
-                      toast.success("Penginapan berhasil dihapus");
+                      toast.success("Omah wisata berhasil dihapus");
                       window.location.reload();
                     } else {
-                      toast.error(`Gagal menghapus penginapan: ${result.error || 'Unknown error'}`);
+                      toast.error(`Gagal menghapus omah wisata: ${result.error || 'Unknown error'}`);
                     }
                   } catch (error) {
                     console.error('Error deleting house:', error);
-                    toast.error('Gagal menghapus penginapan');
+                    toast.error('Gagal menghapus omah wisata');
                   }
                 }}
               >

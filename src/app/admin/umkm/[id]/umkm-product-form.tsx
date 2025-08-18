@@ -32,7 +32,7 @@ interface UmkmProductFormProps {
     name: string
     description: string | null
     price: number
-    unit: string
+    unit: string | null
     isActive: boolean
     umkmId: number
   }

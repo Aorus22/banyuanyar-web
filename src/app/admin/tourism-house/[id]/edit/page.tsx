@@ -22,8 +22,8 @@ export default async function EditTourismHousePage({ params }: EditTourismHouseP
   return (
     <div className="space-y-6">
       <Heading
-        title='Edit Penginapan'
-        description='Edit informasi penginapan yang sudah ada'
+        title='Edit Omah Wisata'
+        description='Edit informasi omah wisata yang sudah ada'
       />
       <Separator />
       

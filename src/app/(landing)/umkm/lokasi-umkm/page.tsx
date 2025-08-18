@@ -32,7 +32,7 @@ export default async function Page() {
   const umkmIdToMedia = new Map<number, string>()
   for (const m of mediaRecords) {
     if (!umkmIdToMedia.has(m.entityId)) {
-      umkmIdToMedia.set(m.entityId, `/images/${m.entityType}/${m.fileName}`)
+      umkmIdToMedia.set(m.entityId, m.fileUrl)
     }
   }
 
@@ -61,27 +61,29 @@ export default async function Page() {
       <div className="container mx-auto px-4 py-8 space-y-8">
         {/* Statistik */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card className="border-2 border-primary/10 shadow-sm pt-0">
-            <CardContent className="p-6 text-center">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Building2 className="h-8 w-8 text-primary" />
+          <Card className="shadow-sm">
+            <CardContent className="p-4 flex items-center gap-4">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                <Building2 className="h-6 w-6 text-primary" />
               </div>
-              <div className="text-3xl font-bold text-primary">{totalUmkm}</div>
-              <div className="text-sm text-muted-foreground">Total UMKM</div>
+              <div>
+                <div className="text-2xl font-bold text-primary">{totalUmkm}</div>
+                <div className="text-sm text-muted-foreground">Total UMKM</div>
+              </div>
             </CardContent>
           </Card>
           
-          <Card className="border-2 border-primary/10 shadow-sm pt-0">
-            <CardContent className="p-6 text-center">
-              <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Package className="h-8 w-8 text-green-600" />
+          <Card className="shadow-sm">
+            <CardContent className="p-4 flex items-center gap-4">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                <Package className="h-6 w-6 text-primary" />
               </div>
-              <div className="text-3xl font-bold text-green-600">{totalProducts}</div>
-              <div className="text-sm text-muted-foreground">Total Produk</div>
+              <div>
+                <div className="text-2xl font-bold text-primary">{totalProducts}</div>
+                <div className="text-sm text-muted-foreground">Total Produk</div>
+              </div>
             </CardContent>
           </Card>
-          
-
         </div>
 
         {/* Peta Interaktif */}
@@ -128,7 +130,7 @@ export default async function Page() {
                     <div className="relative">
                       <AspectRatio ratio={16/9}>
                         <ImageWithFallback
-                          src={umkmIdToMedia.get(u.id) ?? ''}
+                          src={umkmIdToMedia.get(u.id) || undefined}
                           alt={u.name}
                           fill
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

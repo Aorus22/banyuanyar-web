@@ -28,12 +28,12 @@ export default async function Page() {
   return (
     <>
       <PageHeaderEffect 
-        title="Rumah Penginapan"
-        description="Pilihan rumah wisata dan homestay di Desa Banyuanyar"
+        title="Omah Wisata"
+        description="Pilihan omah wisata di Desa Banyuanyar"
       />
 
       {houses.length === 0 ? (
-        <div className="text-center text-muted-foreground">Belum ada rumah penginapan.</div>
+        <div className="text-center text-muted-foreground">Belum ada omah wisata.</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
           {houses.map((h) => (

@@ -7,8 +7,8 @@ export default function CreateTourismHousePage() {
   return (
     <div className="space-y-6">
       <Heading
-        title='Tambah Penginapan Baru'
-        description='Buat penginapan atau homestay baru'
+        title='Tambah Omah Wisata Baru'
+        description='Buat omah wisata baru'
       />
       <Separator />
       

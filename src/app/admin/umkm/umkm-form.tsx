@@ -14,7 +14,7 @@ import { MinimalTiptapEditor } from '@/components/ui/custom/minimal-tiptap';
 import { MapSelector, Location } from '@/components/ui/map-selector';
 import { GoogleMapsViewer } from '@/components/ui/custom/google-maps-viewer';
 import { MediaManager } from '@/components/ui/custom/media-manager/media-manager';
-import { MapPin, Instagram, Facebook, Twitter, MessageCircle, Youtube } from 'lucide-react';
+import { MapPin, Instagram, Facebook, Twitter, MessageCircle, Youtube, MessageSquare } from 'lucide-react';
 import type { Editor } from '@tiptap/react';
 
 const formSchema = z.object({
@@ -198,6 +198,9 @@ export function UmkmForm({ umkm, createUmkm, updateUmkm }: UmkmFormProps) {
                   {...form.register("phone")}
                   placeholder="Masukkan nomor telepon"
                 />
+                <p className="text-xs text-muted-foreground">
+                  Nomor ini akan digunakan untuk WhatsApp dan telepon
+                </p>
               </div>
 
               <div className="space-y-2">
@@ -359,6 +362,19 @@ export function UmkmForm({ umkm, createUmkm, updateUmkm }: UmkmFormProps) {
                     {...form.register("youtube")}
                     placeholder="Nama channel YouTube"
                   />
+                </div>
+              </div>
+
+              {/* WhatsApp Info */}
+              <div className="flex items-start gap-4 col-span-full">
+                <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center text-white">
+                  <MessageSquare className="w-6 h-6" />
+                </div>
+                <div className="flex-1 space-y-2">
+                  <Label className="text-sm font-medium">WhatsApp</Label>
+                  <p className="text-sm text-muted-foreground">
+                    WhatsApp akan otomatis tersedia berdasarkan nomor telepon yang diisi di atas
+                  </p>
                 </div>
               </div>
             </div>

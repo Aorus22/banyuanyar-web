@@ -16,11 +16,11 @@ export default async function TourismHousePage() {
       <div className='flex items-start justify-between'>
         <Heading
           title='Tourism Houses'
-          description='Kelola penginapan dan homestay'
+          description='Kelola omah wisata'
         />
         <Button asChild className="flex items-center gap-2 button-primary">
           <Link href="/admin/tourism-house/create">
-            <Plus className="h-4 w-4" /> Tambah Penginapan
+            <Plus className="h-4 w-4" /> Tambah Omah Wisata
           </Link>
         </Button>
       </div>
@@ -28,7 +28,7 @@ export default async function TourismHousePage() {
       
       <Card>
         <CardHeader>
-          <CardTitle>Daftar Penginapan</CardTitle>
+          <CardTitle>Daftar Omah Wisata</CardTitle>
         </CardHeader>
         <CardContent className="px-3 sm:px-6">
           <DataTable 

@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export function LandingCTABanner() {
   return (
-    <div className='w-full py-12 xs:py-20 px-6'>
+    <div className='w-full py-12 xs:py-20'>
       <div className='w-full max-w-screen-xl mx-auto space-y-12'>
         {/* Main CTA */}
         <div className='bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-8 md:p-12 text-center text-white' data-aos="zoom-in">

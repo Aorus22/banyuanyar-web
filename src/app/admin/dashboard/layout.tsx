@@ -141,7 +141,7 @@ export default async function OverViewLayout({
             </CardHeader>
             <CardFooter className='flex-col items-start gap-1.5 text-sm'>
               <div className='line-clamp-1 flex gap-2 font-medium'>
-                {stats.totalTourismHouses} rumah penginapan <IconHome className='size-4' />
+                {stats.totalTourismHouses} omah wisata <IconHome className='size-4' />
               </div>
               <div className='text-muted-foreground'>
                 Destinasi wisata desa Banyuanyar

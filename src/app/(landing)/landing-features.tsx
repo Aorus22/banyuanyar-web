@@ -63,7 +63,7 @@ const features = [
     title: 'Omah Wisata',
     description:
       'Jelajahi berbagai omah wisata unik seperti Omah Kopi, Omah Seni, dan Omah Toga.',
-    link: '/umkm/rumah-penginapan'
+    link: '/umkm/omah-wisata'
   },
   {
     icon: Coffee,
@@ -104,7 +104,7 @@ const features = [
 
 export function LandingFeatures() {
   return (
-    <div id='features' className='w-full py-12 xs:py-20 px-6'>
+    <div id='features' className='w-full py-12 xs:py-20'>
       <h2 className='text-3xl xs:text-4xl sm:text-5xl font-bold tracking-tight text-center' data-aos="fade-down">
         Jelajahi Desa Banyuanyar
       </h2>

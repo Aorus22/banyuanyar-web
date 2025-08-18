@@ -58,7 +58,7 @@ const tourismPackages = [
       'Makan malam lokal'
     ],
     popular: false,
-    link: '/umkm/rumah-penginapan',
+    link: '/umkm/omah-wisata',
     color: 'from-purple-500 to-purple-600'
   },
   {
@@ -92,19 +92,19 @@ const tourismPackages = [
 ];
 
 const omahWisata = [
-  { name: 'Omah Tambeng Tawon', icon: Home, link: '/umkm/rumah-penginapan' },
-  { name: 'Omah E-Craft', icon: Building, link: '/umkm/rumah-penginapan' },
-  { name: 'Omah Toga', icon: Building, link: '/umkm/rumah-penginapan' },
-  { name: 'Omah Kopi', icon: Coffee, link: '/umkm/rumah-penginapan' },
-  { name: 'Omah Cowboy', icon: Building, link: '/umkm/rumah-penginapan' },
-  { name: 'Omah Bukuku', icon: BookOpen, link: '/umkm/rumah-penginapan' },
-  { name: 'Omah Seni', icon: Building, link: '/umkm/rumah-penginapan' },
-  { name: 'Omah Oveje', icon: Building, link: '/umkm/rumah-penginapan' }
+  { name: 'Omah Tambeng Tawon', icon: Home, link: '/umkm/omah-wisata' },
+  { name: 'Omah E-Craft', icon: Building, link: '/umkm/omah-wisata' },
+  { name: 'Omah Toga', icon: Building, link: '/umkm/omah-wisata' },
+  { name: 'Omah Kopi', icon: Coffee, link: '/umkm/omah-wisata' },
+  { name: 'Omah Cowboy', icon: Building, link: '/umkm/omah-wisata' },
+  { name: 'Omah Bukuku', icon: BookOpen, link: '/umkm/omah-wisata' },
+  { name: 'Omah Seni', icon: Building, link: '/umkm/omah-wisata' },
+  { name: 'Omah Oveje', icon: Building, link: '/umkm/omah-wisata' }
 ];
 
 export function LandingPricing() {
   return (
-    <div id='tourism' className='w-full py-12 xs:py-20 px-6'>
+    <div id='tourism' className='w-full py-12 xs:py-20'>
       <div className='w-full max-w-screen-xl mx-auto'>
         {/* Tourism Packages */}
         <div className='text-center mb-16'>

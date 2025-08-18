@@ -21,7 +21,7 @@ import { z } from "zod"
 import { toast } from "sonner"
 
 const formSchema = z.object({
-  name: z.string().min(1, "Nama penginapan harus diisi"),
+  name: z.string().min(1, "Nama omah wisata harus diisi"),
   description: z.string().optional(),
   category: z.string().optional(),
   location: z.string().optional(),
@@ -83,7 +83,7 @@ export function TourismHouseForm({ house, createTourismHouse, updateTourismHouse
       }
 
       if (result.success) {
-        toast.success(house ? "Penginapan berhasil diupdate" : "Penginapan berhasil dibuat");
+        toast.success(house ? "Omah wisata berhasil diupdate" : "Omah wisata berhasil dibuat");
         router.push('/admin/tourism-house')
         router.refresh()
       } else {
@@ -91,7 +91,7 @@ export function TourismHouseForm({ house, createTourismHouse, updateTourismHouse
       }
     } catch (error) {
       console.error('Error saving house:', error)
-      toast.error(house ? "Gagal update penginapan" : "Gagal membuat penginapan")
+      toast.error(house ? "Gagal update omah wisata" : "Gagal membuat omah wisata")
     } finally {
       setIsLoading(false)
     }
@@ -100,9 +100,9 @@ export function TourismHouseForm({ house, createTourismHouse, updateTourismHouse
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Informasi Penginapan</CardTitle>
+        <CardTitle>Informasi Omah Wisata</CardTitle>
         <CardDescription>
-          Isi detail penginapan yang akan dibuat
+          Isi detail omah wisata yang akan dibuat
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -114,10 +114,10 @@ export function TourismHouseForm({ house, createTourismHouse, updateTourismHouse
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nama Penginapan *</FormLabel>
+                    <FormLabel>Nama Omah Wisata *</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Masukkan nama penginapan"
+                        placeholder="Masukkan nama omah wisata"
                         {...field}
                       />
                     </FormControl>
@@ -134,7 +134,7 @@ export function TourismHouseForm({ house, createTourismHouse, updateTourismHouse
                     <FormLabel>Kategori</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Contoh: Homestay, Hotel, Villa"
+                        placeholder="Contoh: Akomodasi, Tour, Sejarah"
                         {...field}
                       />
                     </FormControl>
@@ -151,7 +151,7 @@ export function TourismHouseForm({ house, createTourismHouse, updateTourismHouse
                     <FormLabel>Lokasi</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Masukkan lokasi penginapan"
+                        placeholder="Masukkan lokasi omah wisata"
                         {...field}
                       />
                     </FormControl>
@@ -203,7 +203,7 @@ export function TourismHouseForm({ house, createTourismHouse, updateTourismHouse
                   <FormLabel>Deskripsi</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Masukkan deskripsi penginapan"
+                      placeholder="Masukkan deskripsi omah wisata"
                       rows={4}
                       {...field}
                     />
@@ -216,7 +216,7 @@ export function TourismHouseForm({ house, createTourismHouse, updateTourismHouse
             <div className="flex gap-4">
               <Button type="submit" disabled={isLoading}>
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {house ? 'Update Penginapan' : 'Buat Penginapan'}
+                {house ? 'Update Omah Wisata' : 'Buat Omah Wisata'}
               </Button>
               <Button
                 type="button"
