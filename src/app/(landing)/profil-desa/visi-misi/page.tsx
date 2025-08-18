@@ -26,7 +26,7 @@ export default async function Page() {
         description="Visi dan misi desa Banyuanyar"
       />
 
-      <div className="max-w-3xl mx-auto space-y-8">
+      <div className="max-w-5xl mx-auto space-y-8">
         <div className="bg-white dark:bg-muted rounded-xl shadow p-6 md:p-8">
           <h2 className="text-xl font-semibold mb-4 text-primary">Visi</h2>
           {vision?.value ? (

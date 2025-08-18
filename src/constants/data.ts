@@ -107,6 +107,14 @@ export const navItems: NavItem[] = [
     items: []
   },
   {
+    title: 'Perangkat Desa',
+    url: '/admin/government-officials',
+    icon: 'users',
+    shortcut: ['p', 'd'],
+    isActive: false,
+    items: []
+  },
+  {
     title: 'Profil Desa',
     url: '/admin/village-profile',
     icon: 'home',

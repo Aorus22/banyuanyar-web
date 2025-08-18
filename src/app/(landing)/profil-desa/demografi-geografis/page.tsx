@@ -18,13 +18,13 @@ export default async function Page() {
         description="Informasi demografi dan geografis desa Banyuanyar"
       />
 
-      <div className="max-w-3xl mx-auto space-y-8">
+      <div className="max-w-5xl mx-auto space-y-8">
         <div className="bg-white dark:bg-muted rounded-xl shadow p-6 md:p-8">
           <h2 className="text-xl font-semibold mb-4 text-primary">Data Demografi & Geografis</h2>
           {demographicsData?.value ? (
             <TiptapViewer 
               content={demographicsData.value}
-              className="min-h-[400px]"
+              className="min-h-[400px] border-none"
             />
           ) : (
             <span className="text-muted-foreground">Belum ada data demografi dan geografis desa.</span>

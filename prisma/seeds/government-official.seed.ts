@@ -7,7 +7,7 @@ export async function seedGovernmentOfficial(prisma: PrismaClient) {
     {
       name: "Komarudin, ST",
       position: "Kepala Desa",
-      photoUrl: "/images/officials/komarudin.jpg",
+      photoUrl: "https://desabanyuanyar.com/wp-content/uploads/2024/10/Poster-Ucapan-Selamat-Hari-Ibu-Ilustratif-Hijau-dan-Biru-9-1.jpg.webp",
       bio: "Kepala Desa yang visioner dalam mengembangkan Green Smart Village",
       socialMedia: {
         facebook: "komarudin.st",
@@ -20,7 +20,7 @@ export async function seedGovernmentOfficial(prisma: PrismaClient) {
     {
       name: "Alif Komarudin, ST",
       position: "Kasi Kesra & Pelayanan",
-      photoUrl: "/images/officials/alif.jpg",
+      photoUrl: "https://desabanyuanyar.com/wp-content/uploads/2021/01/ALIF-K.jpg.webp",
       bio: "Bertanggung jawab atas kesejahteraan sosial dan pelayanan masyarakat",
       socialMedia: {
         facebook: "alif.komarudin",
@@ -31,7 +31,7 @@ export async function seedGovernmentOfficial(prisma: PrismaClient) {
     {
       name: "Sriyono, A.Md",
       position: "Sekretaris Desa",
-      photoUrl: "/images/officials/sriyono.jpg",
+      photoUrl: "https://desabanyuanyar.com/wp-content/uploads/2021/01/SRIYONO.jpg.webp",
       bio: "Sekretaris desa yang handal dalam administrasi dan koordinasi",
       socialMedia: {
         facebook: "sriyono.amd",
@@ -42,7 +42,7 @@ export async function seedGovernmentOfficial(prisma: PrismaClient) {
     {
       name: "Bella Sita K, S.Pd",
       position: "Kaur Keuangan",
-      photoUrl: "/images/officials/bella.jpg",
+      photoUrl: "https://desabanyuanyar.com/wp-content/uploads/2021/01/BELLA.jpg.webp",
       bio: "Bertanggung jawab atas pengelolaan keuangan desa",
       socialMedia: {
         instagram: "bella.sita"
@@ -52,7 +52,7 @@ export async function seedGovernmentOfficial(prisma: PrismaClient) {
     {
       name: "Srigiyatmi, S.Pd",
       position: "Kasi Pemerintahan",
-      photoUrl: "/images/officials/srigiyatmi.jpg",
+      photoUrl: "https://desabanyuanyar.com/wp-content/uploads/2021/01/SRI-GIYATMI.jpg.webp",
       bio: "Bertanggung jawab atas urusan pemerintahan desa",
       socialMedia: {
         facebook: "srigiyatmi.spd"
@@ -62,7 +62,7 @@ export async function seedGovernmentOfficial(prisma: PrismaClient) {
     {
       name: "Fathurrohman, S.Pd",
       position: "Kaur Umum & Perencanaan",
-      photoUrl: "/images/officials/fathurrohman.jpg",
+      photoUrl: "https://desabanyuanyar.com/wp-content/uploads/2024/10/Desain-tanpa-judul-6.png.webp",
       bio: "Bertanggung jawab atas urusan umum dan perencanaan desa",
       socialMedia: {
         instagram: "fathurrohman.spd"
@@ -72,7 +72,7 @@ export async function seedGovernmentOfficial(prisma: PrismaClient) {
     {
       name: "Waluyo, S.Pd",
       position: "Kepala Dusun I",
-      photoUrl: "/images/officials/waluyo.jpg",
+      photoUrl: "https://desabanyuanyar.com/wp-content/uploads/2021/01/WALUYO.jpg.webp",
       bio: "Kepala Dusun I yang bertanggung jawab atas wilayah dusun pertama",
       socialMedia: {
         facebook: "waluyo.spd"
@@ -82,7 +82,7 @@ export async function seedGovernmentOfficial(prisma: PrismaClient) {
     {
       name: "Suyamto, SH",
       position: "Kepala Dusun II",
-      photoUrl: "/images/officials/suyamto.jpg",
+      photoUrl: "https://desabanyuanyar.com/wp-content/uploads/2021/01/SUYAMTO.jpg.webp",
       bio: "Kepala Dusun II yang bertanggung jawab atas wilayah dusun kedua",
       socialMedia: {
         instagram: "suyamto.sh"
@@ -92,7 +92,7 @@ export async function seedGovernmentOfficial(prisma: PrismaClient) {
     {
       name: "Joko Triyono, S.Pd",
       position: "Kepala Dusun III",
-      photoUrl: "/images/officials/joko-triyono.jpg",
+      photoUrl: "https://desabanyuanyar.com/wp-content/uploads/2021/01/JOKO-TRYONO.jpg.webp",
       bio: "Kepala Dusun III yang bertanggung jawab atas wilayah dusun ketiga",
       socialMedia: {
         facebook: "joko.triyono.spd"

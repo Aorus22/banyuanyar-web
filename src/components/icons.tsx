@@ -1,20 +1,23 @@
 import {
   IconAlertTriangle,
   IconArrowRight,
+  IconArrowLeft,
   IconCheck,
   IconChevronLeft,
   IconChevronRight,
+  IconChevronsDown,
   IconCommand,
   IconCreditCard,
   IconFile,
   IconFileText,
   IconHelpCircle,
   IconPhoto,
-
+  IconPhotoUp,
   IconDeviceLaptop,
   IconLayoutDashboard,
   IconLoader2,
   IconLogin,
+  IconLogout,
   IconProps,
   IconShoppingBag,
   IconMoon,
@@ -29,6 +32,7 @@ import {
   IconUserCircle,
   IconUserEdit,
   IconUserX,
+  IconUsers,
   IconX,
   IconLayoutKanban,
   IconBrandGithub,
@@ -37,7 +41,13 @@ import {
   IconMap,
   IconHome,
   IconTarget,
-  IconFlag
+  IconFlag,
+  IconShare,
+  IconBrandFacebook,
+  IconBrandInstagram,
+  IconMessageCircle,
+  IconBell,
+  IconEdit
 } from '@tabler/icons-react';
 
 export type Icon = React.ComponentType<IconProps>;
@@ -52,6 +62,7 @@ export const Icons = {
   kanban: IconLayoutKanban,
   chevronLeft: IconChevronLeft,
   chevronRight: IconChevronRight,
+  chevronsDown: IconChevronsDown,
   trash: IconTrash,
   employee: IconUserX,
   post: IconFileText,
@@ -67,7 +78,9 @@ export const Icons = {
   add: IconPlus,
   warning: IconAlertTriangle,
   user: IconUser,
+  users: IconUsers,
   arrowRight: IconArrowRight,
+  arrowLeft: IconArrowLeft,
   help: IconHelpCircle,
   pizza: IconPizza,
   sun: IconSun,
@@ -75,6 +88,8 @@ export const Icons = {
   laptop: IconDeviceLaptop,
   github: IconBrandGithub,
   twitter: IconBrandTwitter,
+  facebook: IconBrandFacebook,
+  instagram: IconBrandInstagram,
   check: IconCheck,
   calendar: IconCalendar,
   tag: IconTag,
@@ -82,5 +97,12 @@ export const Icons = {
   home: IconHome,
   'shopping-bag': IconShoppingBag,
   target: IconTarget,
-  flag: IconFlag
+  flag: IconFlag,
+  share: IconShare,
+  messageCircle: IconMessageCircle,
+  bell: IconBell,
+  creditCard: IconCreditCard,
+  logout: IconLogout,
+  photoUp: IconPhotoUp,
+  edit: IconEdit
 };

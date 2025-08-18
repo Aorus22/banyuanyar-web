@@ -18,7 +18,7 @@ export default async function Page() {
         description="Informasi sejarah desa Banyuanyar"
       />
 
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <div className="bg-white dark:bg-muted rounded-xl shadow p-6 md:p-8">
           <h2 className="text-xl font-semibold mb-4 text-primary">Sejarah Singkat</h2>
           {sejarah?.value ? (
