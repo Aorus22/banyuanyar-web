@@ -61,7 +61,10 @@ export function LandingNavbar() {
       <div className='h-full flex items-center justify-between mx-auto px-4'>
         {/* Logo */}
         <div className='flex items-center'>
-          <Link href='/' className='text-xl font-bold'>Banyuanyar</Link>
+          <Link href='/' className='flex items-center gap-2'>
+            <img src='/logo.png' alt='Logo Desa Banyuanyar' className='h-8 w-auto' />
+            <span className='text-xl font-bold'>Banyuanyar</span>
+          </Link>
         </div>
 
         {/* Desktop Menu */}

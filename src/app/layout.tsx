@@ -17,8 +17,13 @@ const META_THEME_COLORS = {
 };
 
 export const metadata: Metadata = {
-  title: 'Next Shadcn',
-  description: 'Basic dashboard with Next.js and Shadcn'
+  title: 'Desa Banyuanyar',
+  description: 'Website resmi Green Smart Village Desa Banyuanyar Kecamatan Ampel Kabupaten Boyolali',
+  icons: {
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png'
+  }
 };
 
 export const viewport: Viewport = {
@@ -61,7 +66,7 @@ export default async function RootLayout({
         <NuqsAdapter>
           <ThemeProvider
             attribute='class'
-            defaultTheme='system'
+            defaultTheme='light'
             enableSystem
             disableTransitionOnChange
             enableColorScheme

@@ -18,7 +18,7 @@ export function Breadcrumbs() {
   return (
     <Breadcrumb>
       <BreadcrumbList>
-        {items.map((item, index) => (
+        {items.map((item: any, index: number) => (
           <Fragment key={`${index}-${item.title}`}>
             {index !== items.length - 1 && (
               <BreadcrumbItem className='hidden md:block'>

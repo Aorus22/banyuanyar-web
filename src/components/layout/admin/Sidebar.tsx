@@ -45,6 +45,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import * as React from 'react';
 import { Icons } from '../../icons';
 import { OrgSwitcher } from '../../org-switcher';
+import Image from 'next/image';
 export const company = {
   name: 'Acme Inc',
   logo: IconPhotoUp,
@@ -74,11 +75,21 @@ export default function AppSidebar() {
   return (
     <Sidebar collapsible='icon'>
       <SidebarHeader>
-        <OrgSwitcher
+        <Link href='/' className='flex items-center gap-2 p-2 hover:bg-sidebar-accent rounded-md transition-colors'>
+          <Image 
+            src='/logo.png' 
+            alt='Logo Desa Banyuanyar' 
+            width={32} 
+            height={32} 
+            className='rounded-md'
+          />
+          <span className='text-sm font-semibold text-sidebar-foreground'>Banyuanyar</span>
+        </Link>
+        {/* <OrgSwitcher
           tenants={tenants}
           defaultTenant={activeTenant}
           onTenantSwitch={handleSwitchTenant}
-        />
+        /> */}
       </SidebarHeader>
       <SidebarContent className='overflow-x-hidden'>
         <SidebarGroup>

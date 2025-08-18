@@ -16,37 +16,44 @@ import {
 const DEFAULT_THEMES = [
   {
     name: 'Default',
-    value: 'default'
+    value: 'default',
+    color: '#52525b' // neutral-600
   },
   {
-    name: 'Blue',
-    value: 'blue'
+    name: 'Biru',
+    value: 'blue',
+    color: '#2563eb' // blue-600
   },
   {
-    name: 'Green',
-    value: 'green'
+    name: 'Hijau',
+    value: 'green',
+    color: '#65a30d' // lime-600
   },
   {
-    name: 'Amber',
-    value: 'amber'
+    name: 'Jingga',
+    value: 'amber',
+    color: '#d97706' // amber-600
   }
 ];
 
 const SCALED_THEMES = [
   {
     name: 'Default',
-    value: 'default-scaled'
+    value: 'default-scaled',
+    color: '#52525b' // neutral-600
   },
   {
-    name: 'Blue',
-    value: 'blue-scaled'
+    name: 'Biru Kecil',
+    value: 'blue-scaled',
+    color: '#2563eb' // blue-600
   }
 ];
 
 const MONO_THEMES = [
   {
-    name: 'Mono',
-    value: 'mono-scaled'
+    name: 'Monospaced',
+    value: 'mono-scaled',
+    color: '#52525b' // neutral-600
   }
 ];
 
@@ -64,17 +71,23 @@ export function ThemeSelector() {
           className='justify-start *:data-[slot=select-value]:w-12'
         >
           <span className='text-muted-foreground hidden sm:block'>
-            Select a theme:
+            Tema:
           </span>
           <span className='text-muted-foreground block sm:hidden'>Theme</span>
-          <SelectValue placeholder='Select a theme' />
+          <SelectValue placeholder='Tema' />
         </SelectTrigger>
         <SelectContent align='end'>
           <SelectGroup>
             <SelectLabel>Default</SelectLabel>
             {DEFAULT_THEMES.map((theme) => (
               <SelectItem key={theme.name} value={theme.value}>
-                {theme.name}
+                <div className="flex items-center gap-2">
+                  <div 
+                    className="w-3 h-3 rounded-full border border-border" 
+                    style={{ backgroundColor: theme.color }}
+                  />
+                  {theme.name}
+                </div>
               </SelectItem>
             ))}
           </SelectGroup>
@@ -83,7 +96,13 @@ export function ThemeSelector() {
             <SelectLabel>Scaled</SelectLabel>
             {SCALED_THEMES.map((theme) => (
               <SelectItem key={theme.name} value={theme.value}>
-                {theme.name}
+                <div className="flex items-center gap-2">
+                  <div 
+                    className="w-3 h-3 rounded-full border border-border" 
+                    style={{ backgroundColor: theme.color }}
+                  />
+                  {theme.name}
+                </div>
               </SelectItem>
             ))}
           </SelectGroup>
@@ -91,7 +110,13 @@ export function ThemeSelector() {
             <SelectLabel>Monospaced</SelectLabel>
             {MONO_THEMES.map((theme) => (
               <SelectItem key={theme.name} value={theme.value}>
-                {theme.name}
+                <div className="flex items-center gap-2">
+                  <div 
+                    className="w-3 h-3 rounded-full border border-border" 
+                    style={{ backgroundColor: theme.color }}
+                  />
+                  {theme.name}
+                </div>
               </SelectItem>
             ))}
           </SelectGroup>
