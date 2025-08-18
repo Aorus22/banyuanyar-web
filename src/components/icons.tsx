@@ -10,6 +10,7 @@ import {
   IconFileText,
   IconHelpCircle,
   IconPhoto,
+
   IconDeviceLaptop,
   IconLayoutDashboard,
   IconLoader2,
@@ -34,7 +35,9 @@ import {
   IconCalendar,
   IconTag,
   IconMap,
-  IconHome
+  IconHome,
+  IconTarget,
+  IconFlag
 } from '@tabler/icons-react';
 
 export type Icon = React.ComponentType<IconProps>;
@@ -56,6 +59,8 @@ export const Icons = {
   userPen: IconUserEdit,
   user2: IconUserCircle,
   media: IconPhoto,
+  image: IconPhoto,
+  gallery: IconPhoto,
   settings: IconSettings,
   billing: IconCreditCard,
   ellipsis: IconDotsVertical,
@@ -75,5 +80,7 @@ export const Icons = {
   tag: IconTag,
   map: IconMap,
   home: IconHome,
-  'shopping-bag': IconShoppingBag
+  'shopping-bag': IconShoppingBag,
+  target: IconTarget,
+  flag: IconFlag
 };

@@ -1,127 +1,86 @@
 import { PrismaClient } from '../db';
 
-export async function seedMedia(prisma: PrismaClient) {
+const prisma = new PrismaClient();
+
+export async function seedMedia() {
   console.log('🌱 Seeding media...');
 
-  // Get entities for media relationships
-  const tourismPackages = await prisma.tourismPackage.findMany();
-  const galleries = await prisma.gallery.findMany();
-  const umkms = await prisma.umkm.findMany();
-  const umkmProducts = await prisma.umkmProduct.findMany();
-
   const mediaData = [
-    // Media untuk tourism packages
     {
-      fileName: "paket-pelajar.jpg",
-      fileSize: 800000,
-      mimeType: "image/jpeg",
-      entityType: "tourism_package",
-      entityId: tourismPackages[0]?.id || 1
-    },
-    {
-      fileName: "paket-outbound.jpg",
-      fileSize: 850000,
-      mimeType: "image/jpeg",
-      entityType: "tourism_package",
-      entityId: tourismPackages[1]?.id || 2
-    },
-    {
-      fileName: "paket-jeep.jpg",
-      fileSize: 900000,
-      mimeType: "image/jpeg",
-      entityType: "tourism_package",
-      entityId: tourismPackages[2]?.id || 3
-    },
-
-    // Media untuk galleries
-    {
-      fileName: "upacara-1.jpg",
+      fileName: 'sample-news-1.jpg',
       fileSize: 1024000,
-      mimeType: "image/jpeg",
-      entityType: "gallery",
-      entityId: galleries[0]?.id || 1
+      fileUrl: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&h=600&fit=crop',
+      mimeType: 'image/jpeg',
+      entityType: 'news',
+      entityId: 1,
     },
     {
-      fileName: "lomba-kerupuk.jpg",
-      fileSize: 850000,
-      mimeType: "image/jpeg",
-      entityType: "gallery",
-      entityId: galleries[0]?.id || 1
+      fileName: 'sample-gallery-1.jpg',
+      fileSize: 2048000,
+      fileUrl: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop',
+      mimeType: 'image/jpeg',
+      entityType: 'gallery',
+      entityId: 1,
     },
     {
-      fileName: "sambutan-kades.jpg",
-      fileSize: 1200000,
-      mimeType: "image/jpeg",
-      entityType: "gallery",
-      entityId: galleries[1]?.id || 2
+      fileName: 'sample-umkm-1.jpg',
+      fileSize: 1536000,
+      fileUrl: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop',
+      mimeType: 'image/jpeg',
+      entityType: 'umkm',
+      entityId: 1,
     },
     {
-      fileName: "gerbang.jpg",
-      fileSize: 980000,
-      mimeType: "image/jpeg",
-      entityType: "gallery",
-      entityId: galleries[2]?.id || 3
-    },
-
-    // Media untuk UMKM
-    {
-      fileName: "kopi-banyuanyar.jpg",
-      fileSize: 800000,
-      mimeType: "image/jpeg",
-      entityType: "umkm",
-      entityId: umkms[0]?.id || 1
+      fileName: 'sample-tourism-1.jpg',
+      fileSize: 2560000,
+      fileUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+      mimeType: 'image/jpeg',
+      entityType: 'tourism',
+      entityId: 1,
     },
     {
-      fileName: "susu-banyuanyar.jpg",
-      fileSize: 750000,
-      mimeType: "image/jpeg",
-      entityType: "umkm",
-      entityId: umkms[1]?.id || 2
+      fileName: 'sample-event-1.jpg',
+      fileSize: 1792000,
+      fileUrl: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800&h=600&fit=crop',
+      mimeType: 'image/jpeg',
+      entityType: 'event',
+      entityId: 1,
     },
     {
-      fileName: "kerajinan-bambu.jpg",
-      fileSize: 900000,
-      mimeType: "image/jpeg",
-      entityType: "umkm",
-      entityId: umkms[2]?.id || 3
-    },
-
-    // Media untuk UMKM products
-    {
-      fileName: "kopi-arabika.jpg",
-      fileSize: 600000,
-      mimeType: "image/jpeg",
-      entityType: "umkm_product",
-      entityId: umkmProducts[0]?.id || 1
+      fileName: 'general-image-1.jpg',
+      fileSize: 1280000,
+      fileUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+      mimeType: 'image/jpeg',
+      entityType: 'general',
+      entityId: 0,
     },
     {
-      fileName: "kopi-robusta.jpg",
-      fileSize: 550000,
-      mimeType: "image/jpeg",
-      entityType: "umkm_product",
-      entityId: umkmProducts[1]?.id || 2
+      fileName: 'general-image-2.jpg',
+      fileSize: 960000,
+      fileUrl: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop',
+      mimeType: 'image/jpeg',
+      entityType: 'general',
+      entityId: 0,
     },
-    {
-      fileName: "susu-segar.jpg",
-      fileSize: 500000,
-      mimeType: "image/jpeg",
-      entityType: "umkm_product",
-      entityId: umkmProducts[4]?.id || 5
-    },
-    {
-      fileName: "tas-bambu.jpg",
-      fileSize: 650000,
-      mimeType: "image/jpeg",
-      entityType: "umkm_product",
-      entityId: umkmProducts[7]?.id || 8
-    }
   ];
 
-  const result = await prisma.media.createMany({
-    data: mediaData,
-    skipDuplicates: true
-  });
+  try {
+    // Delete existing media
+    await prisma.media.deleteMany();
 
-  console.log(`✅ Media seeded: ${result.count} records`);
-  return result;
+    // Create new media
+    const createdMedia = await Promise.all(
+      mediaData.map(async (media) => {
+        return await prisma.media.create({
+          data: media,
+        });
+      })
+    );
+
+    console.log(`✅ Created ${createdMedia.length} media files`);
+    return createdMedia;
+  } catch (error) {
+    console.error('❌ Error seeding media:', error);
+    throw error;
+  }
 } 

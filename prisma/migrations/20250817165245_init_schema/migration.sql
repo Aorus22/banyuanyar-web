@@ -206,6 +206,7 @@ CREATE TABLE "public"."Media" (
     "id" SERIAL NOT NULL,
     "fileName" TEXT NOT NULL,
     "fileSize" INTEGER NOT NULL,
+    "fileUrl" TEXT NOT NULL,
     "mimeType" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,

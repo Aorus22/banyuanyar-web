@@ -90,6 +90,59 @@ export const navItems: NavItem[] = [
     isActive: false,
     items: []
   },
+  {
+    title: 'Media',
+    url: '/admin/media',
+    icon: 'image',
+    shortcut: ['m', 'm'],
+    isActive: false,
+    items: []
+  },
+  {
+    title: 'Galeri',
+    url: '/admin/gallery',
+    icon: 'gallery',
+    shortcut: ['g', 'g'],
+    isActive: false,
+    items: []
+  },
+  {
+    title: 'Profil Desa',
+    url: '/admin/village-profile',
+    icon: 'home',
+    shortcut: ['p', 'd'],
+    isActive: false,
+    items: [
+      {
+        title: 'Sejarah',
+        url: '/admin/village-profile/history',
+        icon: 'page',
+        shortcut: ['p', 's'],
+        isActive: false,
+      },
+      {
+        title: 'Visi & Misi',
+        url: '/admin/village-profile/vision-mission',
+        icon: 'target',
+        shortcut: ['p', 'v'],
+        isActive: false,
+      },
+      {
+        title: 'Tujuan & Sasaran',
+        url: '/admin/village-profile/objectives',
+        icon: 'flag',
+        shortcut: ['p', 't'],
+        isActive: false,
+      },
+      {
+        title: 'Demografi & Geografis',
+        url: '/admin/village-profile/demographics',
+        icon: 'map',
+        shortcut: ['p', 'd'],
+        isActive: false,
+      }
+    ]
+  },
 ];
 
 export interface SaleUser {

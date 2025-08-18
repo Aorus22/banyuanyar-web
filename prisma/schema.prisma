@@ -204,8 +204,10 @@ model UmkmProduct {
 
 model Media {
   id          Int      @id @default(autoincrement())
+  description String?
   fileName    String
   fileSize    Int
+  fileUrl     String
   mimeType    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
