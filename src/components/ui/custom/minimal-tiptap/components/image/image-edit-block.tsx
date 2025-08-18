@@ -3,6 +3,8 @@ import type { Editor } from "@tiptap/react"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
+import { uploadTiptapImage } from "@/components/ui/custom/minimal-tiptap/components/image/image-upload-cloudinary"
+import { toast } from "sonner"
 
 interface ImageEditBlockProps {
   editor: Editor
@@ -15,6 +17,7 @@ export const ImageEditBlock: React.FC<ImageEditBlockProps> = ({
 }) => {
   const fileInputRef = React.useRef<HTMLInputElement>(null)
   const [link, setLink] = React.useState("")
+  const [uploading, setUploading] = React.useState(false)
 
   const handleClick = React.useCallback(() => {
     fileInputRef.current?.click()
@@ -25,19 +28,45 @@ export const ImageEditBlock: React.FC<ImageEditBlockProps> = ({
       const files = e.target.files
       if (!files?.length) return
 
-      const insertImages = async () => {
-        const contentBucket = []
-        const filesArray = Array.from(files)
+      setUploading(true)
 
-        for (const file of filesArray) {
-          contentBucket.push({ src: file })
+      try {
+        const insertImages = async () => {
+          const contentBucket = []
+          const filesArray = Array.from(files)
+
+          for (const file of filesArray) {
+            // Create FormData for server action
+            const formData = new FormData()
+            formData.append('file', file)
+
+            // Upload to Cloudinary via server action
+            const result = await uploadTiptapImage(formData)
+
+            if (result.error) {
+              toast.error(`Failed to upload ${file.name}: ${result.error}`)
+              continue
+            }
+
+            if (result.success && result.url) {
+              contentBucket.push({ src: result.url })
+              toast.success(`Successfully uploaded ${file.name}`)
+            }
+          }
+
+          if (contentBucket.length > 0) {
+            editor.commands.setImages(contentBucket)
+          }
         }
 
-        editor.commands.setImages(contentBucket)
+        await insertImages()
+        close()
+      } catch (error) {
+        console.error('Error uploading images:', error)
+        toast.error('Failed to upload images')
+      } finally {
+        setUploading(false)
       }
-
-      await insertImages()
-      close()
     },
     [editor, close]
   )
@@ -67,17 +96,23 @@ export const ImageEditBlock: React.FC<ImageEditBlockProps> = ({
             placeholder="https://example.com"
             value={link}
             className="grow"
+            disabled={uploading}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setLink(e.target.value)
             }
           />
-          <Button type="submit" className="ml-2">
+          <Button type="submit" className="ml-2" disabled={uploading}>
             Submit
           </Button>
         </div>
       </div>
-      <Button type="button" className="w-full" onClick={handleClick}>
-        Upload from your computer
+      <Button 
+        type="button" 
+        className="w-full" 
+        onClick={handleClick}
+        disabled={uploading}
+      >
+        {uploading ? "Uploading..." : "Upload from your computer"}
       </Button>
       <input
         type="file"
@@ -86,6 +121,7 @@ export const ImageEditBlock: React.FC<ImageEditBlockProps> = ({
         multiple
         className="hidden"
         onChange={handleFile}
+        disabled={uploading}
       />
     </form>
   )
