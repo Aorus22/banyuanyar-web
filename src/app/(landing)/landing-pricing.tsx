@@ -1,108 +1,183 @@
 import React from 'react';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check } from 'lucide-react';
+import { MapPin, Camera, Users, Star, Coffee, Mountain, Home, Car, Tent, BookOpen, Users2, Building } from 'lucide-react';
+import Link from 'next/link';
 
-const plans = [
+const tourismPackages = [
   {
-    name: 'Basic',
-    description: 'Perfect for small KKN groups',
-    price: 'Free',
+    title: 'Paket Pelajar',
+    description: 'Paket wisata edukasi untuk pelajar dan mahasiswa',
+    icon: BookOpen,
     features: [
-      'Up to 10 team members',
-      'Basic project templates',
-      'Community feedback forms',
-      'Basic analytics',
-      'Email support'
+      'Kunjungan ke kebun kopi',
+      'Belajar budaya lokal',
+      'Fotografi alam',
+      'Snack lokal'
     ],
-    popular: false
+    popular: false,
+    link: '/umkm/paket-wisata',
+    color: 'from-blue-500 to-blue-600'
   },
   {
-    name: 'Pro',
-    description: 'Ideal for larger KKN projects',
-    price: '$29',
-    period: '/month',
+    title: 'Paket Outbound',
+    description: 'Aktivitas outdoor dan team building',
+    icon: Mountain,
     features: [
-      'Up to 50 team members',
-      'Advanced project templates',
-      'Custom branding',
-      'Advanced analytics',
-      'Priority support',
-      'API access',
-      'Custom integrations'
+      'Trekking alam',
+      'Games outdoor',
+      'Camping ground',
+      'BBQ bersama'
     ],
-    popular: true
+    popular: true,
+    link: '/umkm/paket-wisata',
+    color: 'from-green-500 to-green-600'
   },
   {
-    name: 'Enterprise',
-    description: 'For university-wide KKN programs',
-    price: 'Custom',
+    title: 'Paket Jeep Tour',
+    description: 'Petualangan dengan jeep keliling desa',
+    icon: Car,
     features: [
-      'Unlimited team members',
-      'Custom project templates',
-      'White-label solution',
-      'Advanced reporting',
-      'Dedicated support',
-      'Custom development',
-      'SLA guarantee'
+      'Tour keliling desa',
+      'Foto di spot menarik',
+      'Makan siang lokal',
+      'Guide berpengalaman'
     ],
-    popular: false
+    popular: false,
+    link: '/umkm/paket-wisata',
+    color: 'from-orange-500 to-orange-600'
+  },
+  {
+    title: 'Paket Live In / Homestay',
+    description: 'Menginap dan merasakan kehidupan desa',
+    icon: Home,
+    features: [
+      'Menginap di homestay',
+      'Sarapan pagi',
+      'Aktivitas desa',
+      'Makan malam lokal'
+    ],
+    popular: false,
+    link: '/umkm/rumah-penginapan',
+    color: 'from-purple-500 to-purple-600'
+  },
+  {
+    title: 'Paket Camping Ground',
+    description: 'Camping di alam terbuka desa',
+    icon: Tent,
+    features: [
+      'Tenda dan peralatan',
+      'Api unggun',
+      'Stargazing malam',
+      'Sarapan pagi'
+    ],
+    popular: false,
+    link: '/umkm/paket-wisata',
+    color: 'from-teal-500 to-teal-600'
+  },
+  {
+    title: 'Paket Gathering',
+    description: 'Acara gathering dan studi banding',
+    icon: Users2,
+    features: [
+      'Meeting room',
+      'Catering lokal',
+      'Presentasi desa',
+      'Tour singkat'
+    ],
+    popular: false,
+    link: '/umkm/paket-wisata',
+    color: 'from-pink-500 to-pink-600'
   }
+];
+
+const omahWisata = [
+  { name: 'Omah Tambeng Tawon', icon: Home, link: '/umkm/rumah-penginapan' },
+  { name: 'Omah E-Craft', icon: Building, link: '/umkm/rumah-penginapan' },
+  { name: 'Omah Toga', icon: Building, link: '/umkm/rumah-penginapan' },
+  { name: 'Omah Kopi', icon: Coffee, link: '/umkm/rumah-penginapan' },
+  { name: 'Omah Cowboy', icon: Building, link: '/umkm/rumah-penginapan' },
+  { name: 'Omah Bukuku', icon: BookOpen, link: '/umkm/rumah-penginapan' },
+  { name: 'Omah Seni', icon: Building, link: '/umkm/rumah-penginapan' },
+  { name: 'Omah Oveje', icon: Building, link: '/umkm/rumah-penginapan' }
 ];
 
 export function LandingPricing() {
   return (
-    <div id='pricing' className='w-full py-12 xs:py-20 px-6'>
-      <div className='w-full max-w-screen-lg mx-auto'>
-        <div className='text-center mb-12'>
+    <div id='tourism' className='w-full py-12 xs:py-20 px-6'>
+      <div className='w-full max-w-screen-xl mx-auto'>
+        {/* Tourism Packages */}
+        <div className='text-center mb-16'>
           <h2 className='text-3xl xs:text-4xl sm:text-5xl font-bold tracking-tight'>
-            Simple, Transparent Pricing
+            Paket Wisata Desa Banyuanyar
           </h2>
-          <p className='mt-4 text-lg text-muted-foreground max-w-2xl mx-auto'>
-            Choose the perfect plan for your KKN project needs. Start free and upgrade as you grow.
+          <p className='mt-4 text-lg text-muted-foreground max-w-3xl mx-auto'>
+            Pilih paket wisata yang sesuai dengan kebutuhan Anda. Setiap paket dirancang untuk memberikan pengalaman terbaik di Desa Banyuanyar.
           </p>
         </div>
 
-        <div className='grid md:grid-cols-3 gap-8'>
-          {plans.map((plan) => (
+        <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20'>
+          {tourismPackages.map((pkg) => (
             <Card
-              key={plan.name}
-              className={`relative ${plan.popular ? 'border-primary shadow-lg' : ''}`}
+              key={pkg.title}
+              className={`relative ${pkg.popular ? 'border-primary shadow-lg scale-105' : ''} hover:shadow-xl transition-all duration-300`}
             >
-              {plan.popular && (
+              {pkg.popular && (
                 <Badge className='absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary'>
-                  Most Popular
+                  Paling Populer
                 </Badge>
               )}
               <CardHeader>
-                <CardTitle className='text-xl'>{plan.name}</CardTitle>
-                <CardDescription>{plan.description}</CardDescription>
-                <div className='mt-4'>
-                  <span className='text-3xl font-bold'>{plan.price}</span>
-                  {plan.period && (
-                    <span className='text-muted-foreground'>{plan.period}</span>
-                  )}
+                <div className='flex items-center gap-3 mb-3'>
+                  <div className={`h-12 w-12 flex items-center justify-center bg-gradient-to-r ${pkg.color} text-white rounded-full`}>
+                    <pkg.icon className='h-6 w-6' />
+                  </div>
+                  <CardTitle className='text-xl'>{pkg.title}</CardTitle>
                 </div>
+                <CardDescription>{pkg.description}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className='space-y-3 mb-6'>
-                  {plan.features.map((feature) => (
+                  {pkg.features.map((feature) => (
                     <li key={feature} className='flex items-center'>
-                      <Check className='h-4 w-4 text-primary mr-2' />
+                      <Star className='h-4 w-4 text-primary mr-2' />
                       <span className='text-sm'>{feature}</span>
                     </li>
                   ))}
                 </ul>
-                <Button
-                  className='w-full'
-                  variant={plan.popular ? 'default' : 'outline'}
-                >
-                  {plan.price === 'Free' ? 'Get Started' : 'Choose Plan'}
-                </Button>
+                <Link href={pkg.link}>
+                  <div className={`w-full text-center py-3 px-4 bg-gradient-to-r ${pkg.color} text-white rounded-lg hover:opacity-90 transition-opacity cursor-pointer font-medium`}>
+                    Lihat Detail Paket
+                  </div>
+                </Link>
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        {/* CTA Section */}
+        <div className='grid md:grid-cols-2 gap-8'>
+          <div className='bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-8 text-white text-center'>
+            <h3 className='text-2xl font-bold mb-4'>Ingin Memesan Paket?</h3>
+            <p className='mb-6 opacity-90'>Hubungi kami melalui WhatsApp untuk informasi lebih lanjut dan pemesanan</p>
+            <Link href="https://wa.me/your-number">
+              <div className='inline-flex items-center gap-2 bg-white text-primary px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors'>
+                <span>💬</span>
+                Chat WhatsApp
+              </div>
+            </Link>
+          </div>
+
+          <div className='bg-gradient-to-r from-green-500 to-green-600 rounded-2xl p-8 text-white text-center'>
+            <h3 className='text-2xl font-bold mb-4'>Kunjungi Kami</h3>
+            <p className='mb-6 opacity-90'>Desa Banyuanyar, Kecamatan Ampel, Kabupaten Boyolali</p>
+            <Link href="/profil-desa/demografi-geografis">
+              <div className='inline-flex items-center gap-2 bg-white text-green-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors'>
+                <MapPin className='h-5 w-5' />
+                Lihat Lokasi
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

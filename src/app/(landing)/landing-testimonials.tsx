@@ -5,51 +5,51 @@ import { Star } from 'lucide-react';
 
 const testimonials = [
   {
-    name: 'Dr. Sarah Johnson',
-    role: 'KKN Coordinator',
-    university: 'Universitas Sebelas Maret',
-    content: 'This platform has revolutionized how we manage our KKN programs. The analytics and reporting features help us track student progress effectively.',
-    avatar: '/avatars/sarah.jpg',
+    name: 'Pak Suryo',
+    role: 'Kepala Desa',
+    location: 'Desa Banyuanyar',
+    content: 'Desa Banyuanyar memiliki potensi wisata yang luar biasa. Dengan website ini, masyarakat dan pengunjung bisa mengenal desa kami lebih dekat.',
+    avatar: '/avatars/suryo.jpg',
+    rating: 5
+  },
+  {
+    name: 'Bu Siti',
+    role: 'Pengusaha UMKM',
+    location: 'Desa Banyuanyar',
+    content: 'Website ini sangat membantu UMKM kami untuk mempromosikan produk ke lebih banyak orang. Sekarang produk lokal kami bisa dikenal lebih luas.',
+    avatar: '/avatars/siti.jpg',
     rating: 5
   },
   {
     name: 'Ahmad Rizki',
-    role: 'KKN Student',
-    university: 'UNS Engineering',
-    content: 'The collaboration tools are amazing! I can easily communicate with my team and the community members. It makes our KKN project much more organized.',
+    role: 'Wisatawan',
+    location: 'Solo',
+    content: 'Saya sangat terkesan dengan keindahan alam dan keramahan masyarakat Desa Banyuanyar. Paket wisatanya sangat menarik dan terjangkau.',
     avatar: '/avatars/ahmad.jpg',
     rating: 5
   },
   {
     name: 'Maria Garcia',
-    role: 'Community Leader',
-    university: 'Banyuanyar Village',
-    content: 'The platform has made it so much easier for our community to engage with KKN students. The feedback forms and communication tools are very user-friendly.',
+    role: 'Fotografer',
+    location: 'Jakarta',
+    content: 'Desa Banyuanyar adalah surga fotografer! Pemandangan alamnya indah dan budaya lokalnya sangat menarik untuk didokumentasikan.',
     avatar: '/avatars/maria.jpg',
     rating: 5
   },
   {
-    name: 'Prof. David Chen',
-    role: 'Academic Supervisor',
-    university: 'UNS Faculty of Social Sciences',
-    content: 'As a supervisor, I can easily monitor multiple KKN projects simultaneously. The dashboard provides excellent insights into student progress and community impact.',
-    avatar: '/avatars/david.jpg',
-    rating: 5
-  },
-  {
     name: 'Nina Putri',
-    role: 'KKN Student',
-    university: 'UNS Medical School',
-    content: 'The mobile-friendly interface is perfect for fieldwork. I can update our project progress and communicate with my team even when I\'m in remote areas.',
+    role: 'Mahasiswa',
+    location: 'UNS',
+    content: 'Saya suka sekali suasana tenang di Desa Banyuanyar. Cocok untuk refreshing dan belajar tentang budaya pedesaan yang asli.',
     avatar: '/avatars/nina.jpg',
     rating: 5
   },
   {
-    name: 'Pak Suryo',
-    role: 'Village Head',
-    university: 'Banyuanyar Community',
-    content: 'The platform has strengthened the partnership between our village and the university. We can now track the impact of KKN projects more effectively.',
-    avatar: '/avatars/suryo.jpg',
+    name: 'Pak Joko',
+    role: 'Warga Desa',
+    location: 'Desa Banyuanyar',
+    content: 'Dengan adanya website ini, informasi desa menjadi lebih mudah diakses. Masyarakat bisa mengetahui kegiatan dan berita terbaru dengan cepat.',
+    avatar: '/avatars/joko.jpg',
     rating: 5
   }
 ];
@@ -60,16 +60,16 @@ export function LandingTestimonials() {
       <div className='w-full max-w-screen-lg mx-auto'>
         <div className='text-center mb-12'>
           <h2 className='text-3xl xs:text-4xl sm:text-5xl font-bold tracking-tight'>
-            What Our Users Say
+            Apa Kata Mereka
           </h2>
           <p className='mt-4 text-lg text-muted-foreground max-w-2xl mx-auto'>
-            Hear from KKN coordinators, students, and community members about their experience with our platform.
+            Dengarkan pengalaman dan kesan dari warga desa dan pengunjung tentang Desa Banyuanyar
           </p>
         </div>
 
         <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className='h-full'>
+            <Card key={index} className='h-full hover:shadow-lg transition-shadow'>
               <CardContent className='p-6'>
                 <div className='flex items-center gap-1 mb-4'>
                   {[...Array(testimonial.rating)].map((_, i) => (
@@ -89,7 +89,7 @@ export function LandingTestimonials() {
                   <div>
                     <p className='font-semibold text-sm'>{testimonial.name}</p>
                     <p className='text-xs text-muted-foreground'>
-                      {testimonial.role} • {testimonial.university}
+                      {testimonial.role} • {testimonial.location}
                     </p>
                   </div>
                 </div>

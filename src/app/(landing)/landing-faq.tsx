@@ -8,28 +8,28 @@ import {
 
 const faqs = [
   {
-    question: 'What is KKN and how does this platform help?',
-    answer: 'KKN (Kuliah Kerja Nyata) is a community service program for university students. Our platform helps manage KKN projects, track progress, and facilitate communication between students, supervisors, and community members.'
+    question: 'Apa saja yang bisa dilihat di Desa Banyuanyar?',
+    answer: 'Desa Banyuanyar menawarkan berbagai atraksi wisata seperti pemandangan alam yang indah, budaya tradisional, produk UMKM lokal, dan keramahan masyarakat. Anda bisa menikmati paket wisata, mengunjungi galeri foto, dan mempelajari sejarah desa.'
   },
   {
-    question: 'How many team members can I have on the free plan?',
-    answer: 'The free plan allows up to 10 team members, which is perfect for small KKN groups. You can upgrade to Pro for up to 50 members or Enterprise for unlimited members.'
+    question: 'Bagaimana cara mengakses informasi terbaru desa?',
+    answer: 'Anda bisa mengakses informasi terbaru melalui halaman berita desa yang selalu diperbarui dengan kegiatan, perkembangan, dan berita terkini seputar Desa Banyuanyar. Semua informasi tersedia secara online dan mudah diakses.'
   },
   {
-    question: 'Can I customize the platform for my university?',
-    answer: 'Yes! The Pro and Enterprise plans include custom branding options. Enterprise users can also get a white-label solution with custom development to match their university\'s specific requirements.'
+    question: 'Apakah ada produk UMKM yang bisa dibeli?',
+    answer: 'Ya, Desa Banyuanyar memiliki berbagai produk UMKM berkualitas seperti makanan tradisional, kerajinan tangan, dan jasa homestay. Semua produk dapat dilihat dan dipesan melalui halaman UMKM di website ini.'
   },
   {
-    question: 'What kind of analytics and reporting are available?',
-    answer: 'We provide comprehensive analytics including project progress tracking, community engagement metrics, activity reports, and customizable dashboards. Advanced reporting features are available on Pro and Enterprise plans.'
+    question: 'Bagaimana struktur pemerintahan desa?',
+    answer: 'Struktur pemerintahan Desa Banyuanyar dapat dilihat melalui halaman khusus yang menampilkan organisasi desa dan perangkat desa yang mengelola berbagai aspek pemerintahan dan pelayanan masyarakat.'
   },
   {
-    question: 'Is there support for mobile devices?',
-    answer: 'Absolutely! Our platform is fully responsive and works seamlessly on desktop, tablet, and mobile devices. Community members can easily access and interact with your KKN projects from any device.'
+    question: 'Apakah ada paket wisata yang tersedia?',
+    answer: 'Ya, tersedia berbagai paket wisata menarik yang menampilkan keunikan Desa Banyuanyar. Paket wisata mencakup wisata alam, budaya, dan pengalaman lokal yang dapat dipesan sesuai kebutuhan pengunjung.'
   },
   {
-    question: 'How secure is the platform?',
-    answer: 'We take security seriously. All data is encrypted in transit and at rest. We follow industry best practices for data protection and offer additional security features for Enterprise users including custom SLAs.'
+    question: 'Bagaimana cara menghubungi pemerintah desa?',
+    answer: 'Informasi kontak pemerintah desa tersedia di halaman perangkat desa. Anda juga bisa mengakses dokumen dan informasi resmi melalui halaman dokumen desa untuk keperluan administrasi.'
   }
 ];
 
@@ -39,10 +39,10 @@ export function LandingFAQ() {
       <div className='w-full max-w-screen-lg mx-auto'>
         <div className='text-center mb-12'>
           <h2 className='text-3xl xs:text-4xl sm:text-5xl font-bold tracking-tight'>
-            Frequently Asked Questions
+            Pertanyaan yang Sering Diajukan
           </h2>
           <p className='mt-4 text-lg text-muted-foreground max-w-2xl mx-auto'>
-            Everything you need to know about our KKN project management platform.
+            Temukan jawaban untuk pertanyaan umum seputar Desa Banyuanyar
           </p>
         </div>
 
