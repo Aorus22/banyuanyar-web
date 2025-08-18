@@ -120,7 +120,7 @@ export const navItems: NavItem[] = [
     ]
   },
   {
-    title: 'Penginapan',
+    title: 'Omah',
     url: '/admin/tourism-house',
     icon: 'home',
     shortcut: ['p', 'p'],

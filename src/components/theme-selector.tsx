@@ -73,7 +73,6 @@ export function ThemeSelector() {
           <span className='text-muted-foreground hidden sm:block'>
             Tema:
           </span>
-          <span className='text-muted-foreground block sm:hidden'>Theme</span>
           <SelectValue placeholder='Tema' />
         </SelectTrigger>
         <SelectContent align='end'>

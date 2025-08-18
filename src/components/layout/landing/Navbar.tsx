@@ -50,7 +50,7 @@ const menus = [
     children: [
       { label: 'Paket Wisata', href: '/umkm/paket-wisata' },
       { label: 'Lokasi UMKM', href: '/umkm/lokasi-umkm' },
-      { label: 'Rumah Penginapan', href: '/umkm/rumah-penginapan' }
+      // { label: 'Omah Wisata', href: '/umkm/omah-wisata' }
     ]
   }
 ] as const;

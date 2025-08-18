@@ -29,21 +29,37 @@ export function ImagePreviewCarousel({
 }: ImagePreviewCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [direction, setDirection] = useState<'next' | 'prev'>('next');
 
   const nextImage = useCallback(() => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setDirection('next');
     setCurrentIndex((prev) => (prev + 1) % images.length);
-  }, [images.length]);
+  }, [images.length, isTransitioning]);
 
   const prevImage = useCallback(() => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setDirection('prev');
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
-  }, [images.length]);
+  }, [images.length, isTransitioning]);
 
   const goToImage = useCallback((index: number) => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setDirection(index > currentIndex ? 'next' : 'prev');
     setCurrentIndex(index);
-  }, []);
+  }, [currentIndex, isTransitioning]);
 
   const togglePlayPause = useCallback(() => {
     setIsPlaying((prev) => !prev);
+  }, []);
+
+  // Handle transition end
+  const handleTransitionEnd = useCallback(() => {
+    setIsTransitioning(false);
   }, []);
 
   // Auto-play effect
@@ -81,15 +97,30 @@ export function ImagePreviewCarousel({
       {/* Main Image Container */}
       <div className="relative group">
         <div className="relative overflow-hidden rounded-lg bg-gray-100">
-          <img
-            src={images[currentIndex]}
-            alt={`Image ${currentIndex + 1}`}
-            className="w-full h-96 object-contain transition-transform duration-300 group-hover:scale-105"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik04MCAxMDBDODAgODkuNTQ0NyA4OC4wMDAxIDgxIDk4IDgxSDEwMkMxMTEuOTU2IDgxIDEyMCA4OS41NDQ3IDEyMCAxMDBDMTIwIDExMC40NTUgMTExLjk1NiAxMTkgMTAyIDExOUg5OEM4OC4wMDAxIDExOSA4MCAxMTAuNDU1IDgwIDEwMFoiIGZpbGw9IiM5Q0EzQUYiLz4KPHBhdGggZD0iTTEwMCAxMzBDMTEwLjQ1NSAxMzAgMTE5IDEyMS40NTUgMTE5IDExMUg4MUM4MSAxMjEuNDU1IDg5LjU0NDcgMTMwIDEwMCAxMzBaIiBmaWxsPSIjOUNBM0FGIi8+Cjwvc3ZnPgo=';
-            }}
-          />
+          <div className="relative w-full h-96">
+            {images.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt={`Image ${index + 1}`}
+                className={cn(
+                  "absolute inset-0 w-full h-full object-contain transition-all duration-700 ease-in-out",
+                  index === currentIndex 
+                    ? "opacity-100 scale-100 translate-x-0" 
+                    : index === (currentIndex - 1 + images.length) % images.length && direction === 'prev'
+                    ? "opacity-0 scale-95 -translate-x-full"
+                    : index === (currentIndex + 1) % images.length && direction === 'next'
+                    ? "opacity-0 scale-95 translate-x-full"
+                    : "opacity-0 scale-95 translate-x-0"
+                )}
+                onTransitionEnd={handleTransitionEnd}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik04MCAxMDBDODAgODkuNTQ0NyA4OC4wMDAxIDgxIDk4IDgxSDEwMkMxMTEuOTU2IDgxIDEyMCA4OS41NDQ3IDEyMCAxMDBDMTIwIDExMC40NTUgMTExLjk1NiAxMTkgMTAyIDExOUg5OEM4OC4wMDAxIDExOSA4MCAxMTAuNDU1IDgwIDEwMFoiIGZpbGw9IiM5Q0EzQUYiLz4KPHBhdGggZD0iTTEwMCAxMzBDMTEwLjQ1NSAxMzAgMTE5IDEyMS40NTUgMTE5IDExMUg4MUM4MSAxMjEuNDU1IDg5LjU0NDcgMTMwIDEwMCAxMzBaIiBmaWxsPSIjOUNBM0FGIi8+Cjwvc3ZnPgo=';
+                }}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Navigation Arrows */}
@@ -97,14 +128,22 @@ export function ImagePreviewCarousel({
           <>
             <button
               onClick={prevImage}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+              disabled={isTransitioning}
+              className={cn(
+                "absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300",
+                isTransitioning && "pointer-events-none opacity-50"
+              )}
               aria-label="Previous image"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={nextImage}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+              disabled={isTransitioning}
+              className={cn(
+                "absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300",
+                isTransitioning && "pointer-events-none opacity-50"
+              )}
               aria-label="Next image"
             >
               <ChevronRight className="w-5 h-5" />
@@ -138,12 +177,14 @@ export function ImagePreviewCarousel({
             <button
               key={index}
               onClick={() => goToImage(index)}
+              disabled={isTransitioning}
               className={cn(
-                "flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all duration-200 hover:opacity-80",
+                "flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all duration-300 hover:opacity-80",
                 thumbnailSizeClasses[thumbnailSize],
                 currentIndex === index 
-                  ? "border-blue-500 ring-2 ring-blue-200" 
-                  : "border-gray-200 hover:border-gray-300"
+                  ? "border-blue-500 ring-2 ring-blue-200 scale-105" 
+                  : "border-gray-200 hover:border-gray-300",
+                isTransitioning && "pointer-events-none opacity-60"
               )}
             >
               <img
