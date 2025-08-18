@@ -1,7 +1,6 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { MoreHorizontal, Edit, Trash2 } from "lucide-react"
 import {
@@ -27,21 +26,8 @@ export type Event = {
   endDate: Date | null
   location: string | null
   organizer: string | null
-  status: "UPCOMING" | "ONGOING" | "COMPLETED" | "CANCELLED"
   createdAt: Date
   updatedAt: Date
-}
-
-const getStatusBadge = (status: string) => {
-  const statusConfig = {
-    UPCOMING: { label: "Mendatang", variant: "default" as const },
-    ONGOING: { label: "Sedang Berlangsung", variant: "secondary" as const },
-    COMPLETED: { label: "Selesai", variant: "outline" as const },
-    CANCELLED: { label: "Dibatalkan", variant: "destructive" as const },
-  }
-  
-  const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.UPCOMING
-  return <Badge variant={config.variant}>{config.label}</Badge>
 }
 
 export const columns: ColumnDef<Event>[] = [
@@ -81,11 +67,6 @@ export const columns: ColumnDef<Event>[] = [
     accessorKey: "organizer",
     header: "Penyelenggara",
     cell: ({ row }) => row.getValue("organizer") || "-",
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => getStatusBadge(row.getValue("status")),
   },
   {
     accessorKey: "createdAt",

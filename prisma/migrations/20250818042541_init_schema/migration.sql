@@ -4,9 +4,6 @@ CREATE TYPE "public"."UserRole" AS ENUM ('ADMIN', 'USER');
 -- CreateEnum
 CREATE TYPE "public"."NewsStatus" AS ENUM ('DRAFT', 'PUBLISHED', 'ARCHIVED');
 
--- CreateEnum
-CREATE TYPE "public"."EventStatus" AS ENUM ('UPCOMING', 'ONGOING', 'COMPLETED', 'CANCELLED');
-
 -- CreateTable
 CREATE TABLE "public"."User" (
     "id" SERIAL NOT NULL,
@@ -69,7 +66,6 @@ CREATE TABLE "public"."News" (
     "title" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
     "content" TEXT NOT NULL,
-    "featuredImage" TEXT,
     "authorId" INTEGER,
     "categoryId" INTEGER,
     "status" "public"."NewsStatus" NOT NULL DEFAULT 'DRAFT',
@@ -90,7 +86,6 @@ CREATE TABLE "public"."Event" (
     "endDate" TIMESTAMP(3),
     "location" TEXT,
     "organizer" TEXT,
-    "status" "public"."EventStatus" NOT NULL DEFAULT 'UPCOMING',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

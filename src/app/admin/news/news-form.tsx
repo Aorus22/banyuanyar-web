@@ -26,7 +26,6 @@ import type { Editor } from "@tiptap/react"
 const formSchema = z.object({
   title: z.string().min(1, "Judul news harus diisi"),
   content: z.string().min(1, "Konten news harus diisi"),
-  featuredImage: z.string().optional(),
   categoryId: z.string().optional(),
   status: z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]).default("DRAFT"),
   authorId: z.string().optional()
@@ -39,7 +38,6 @@ interface NewsFormProps {
     id: number
     title: string
     content: string
-    featuredImage: string | null
     categoryId: number | null
     status: "DRAFT" | "PUBLISHED" | "ARCHIVED"
     authorId: number | null
@@ -63,7 +61,6 @@ export function NewsForm({ news, categories, createNews, updateNews }: NewsFormP
     defaultValues: {
       title: news?.title || "",
       content: news?.content || "",
-      featuredImage: news?.featuredImage || "",
       categoryId: news?.categoryId?.toString() || "",
       status: news?.status || "DRAFT",
       authorId: news?.authorId?.toString() || ""
@@ -94,7 +91,6 @@ export function NewsForm({ news, categories, createNews, updateNews }: NewsFormP
       const formData = new FormData()
       formData.append('title', values.title)
       formData.append('content', values.content)
-      formData.append('featuredImage', values.featuredImage || '')
       formData.append('categoryId', values.categoryId || '')
       formData.append('status', values.status)
       formData.append('authorId', values.authorId || '')
@@ -195,23 +191,6 @@ export function NewsForm({ news, categories, createNews, updateNews }: NewsFormP
                         ))}
                       </SelectContent>
                     </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="featuredImage"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Featured Image URL</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Masukkan URL gambar"
-                        {...field}
-                      />
-                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}

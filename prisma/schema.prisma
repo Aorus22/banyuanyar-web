@@ -78,7 +78,6 @@ model News {
   title         String
   slug          String       @unique
   content       String       @db.Text
-  featuredImage String?
   authorId      Int?
   categoryId    Int?
   status        NewsStatus   @default(DRAFT)
@@ -99,16 +98,8 @@ model Event {
   endDate       DateTime?
   location      String?
   organizer     String?
-  status        EventStatus   @default(UPCOMING)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
-}
-
-enum EventStatus {
-  UPCOMING
-  ONGOING
-  COMPLETED
-  CANCELLED
 }
 
 model Gallery {

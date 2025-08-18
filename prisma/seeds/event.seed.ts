@@ -1,4 +1,4 @@
-import { EventStatus, PrismaClient } from '../db';
+import { PrismaClient } from '../db';
 
 export async function seedEvent(prisma: PrismaClient) {
   console.log('🌱 Seeding events...');
@@ -11,7 +11,6 @@ export async function seedEvent(prisma: PrismaClient) {
       endDate: new Date("2024-11-22"),
       location: "Balai Desa Banyuanyar",
       organizer: "Bumdesa Kampus Kopi",
-      status: EventStatus.COMPLETED
     },
     {
       title: "Profil Desa Wisata Kampus Kopi Banyuanyar",
@@ -20,7 +19,6 @@ export async function seedEvent(prisma: PrismaClient) {
       endDate: new Date("2024-11-11"),
       location: "Kampus Kopi Banyuanyar",
       organizer: "Tim Desa Wisata",
-      status: EventStatus.COMPLETED
     }
   ];
 

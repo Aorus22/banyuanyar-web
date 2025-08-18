@@ -11,7 +11,6 @@ export async function createEvent(formData: FormData) {
     const endDate = formData.get('endDate') as string;
     const location = formData.get('location') as string;
     const organizer = formData.get('organizer') as string;
-    const status = formData.get('status') as "UPCOMING" | "ONGOING" | "COMPLETED" | "CANCELLED";
 
     const event = await prisma.event.create({
       data: {
@@ -21,7 +20,6 @@ export async function createEvent(formData: FormData) {
         endDate: endDate ? new Date(endDate) : null,
         location: location || null,
         organizer: organizer || null,
-        status
       }
     });
 

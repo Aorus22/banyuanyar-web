@@ -7,7 +7,6 @@ export async function createNews(formData: FormData) {
   try {
     const title = formData.get('title') as string;
     const content = formData.get('content') as string;
-    const featuredImage = formData.get('featuredImage') as string;
     const categoryId = formData.get('categoryId') as string;
     const status = formData.get('status') as "DRAFT" | "PUBLISHED" | "ARCHIVED";
     const authorId = formData.get('authorId') as string;
@@ -17,7 +16,6 @@ export async function createNews(formData: FormData) {
         title,
         slug: title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
         content,
-        featuredImage: featuredImage || null,
         categoryId: categoryId ? parseInt(categoryId) : null,
         status,
         authorId: authorId ? parseInt(authorId) : null,

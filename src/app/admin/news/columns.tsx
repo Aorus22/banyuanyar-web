@@ -25,7 +25,6 @@ export type News = {
   title: string
   slug: string
   content: string
-  featuredImage: string | null
   authorId: number | null
   categoryId: number | null
   status: "DRAFT" | "PUBLISHED" | "ARCHIVED"
@@ -64,24 +63,6 @@ export const columns: ColumnDef<News>[] = [
     enableSorting: false,
     enableHiding: false,
     size: 60,
-  },
-  {
-    accessorKey: "featuredImage",
-    header: "Gambar",
-    cell: ({ row }) => {
-      const image = row.getValue("featuredImage") as string | null
-      return (
-        <Avatar className="w-12 h-12">
-          <AvatarImage src={image || undefined} alt={row.original.title} />
-          <AvatarFallback>
-            {row.original.title.charAt(0).toUpperCase()}
-          </AvatarFallback>
-        </Avatar>
-      )
-    },
-    enableSorting: false,
-    enableHiding: true,
-    size: 80,
   },
   {
     accessorKey: "title",

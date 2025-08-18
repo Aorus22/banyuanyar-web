@@ -84,7 +84,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
           </div>
         </div>
 
-        {/* Featured Image or Media Gallery */}
+        {/* Media Gallery */}
         {newsMedia.length > 0 ? (
           <div className="mb-6">            
             {newsMedia.length === 1 ? (
@@ -109,24 +109,20 @@ export default async function NewsPage({ params }: NewsPageProps) {
               />
             )}
           </div>
-        ) : news.featuredImage ? (
+        ) : (
+          // No media available
           <div className="mb-6">
             <div className="flex items-center gap-2 mb-3">
               <ImageIcon className="h-5 w-5 text-muted-foreground" />
               <span className="text-sm font-medium text-muted-foreground">
-                Featured Image
+                Belum ada media tersedia
               </span>
             </div>
-            <ImageWithFallback
-              src={news.featuredImage}
-              alt={news.title}
-              width={800}
-              height={400}
-              className="w-full h-64 object-cover rounded-lg"
-              fallbackClassName="w-full h-64 rounded-lg"
-            />
+            <div className="w-full h-64 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center">
+              <ImageIcon className="w-16 h-16 text-blue-400" />
+            </div>
           </div>
-        ) : null}
+        )}
       </div>
 
       {/* Content */}
