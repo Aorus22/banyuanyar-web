@@ -33,7 +33,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
   });
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="container mx-auto px-4 py-8 mt-24 max-w-4xl">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
