@@ -94,8 +94,9 @@ model Event {
   id            Int           @id @default(autoincrement())
   title         String
   description   String?       @db.Text
-  startDate     DateTime
-  endDate       DateTime?
+  date          DateTime
+  startTime     String?       // Format: "HH:mm" (e.g., "09:00")
+  endTime       String?       // Format: "HH:mm" (e.g., "17:00")
   location      String?
   organizer     String?
   createdAt     DateTime      @default(now())
@@ -115,10 +116,12 @@ model Gallery {
 model Document {
   id            Int      @id @default(autoincrement())
   title         String
+  fileUrl       String
   description   String?  @db.Text
   filename      String
   fileSize      BigInt?
   fileType      String?
+  isActive      Boolean  @default(true)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }

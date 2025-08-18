@@ -27,6 +27,12 @@ export async function seedNewsCategory(prisma: PrismaClient) {
       slug: "pemerintahan",
       description: "Informasi seputar pemerintahan desa",
       color: "#EF4444"
+    },
+    {
+      name: "Umum",
+      slug: "umum",
+      description: "Informasi tentang hal-hal umum",
+      color: "#F59E0B"
     }
   ];
 

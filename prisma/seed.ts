@@ -15,7 +15,6 @@ const {
   seedGallery,
   seedUmkm,
   seedUmkmProduct,
-  seedMedia,
   seedDocument
 } = require('./seeds');
 
@@ -51,7 +50,7 @@ async function main() {
     await seedTourismCategory(prisma);
     await seedDocument(prisma);
 
-    // 2. Seed data with dependencies
+    // 2. Seed data with dependencies (including their media)
     await seedNews(prisma);
     await seedEvent(prisma);
     await seedTourismPackage(prisma);
@@ -59,9 +58,6 @@ async function main() {
     await seedGallery(prisma);
     await seedUmkm(prisma);
     await seedUmkmProduct(prisma);
-
-    // 3. Seed media (depends on other entities)
-    await seedMedia(prisma);
 
     console.log('🎉 Database seeding completed successfully!');
   } catch (error) {
