@@ -22,12 +22,12 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { toast } from "sonner"
 
-
 const formSchema = z.object({
   title: z.string().min(1, "Judul event harus diisi"),
   description: z.string().optional(),
-  startDate: z.string().min(1, "Tanggal mulai harus dipilih"),
-  endDate: z.string().optional(),
+  date: z.string().min(1, "Tanggal event harus dipilih"),
+  startTime: z.string().optional(),
+  endTime: z.string().optional(),
   location: z.string().optional(),
   organizer: z.string().optional(),
 })
@@ -39,8 +39,9 @@ interface EventFormProps {
     id: number
     title: string
     description: string | null
-    startDate: Date
-    endDate: Date | null
+    date: Date
+    startTime: string | null
+    endTime: string | null
     location: string | null
     organizer: string | null
   }
@@ -57,8 +58,9 @@ export function EventForm({ event, createEvent, updateEvent }: EventFormProps) {
     defaultValues: {
       title: event?.title || "",
       description: event?.description || "",
-      startDate: event?.startDate ? event.startDate.toISOString().split('T')[0] : "",
-      endDate: event?.endDate ? event.endDate.toISOString().split('T')[0] : "",
+      date: event?.date ? event.date.toISOString().split('T')[0] : "",
+      startTime: event?.startTime || "",
+      endTime: event?.endTime || "",
       location: event?.location || "",
       organizer: event?.organizer || "",
     },
@@ -71,8 +73,9 @@ export function EventForm({ event, createEvent, updateEvent }: EventFormProps) {
       const formData = new FormData()
       formData.append('title', values.title)
       formData.append('description', values.description || '')
-      formData.append('startDate', values.startDate)
-      formData.append('endDate', values.endDate || '')
+      formData.append('date', values.date)
+      formData.append('startTime', values.startTime || '')
+      formData.append('endTime', values.endTime || '')
       formData.append('location', values.location || '')
       formData.append('organizer', values.organizer || '')
 
@@ -132,15 +135,15 @@ export function EventForm({ event, createEvent, updateEvent }: EventFormProps) {
 
                 <FormField
                   control={form.control}
-                  name="startDate"
+                  name="date"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Tanggal Mulai *</FormLabel>
+                      <FormLabel>Tanggal Event *</FormLabel>
                       <FormControl>
                         <DatePickerMonthYear
                           value={field.value}
                           onValueChange={field.onChange}
-                          placeholder="Pilih tanggal mulai"
+                          placeholder="Pilih tanggal event"
                         />
                       </FormControl>
                       <FormMessage />
@@ -150,15 +153,33 @@ export function EventForm({ event, createEvent, updateEvent }: EventFormProps) {
 
                 <FormField
                   control={form.control}
-                  name="endDate"
+                  name="startTime"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Tanggal Selesai</FormLabel>
+                      <FormLabel>Waktu Mulai</FormLabel>
                       <FormControl>
-                        <DatePickerMonthYear
-                          value={field.value}
-                          onValueChange={field.onChange}
-                          placeholder="Pilih tanggal selesai"
+                        <Input
+                          type="time"
+                          placeholder="09:00"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="endTime"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Waktu Selesai</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="time"
+                          placeholder="17:00"
+                          {...field}
                         />
                       </FormControl>
                       <FormMessage />

@@ -33,7 +33,7 @@ export default async function EventPage() {
         <CardContent className="px-3 sm:px-6">
           <DataTable 
             columns={columns} 
-            data={events}
+            data={events as any}
             hideToolbar={false}
           />
         </CardContent>
