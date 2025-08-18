@@ -24,7 +24,6 @@ export type Umkm = {
   name: string
   ownerName: string | null
   description: string | null
-  productType: string | null
   address: string | null
   phone: string | null
   email: string | null
@@ -64,25 +63,7 @@ export const columns: ColumnDef<Umkm>[] = [
     enableHiding: true,
     size: 250,
   },
-  {
-    accessorKey: "productType",
-    header: "Jenis Produk",
-    cell: ({ row }) => {
-      const productType = row.getValue("productType") as string | null
-      return (
-        <div className="min-w-[120px]">
-          {productType ? (
-            <Badge variant="outline">{productType}</Badge>
-          ) : (
-            <span className="text-muted-foreground text-sm">-</span>
-          )}
-        </div>
-      )
-    },
-    enableSorting: true,
-    enableHiding: true,
-    size: 150,
-  },
+
   {
     accessorKey: "address",
     header: "Alamat",

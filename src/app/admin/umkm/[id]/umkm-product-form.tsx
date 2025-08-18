@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
+import { MediaManager } from '@/components/ui/custom/media-manager/media-manager';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 
@@ -90,11 +91,12 @@ export function UmkmProductForm({ product, umkmId, createProduct, updateProduct 
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{product ? 'Edit Produk UMKM' : 'Tambah Produk Baru'}</CardTitle>
-      </CardHeader>
-      <CardContent>
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>{product ? 'Edit Produk UMKM' : 'Tambah Produk Baru'}</CardTitle>
+        </CardHeader>
+        <CardContent>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
@@ -176,5 +178,26 @@ export function UmkmProductForm({ product, umkmId, createProduct, updateProduct 
         </form>
       </CardContent>
     </Card>
+
+    {/* Media Manager for Product */}
+    {product && (
+      <Card className="mt-6">
+        <CardHeader>
+          <CardTitle>Media & Foto Produk</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <MediaManager
+            entityType="umkm_product"
+            entityId={product.id}
+            title="Media untuk Produk"
+            description="Kelola gambar dan media untuk produk ini"
+            maxFiles={5}
+            acceptedFileTypes={['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']}
+            maxFileSize={5}
+          />
+        </CardContent>
+      </Card>
+    )}
+  </div>
   );
 } 

@@ -13,6 +13,7 @@ interface ImagePreviewCarouselProps {
   showThumbnails?: boolean;
   showProgressBar?: boolean;
   thumbnailSize?: 'sm' | 'md' | 'lg';
+  showSmallImages?: boolean;
 }
 
 export function ImagePreviewCarousel({
@@ -23,7 +24,8 @@ export function ImagePreviewCarousel({
   showControls = true,
   showThumbnails = true,
   showProgressBar = false,
-  thumbnailSize = 'md'
+  thumbnailSize = 'md',
+  showSmallImages = true
 }: ImagePreviewCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
@@ -130,7 +132,7 @@ export function ImagePreviewCarousel({
       </div>
 
       {/* Thumbnails */}
-      {showThumbnails && images.length > 1 && (
+      {showThumbnails && showSmallImages && images.length > 1 && (
         <div className="flex gap-2 overflow-x-auto pb-2">
           {images.map((image, index) => (
             <button

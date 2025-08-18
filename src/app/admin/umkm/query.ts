@@ -31,6 +31,11 @@ export async function getUmkmById(id: number) {
           orderBy: {
             createdAt: 'desc'
           }
+        },
+        _count: {
+          select: {
+            products: true
+          }
         }
       }
     });

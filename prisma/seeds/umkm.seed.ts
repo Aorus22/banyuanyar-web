@@ -8,7 +8,6 @@ export async function seedUmkm(prisma: PrismaClient) {
       name: "Kopi Banyuanyar",
       ownerName: "Pak Ahmad",
       description: "Produksi kopi berkualitas tinggi dari perkebunan lokal",
-      productType: "Minuman",
       address: "Dusun I, Desa Banyuanyar",
       phone: "081234567895",
       email: "kopi@banyuanyar.com",
@@ -23,7 +22,6 @@ export async function seedUmkm(prisma: PrismaClient) {
       name: "Susu Segar Banyuanyar",
       ownerName: "Bu Sari",
       description: "Susu segar dari sapi perah lokal",
-      productType: "Minuman",
       address: "Dusun II, Desa Banyuanyar",
       phone: "081234567896",
       socialMedia: {
@@ -36,7 +34,6 @@ export async function seedUmkm(prisma: PrismaClient) {
       name: "Kerajinan Bambu Banyuanyar",
       ownerName: "Pak Joko",
       description: "Kerajinan tangan dari bambu berkualitas tinggi",
-      productType: "Kerajinan",
       address: "Dusun III, Desa Banyuanyar",
       phone: "081234567897",
       email: "kerajinan@banyuanyar.com",

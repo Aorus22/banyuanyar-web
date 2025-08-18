@@ -165,7 +165,6 @@ model Umkm {
   name        String
   ownerName   String?
   description String?  @db.Text
-  productType String?
   address     String?  @db.Text
   phone       String?
   email       String?

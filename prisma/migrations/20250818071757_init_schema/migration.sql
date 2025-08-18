@@ -167,7 +167,6 @@ CREATE TABLE "public"."Umkm" (
     "name" TEXT NOT NULL,
     "ownerName" TEXT,
     "description" TEXT,
-    "productType" TEXT,
     "address" TEXT,
     "phone" TEXT,
     "email" TEXT,
