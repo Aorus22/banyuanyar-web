@@ -14,7 +14,6 @@ const {
   seedTourismHouse,
   seedGallery,
   seedUmkm,
-  seedUmkmProduct,
   seedDocument
 } = require('./seeds');
 
@@ -57,7 +56,6 @@ async function main() {
     await seedTourismHouse(prisma);
     await seedGallery(prisma);
     await seedUmkm(prisma);
-    await seedUmkmProduct(prisma);
 
     console.log('🎉 Database seeding completed successfully!');
   } catch (error) {

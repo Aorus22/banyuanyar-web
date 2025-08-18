@@ -185,8 +185,8 @@ model UmkmProduct {
   id          Int      @id @default(autoincrement())
   name        String
   description String?  @db.Text
-  price       Decimal  @db.Decimal(10, 2)
-  unit        String   // satuan: kg, pcs, pack, dll
+  price       Decimal?  @db.Decimal(10, 2)
+  unit        String?   // satuan: kg, pcs, pack, dll
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

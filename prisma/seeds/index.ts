@@ -9,5 +9,4 @@ export { seedTourismPackage } from './tourism-package.seed';
 export { seedTourismHouse } from './tourism-house.seed';
 export { seedGallery } from './gallery.seed';
 export { seedUmkm } from './umkm.seed';
-export { seedUmkmProduct } from './umkm-product.seed';
 export { seedDocument } from './document.seed'; 
