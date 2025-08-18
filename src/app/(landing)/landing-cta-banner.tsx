@@ -8,15 +8,15 @@ export function LandingCTABanner() {
     <div className='w-full py-12 xs:py-20 px-6'>
       <div className='w-full max-w-screen-xl mx-auto space-y-12'>
         {/* Main CTA */}
-        <div className='bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-8 md:p-12 text-center text-white'>
-          <h2 className='text-3xl xs:text-4xl sm:text-5xl font-bold tracking-tight mb-4'>
+        <div className='bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-8 md:p-12 text-center text-white' data-aos="zoom-in">
+          <h2 className='text-3xl xs:text-4xl sm:text-5xl font-bold tracking-tight mb-4' data-aos="fade-down" data-aos-delay="200">
             Siap Jelajahi Desa Banyuanyar?
           </h2>
-          <p className='text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-90'>
+          <p className='text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-90' data-aos="fade-up" data-aos-delay="400">
             Temukan keindahan alam, budaya, dan keramahan masyarakat Desa Banyuanyar. 
             Mulai petualangan Anda hari ini!
           </p>
-          <div className='flex flex-col sm:flex-row items-center justify-center gap-4'>
+          <div className='flex flex-col sm:flex-row items-center justify-center gap-4' data-aos="fade-up" data-aos-delay="600">
             <Button
               size='lg'
               variant='secondary'
@@ -38,7 +38,7 @@ export function LandingCTABanner() {
               </Link>
             </Button>
           </div>
-          <p className='text-sm opacity-75 mt-4'>
+          <p className='text-sm opacity-75 mt-4' data-aos="fade-up" data-aos-delay="800">
             Gratis • Mudah Diakses • Informasi Terkini
           </p>
         </div>
@@ -46,7 +46,7 @@ export function LandingCTABanner() {
         {/* Quick Access Grid */}
         <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-6'>
           <Link href="/umkm">
-            <div className='bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-6 text-white text-center hover:scale-105 transition-transform cursor-pointer'>
+            <div className='bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-6 text-white text-center hover:scale-105 transition-transform cursor-pointer' data-aos="fade-up" data-aos-delay="100">
               <div className='h-12 w-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4'>
                 <Store className='h-6 w-6' />
               </div>
@@ -56,7 +56,7 @@ export function LandingCTABanner() {
           </Link>
 
           <Link href="/informasi/berita">
-            <div className='bg-gradient-to-br from-green-500 to-green-600 rounded-xl p-6 text-white text-center hover:scale-105 transition-transform cursor-pointer'>
+            <div className='bg-gradient-to-br from-green-500 to-green-600 rounded-xl p-6 text-white text-center hover:scale-105 transition-transform cursor-pointer' data-aos="fade-up" data-aos-delay="200">
               <div className='h-12 w-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4'>
                 <FileText className='h-6 w-6' />
               </div>
@@ -66,7 +66,7 @@ export function LandingCTABanner() {
           </Link>
 
           <Link href="/profil-desa/sejarah">
-            <div className='bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl p-6 text-white text-center hover:scale-105 transition-transform cursor-pointer'>
+            <div className='bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl p-6 text-white text-center hover:scale-105 transition-transform cursor-pointer' data-aos="fade-up" data-aos-delay="300">
               <div className='h-12 w-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4'>
                 <Users className='h-6 w-6' />
               </div>
@@ -76,7 +76,7 @@ export function LandingCTABanner() {
           </Link>
 
           <Link href="/pemerintah/struktur-organisasi">
-            <div className='bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl p-6 text-white text-center hover:scale-105 transition-transform cursor-pointer'>
+            <div className='bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl p-6 text-white text-center hover:scale-105 transition-transform cursor-pointer' data-aos="fade-up" data-aos-delay="400">
               <div className='h-12 w-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4'>
                 <Building className='h-6 w-6' />
               </div>
@@ -88,7 +88,7 @@ export function LandingCTABanner() {
 
         {/* Contact & Info Section */}
         <div className='grid md:grid-cols-3 gap-6'>
-          <div className='bg-gradient-to-r from-teal-500 to-teal-600 rounded-xl p-6 text-white text-center'>
+          <div className='bg-gradient-to-r from-teal-500 to-teal-600 rounded-xl p-6 text-white text-center' data-aos="fade-right">
             <div className='h-12 w-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4'>
               <Phone className='h-6 w-6' />
             </div>
@@ -101,7 +101,7 @@ export function LandingCTABanner() {
             </Link>
           </div>
 
-          <div className='bg-gradient-to-r from-pink-500 to-pink-600 rounded-xl p-6 text-white text-center'>
+          <div className='bg-gradient-to-r from-pink-500 to-pink-600 rounded-xl p-6 text-white text-center' data-aos="fade-up">
             <div className='h-12 w-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4'>
               <MapPin className='h-6 w-6' />
             </div>
@@ -114,7 +114,7 @@ export function LandingCTABanner() {
             </Link>
           </div>
 
-          <div className='bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-xl p-6 text-white text-center'>
+          <div className='bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-xl p-6 text-white text-center' data-aos="fade-left">
             <div className='h-12 w-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4'>
               <Clock className='h-6 w-6' />
             </div>
@@ -130,4 +130,4 @@ export function LandingCTABanner() {
       </div>
     </div>
   );
-} 
+}

@@ -108,19 +108,21 @@ export function LandingPricing() {
       <div className='w-full max-w-screen-xl mx-auto'>
         {/* Tourism Packages */}
         <div className='text-center mb-16'>
-          <h2 className='text-3xl xs:text-4xl sm:text-5xl font-bold tracking-tight'>
+          <h2 className='text-3xl xs:text-4xl sm:text-5xl font-bold tracking-tight' data-aos="fade-down">
             Paket Wisata Desa Banyuanyar
           </h2>
-          <p className='mt-4 text-lg text-muted-foreground max-w-3xl mx-auto'>
+          <p className='mt-4 text-lg text-muted-foreground max-w-3xl mx-auto' data-aos="fade-up" data-aos-delay="200">
             Pilih paket wisata yang sesuai dengan kebutuhan Anda. Setiap paket dirancang untuk memberikan pengalaman terbaik di Desa Banyuanyar.
           </p>
         </div>
 
         <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20'>
-          {tourismPackages.map((pkg) => (
+          {tourismPackages.map((pkg, index) => (
             <Card
               key={pkg.title}
               className={`relative ${pkg.popular ? 'border-primary shadow-lg scale-105' : ''} hover:shadow-xl transition-all duration-300`}
+              data-aos="fade-up"
+              data-aos-delay={100 * (index + 1)}
             >
               {pkg.popular && (
                 <Badge className='absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary'>
@@ -157,7 +159,7 @@ export function LandingPricing() {
 
         {/* CTA Section */}
         <div className='grid md:grid-cols-2 gap-8'>
-          <div className='bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-8 text-white text-center'>
+          <div className='bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-8 text-white text-center' data-aos="fade-right">
             <h3 className='text-2xl font-bold mb-4'>Ingin Memesan Paket?</h3>
             <p className='mb-6 opacity-90'>Hubungi kami melalui WhatsApp untuk informasi lebih lanjut dan pemesanan</p>
             <Link href="https://wa.me/your-number">
@@ -168,7 +170,7 @@ export function LandingPricing() {
             </Link>
           </div>
 
-          <div className='bg-gradient-to-r from-green-500 to-green-600 rounded-2xl p-8 text-white text-center'>
+          <div className='bg-gradient-to-r from-green-500 to-green-600 rounded-2xl p-8 text-white text-center' data-aos="fade-left">
             <h3 className='text-2xl font-bold mb-4'>Kunjungi Kami</h3>
             <p className='mb-6 opacity-90'>Desa Banyuanyar, Kecamatan Ampel, Kabupaten Boyolali</p>
             <Link href="/profil-desa/demografi-geografis">

@@ -105,20 +105,24 @@ const features = [
 export function LandingFeatures() {
   return (
     <div id='features' className='w-full py-12 xs:py-20 px-6'>
-      <h2 className='text-3xl xs:text-4xl sm:text-5xl font-bold tracking-tight text-center'>
+      <h2 className='text-3xl xs:text-4xl sm:text-5xl font-bold tracking-tight text-center' data-aos="fade-down">
         Jelajahi Desa Banyuanyar
       </h2>
-      <p className='mt-4 text-lg text-muted-foreground max-w-2xl mx-auto text-center'>
+      <p className='mt-4 text-lg text-muted-foreground max-w-2xl mx-auto text-center' data-aos="fade-up" data-aos-delay="200">
         Temukan berbagai informasi dan layanan yang tersedia di desa kami
       </p>
       <div className='w-full max-w-screen-xl mx-auto mt-10 sm:mt-16 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
-        {features.map((feature) => (
+        {features.map((feature, index) => (
           <Link
             key={feature.title}
             href={feature.link}
             className='group'
           >
-            <div className='flex flex-col bg-background border rounded-xl py-6 px-5 h-full transition-all duration-200 hover:shadow-lg hover:border-primary/50 group-hover:scale-[1.02]'>
+            <div 
+              className='flex flex-col bg-background border rounded-xl py-6 px-5 h-full transition-all duration-200 hover:shadow-lg hover:border-primary/50 group-hover:scale-[1.02]'
+              data-aos="fade-up"
+              data-aos-delay={100 * (index + 1)}
+            >
               <div className='mb-3 h-10 w-10 flex items-center justify-center bg-muted rounded-full group-hover:bg-primary/10 transition-colors'>
                 <feature.icon className='h-6 w-6 group-hover:text-primary transition-colors' />
               </div>

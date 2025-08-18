@@ -10,6 +10,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge as BadgeUI } from '@/components/ui/badge';
 import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 
+export const dynamic = 'force-dynamic';
+
 export default async function LandingHero() {
   // Fetch real data from database
   const [latestNews, upcomingEvents, villageOfficials, topUMKM, galleryPhotos] = await Promise.all([
@@ -92,7 +94,7 @@ export default async function LandingHero() {
   return (
     <div className='min-h-[calc(100vh-6rem)] flex flex-col items-center py-20 px-6'>
       {/* Hero Section with Background Image */}
-      <div className='relative w-full mb-16'>
+      <div className='relative w-full mb-16' data-aos="fade-up">
         <div className='relative overflow-hidden rounded-2xl min-h-[60vh]'>
           {/* Background Image */}
           <div 
@@ -108,17 +110,17 @@ export default async function LandingHero() {
           {/* Hero Content */}
           <div className='relative z-10 flex items-center justify-center min-h-[60vh] p-8'>
             <div className='text-center max-w-3xl'>
-              <Badge className='bg-primary rounded-full py-2 px-4 border-none text-sm mb-6'>
+              <Badge className='bg-primary rounded-full py-2 px-4 border-none text-sm mb-6' data-aos="fade-down" data-aos-delay="100">
                 Green Smart Village 🌱
               </Badge>
-              <h1 className='max-w-[25ch] text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-bold !leading-[1.2] tracking-tight text-white mb-6'>
+              <h1 className='max-w-[25ch] text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-bold !leading-[1.2] tracking-tight text-white mb-6' data-aos="fade-up" data-aos-delay="200">
                 Desa Banyuanyar
               </h1>
-              <p className='max-w-[70ch] xs:text-lg text-white/90 mb-8'>
+              <p className='max-w-[70ch] xs:text-lg text-white/90 mb-8' data-aos="fade-up" data-aos-delay="300">
                 Selamat datang di website resmi Green Smart Village Desa Banyuanyar Kecamatan Ampel Kabupaten Boyolali. 
                 Temukan keindahan alam, budaya, dan keramahan masyarakat desa kami yang kaya akan tradisi dan potensi wisata.
               </p>
-              <div className='flex flex-col sm:flex-row items-center sm:justify-center gap-4'>
+              <div className='flex flex-col sm:flex-row items-center sm:justify-center gap-4' data-aos="fade-up" data-aos-delay="400">
                 <Button
                   size='lg'
                   className='w-full sm:w-auto rounded-full text-base'
@@ -145,14 +147,14 @@ export default async function LandingHero() {
       </div>
       
       {/* Village Highlights */}
-      <div className='max-w-6xl mx-auto'>
+      <div className='max-w-6xl mx-auto' data-aos="fade-up">
         <div className='text-center mb-12'>
-          <h2 className='text-2xl font-semibold mb-4'>Keunggulan Desa Banyuanyar</h2>
-          <p className='text-muted-foreground'>Green Smart Village dengan berbagai potensi wisata dan UMKM</p>
+          <h2 className='text-2xl font-semibold mb-4' data-aos="fade-down" data-aos-delay="100">Keunggulan Desa Banyuanyar</h2>
+          <p className='text-muted-foreground' data-aos="fade-up" data-aos-delay="200">Green Smart Village dengan berbagai potensi wisata dan UMKM</p>
         </div>
         
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
-          <div className='text-center p-6 bg-primary border border-primary rounded-xl hover:shadow-lg transition-shadow hover:bg-primary/90'>
+          <div className='text-center p-6 bg-primary border border-primary rounded-xl hover:shadow-lg transition-shadow hover:bg-primary/90' data-aos="zoom-in" data-aos-delay="50">
             <div className='h-16 w-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4'>
               <Mountain className='h-8 w-8 text-primary' />
             </div>
@@ -160,7 +162,7 @@ export default async function LandingHero() {
             <p className='text-sm text-white/90'>Pemandangan sawah hijau dan udara pegunungan yang sejuk</p>
           </div>
           
-          <div className='text-center p-6 bg-primary border border-primary rounded-xl hover:shadow-lg transition-shadow hover:bg-primary/90'>
+          <div className='text-center p-6 bg-primary border border-primary rounded-xl hover:shadow-lg transition-shadow hover:bg-primary/90' data-aos="zoom-in" data-aos-delay="100">
             <div className='h-16 w-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4'>
               <Coffee className='h-8 w-8 text-primary' />
             </div>
@@ -168,7 +170,7 @@ export default async function LandingHero() {
             <p className='text-sm text-white/90'>Nikmati kopi berkualitas dari kebun kopi lokal</p>
           </div>
           
-          <div className='text-center p-6 bg-primary border border-primary rounded-xl hover:shadow-lg transition-shadow hover:bg-primary/90'>
+          <div className='text-center p-6 bg-primary border border-primary rounded-xl hover:shadow-lg transition-shadow hover:bg-primary/90' data-aos="zoom-in" data-aos-delay="150">
             <div className='h-16 w-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4'>
               <Users className='h-8 w-8 text-primary' />
             </div>
@@ -176,8 +178,8 @@ export default async function LandingHero() {
             <p className='text-sm text-white/90'>Kesenian tradisional dan ritual adat yang unik</p>
           </div>
           
-          <div className='text-center p-6 bg-primary border border-primary rounded-xl hover:shadow-lg transition-shadow hover:bg-primary/90'>
-            <div className='h-16 w-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4'>
+          <div className='text-center p-6 bg-primary border border-primary rounded-xl hover:shadow-lg transition-shadow hover:bg-primary/90' data-aos="zoom-in" data-aos-delay="200">
+            <div className='h-16 w-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 Davenport, IA'>
               <Camera className='h-8 w-8 text-primary' />
             </div>
             <h3 className='font-semibold mb-2 text-white'>Spot Foto</h3>
@@ -187,24 +189,24 @@ export default async function LandingHero() {
       </div>
       
       {/* Village Stats Section */}
-      <div className='mt-20 max-w-4xl mx-auto'>
+      <div className='mt-20 max-w-4xl mx-auto' data-aos="fade-up">
         <div className='text-center mb-8'>
-          <p className='text-sm text-muted-foreground'>Desa Banyuanyar dalam Angka</p>
+          <p className='text-sm text-muted-foreground' data-aos="fade-down" data-aos-delay="100">Desa Banyuanyar dalam Angka</p>
         </div>
         <div className='grid grid-cols-1 md:grid-cols-4 gap-8'>
-          <div className='text-center'>
+          <div className='text-center' data-aos="fade-up" data-aos-delay="50">
             <div className='text-3xl font-bold text-primary mb-2'>500+</div>
             <div className='text-sm text-muted-foreground'>Penduduk</div>
           </div>
-          <div className='text-center'>
+          <div className='text-center' data-aos="fade-up" data-aos-delay="100">
             <div className='text-3xl font-bold text-primary mb-2'>10+</div>
             <div className='text-sm text-muted-foreground'>UMKM</div>
           </div>
-          <div className='text-center'>
+          <div className='text-center' data-aos="fade-up" data-aos-delay="150">
             <div className='text-3xl font-bold text-primary mb-2'>8+</div>
             <div className='text-sm text-muted-foreground'>Paket Wisata</div>
           </div>
-          <div className='text-center'>
+          <div className='text-center' data-aos="fade-up" data-aos-delay="200">
             <div className='text-3xl font-bold text-primary mb-2'>7</div>
             <div className='text-sm text-muted-foreground'>Omah Wisata</div>
           </div>
@@ -212,14 +214,14 @@ export default async function LandingHero() {
       </div>
 
       {/* Natural Beauty Section */}
-      <div className='mt-20 max-w-6xl mx-auto'>
+      <div className='mt-20 max-w-6xl mx-auto' data-aos="fade-up">
         <div className='text-center mb-12'>
-          <h2 className='text-2xl font-semibold mb-4'>Keindahan Alam Desa Banyuanyar</h2>
-          <p className='text-muted-foreground'>Nikmati pemandangan alam yang memukau sepanjang hari</p>
+          <h2 className='text-2xl font-semibold mb-4' data-aos="fade-down" data-aos-delay="100">Keindahan Alam Desa Banyuanyar</h2>
+          <p className='text-muted-foreground' data-aos="fade-up" data-aos-delay="200">Nikmati pemandangan alam yang memukau sepanjang hari</p>
         </div>
         
         <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
-          <div className='text-center p-6 bg-gradient-to-br from-yellow-100 to-orange-100 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-xl border border-yellow-200 dark:border-yellow-800'>
+          <div className='text-center p-6 bg-gradient-to-br from-yellow- decimal-to-orange-100 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-xl border border-yellow-200 dark:border-yellow-800' data-aos="flip-left" data-aos-delay="50">
             <div className='h-16 w-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-4'>
               <Sun className='h-8 w-8 text-yellow-600' />
             </div>
@@ -227,7 +229,7 @@ export default async function LandingHero() {
             <p className='text-sm text-yellow-700 dark:text-yellow-300'>Matahari terbit di balik pegunungan dengan kabut tipis yang menutupi sawah hijau</p>
           </div>
           
-          <div className='text-center p-6 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl border border-green-200 dark:border-green-800'>
+          <div className='text-center p-6 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl border border-green-200 dark:border-green-800' data-aos="flip-left" data-aos-delay="100">
             <div className='h-16 w-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4'>
               <Trees className='h-8 w-8 text-green-600' />
             </div>
@@ -235,7 +237,7 @@ export default async function LandingHero() {
             <p className='text-sm text-green-700 dark:text-green-300'>Sawah hijau yang luas dengan aktivitas petani yang sibuk mengurus tanaman</p>
           </div>
           
-          <div className='text-center p-6 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-blue-200 dark:border-blue-800'>
+          <div className='text-center p-6 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-blue-200 dark:border-blue-800' data-aos="flip-left" data-aos-delay="150">
             <div className='h-16 w-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4'>
               <Moon className='h-8 w-8 text-blue-600' />
             </div>
@@ -246,7 +248,7 @@ export default async function LandingHero() {
       </div>
 
       {/* Large Village Image Section */}
-      <div className='mt-20 w-full'>
+      <div className='mt-20 w-full' data-aos="zoom-in">
         <div className='relative h-[75vh] w-full overflow-hidden rounded-2xl'>
           {/* Background Image with Overlay */}
           <div 
@@ -261,16 +263,16 @@ export default async function LandingHero() {
             {/* Content Overlay */}
             <div className='absolute inset-0 flex items-center justify-center'>
               <div className='text-center text-white max-w-4xl px-6'>
-                <h2 className='text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight'>
+                <h2 className='text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight' data-aos="fade-down" data-aos-delay="100">
                   Keindahan Alam
                   <br />
                   <span className='text-yellow-300'>Desa Banyuanyar</span>
                 </h2>
-                <p className='text-lg md:text-xl mb-8 opacity-90 max-w-2xl mx-auto'>
+                <p className='text-lg md:text-xl mb-8 opacity-90 max-w-2xl mx-auto' data-aos="fade-up" data-aos-delay="200">
                   Nikmati pemandangan sawah hijau yang membentang luas, udara pegunungan yang sejuk, 
                   dan keramahan masyarakat yang hangat
                 </p>
-                <div className='flex flex-col sm:flex-row items-center justify-center gap-4'>
+                <div className='flex flex-col sm:flex-row items-center justify-center gap-4' data-aos="fade-up" data-aos-delay="300">
                   <Link href="/informasi/galeri">
                     <div className='bg-white text-gray-900 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors cursor-pointer'>
                       <Camera className='inline-block w-5 h-5 mr-2' />
@@ -323,14 +325,14 @@ export default async function LandingHero() {
       <div className='mt-20 w-full max-w-7xl mx-auto px-6 space-y-20'>
         
         {/* Latest News Section */}
-        <div className='text-center'>
-          <h2 className='text-3xl font-bold mb-4'>Berita Terbaru Desa</h2>
-          <p className='text-muted-foreground mb-8'>Informasi terkini seputar kegiatan dan perkembangan desa</p>
+        <div className='text-center' data-aos="fade-up">
+          <h2 className='text-3xl font-bold mb-4' data-aos="fade-down" data-aos-delay="100">Berita Terbaru Desa</h2>
+          <p className='text-muted-foreground mb-8' data-aos="fade-up" data-aos-delay="200">Informasi terkini seputar kegiatan dan perkembangan desa</p>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-            {latestNews.length > 0 ? latestNews.map((news) => {
+            {latestNews.length > 0 ? latestNews.map((news, index) => {
               const newsImage = newsMediaMap.get(news.id);
               return (
-                <Card key={news.id} className='hover:shadow-lg transition-shadow pt-0 overflow-hidden'>
+                <Card key={news.id} className='hover:shadow-lg transition-shadow pt-0 overflow-hidden' data-aos="fade-up" data-aos-delay={50 * (index + 1)}>
                   <div className='aspect-video overflow-hidden'>
                     {newsImage ? (
                       <ImageWithFallback
@@ -382,12 +384,12 @@ export default async function LandingHero() {
         </div>
 
         {/* Upcoming Events Section */}
-        <div className='text-center'>
-          <h2 className='text-3xl font-bold mb-4'>Agenda Kegiatan Mendatang</h2>
-          <p className='text-muted-foreground mb-8'>Jadwal kegiatan yang akan diselenggarakan di desa</p>
+        <div className='text-center' data-aos="fade-up">
+          <h2 className='text-3xl font-bold mb-4' data-aos="fade-down" data-aos-delay="100">Agenda Kegiatan Mendatang</h2>
+          <p className='text-muted-foreground mb-8' data-aos="fade-up" data-aos-delay="200">Jadwal kegiatan yang akan diselenggarakan mengalami desa</p>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-            {upcomingEvents.length > 0 ? upcomingEvents.map((event) => (
-              <Card key={event.id} className='hover:shadow-lg transition-shadow'>
+            {upcomingEvents.length > 0 ? upcomingEvents.map((event, index) => (
+              <Card key={event.id} className='hover:shadow-lg transition-shadow' data-aos="fade-up" data-aos-delay={50 * (index + 1)}>
                 <CardHeader>
                   <div className='flex items-center gap-2 mb-3'>
                     <Calendar className='h-4 w-4 text-green-500' />
@@ -419,13 +421,13 @@ export default async function LandingHero() {
         </div>
 
         {/* Village Officials Section */}
-        <div className='text-center'>
-          <h2 className='text-3xl font-bold mb-4'>Perangkat Desa</h2>
-          <p className='text-muted-foreground mb-8'>Kenali para pemimpin dan pengelola pemerintahan desa</p>
+        <div className='text-center' data-aos="fade-up">
+          <h2 className='text-3xl font-bold mb-4' data-aos="fade-down" data-aos-delay="100">Perangkat Desa</h2>
+          <p className='text-muted-foreground mb-8' data-aos="fade-up" data-aos-delay="200">Kenali para pemimpin dan pengelola pemerintahan desa</p>
           <div className='bg-primary rounded-2xl p-8'>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-              {villageOfficials.length > 0 ? villageOfficials.map((official) => (
-                <Card key={official.id} className='hover:shadow-lg transition-shadow text-center bg-white'>
+              {villageOfficials.length > 0 ? villageOfficials.map((official, index) => (
+                <Card key={official.id} className='hover:shadow-lg transition-shadow text-center bg-white' data-aos="zoom-in" data-aos-delay={50 * (index + 1)}>
                   <div className='p-6'>
                     <div className='h-32 w-32 bg-gradient-to-br from-primary/20 to-primary/30 rounded-full flex items-center justify-center mx-auto mb-4'>
                       {official.photoUrl ? (
@@ -463,14 +465,14 @@ export default async function LandingHero() {
         </div>
 
         {/* UMKM Showcase Section */}
-        <div className='text-center'>
-          <h2 className='text-3xl font-bold mb-4'>UMKM Unggulan Desa</h2>
-          <p className='text-muted-foreground mb-8'>Produk dan jasa berkualitas dari pelaku UMKM lokal</p>
+        <div className='text-center' data-aos="fade-up">
+          <h2 className='text-3xl font-bold mb-4' data-aos="fade-down" data-aos-delay="100">UMKM Unggulan Desa</h2>
+          <p className='text-muted-foreground mb-8' data-aos="fade-up" data-aos-delay="200">Produk dan jasa berkualitas dari pelaku UMKM lokal</p>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-            {topUMKM.length > 0 ? topUMKM.map((umkm) => {
+            {topUMKM.length > 0 ? topUMKM.map((umkm, index) => {
               const umkmImage = umkmMediaMap.get(umkm.id);
               return (
-                <Card key={umkm.id} className='hover:shadow-lg transition-shadow pt-0 overflow-hidden'>
+                <Card key={umkm.id} className='hover:shadow-lg transition-shadow pt-0 overflow-hidden' data-aos="fade-up" data-aos-delay={50 * (index + 1)}>
                   <div className='aspect-video overflow-hidden'>
                     {umkmImage ? (
                       <ImageWithFallback
@@ -516,12 +518,12 @@ export default async function LandingHero() {
         </div>
 
         {/* Photo Gallery Preview Section */}
-        <div className='text-center'>
-          <h2 className='text-3xl font-bold mb-4'>Galeri Foto Desa</h2>
-          <p className='text-muted-foreground mb-8'>Kumpulan foto keindahan dan aktivitas desa</p>
+        <div className='text-center' data-aos="fade-up">
+          <h2 className='text-3xl font-bold mb-4' data-aos="fade-down" data-aos-delay="100">Galeri Foto Desa</h2>
+          <p className='text-muted-foreground mb-8' data-aos="fade-up" data-aos-delay="200">Kumpulan foto keindahan dan aktivitas desa</p>
           <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
-            {galleryPhotos.length > 0 ? galleryPhotos.map((photo) => (
-              <div key={photo.id} className='aspect-square overflow-hidden rounded-lg hover:scale-105 transition-transform duration-300'>
+            {galleryPhotos.length > 0 ? galleryPhotos.map((photo, index) => (
+              <div key={photo.id} className='aspect-square overflow-hidden rounded-lg hover:scale-105 transition-transform duration-300' data-aos="zoom-in" data-aos-delay={50 * (index + 1)}>
                 <ImageWithFallback
                   src={photo.fileUrl}
                   alt='Galeri Desa'
@@ -533,7 +535,7 @@ export default async function LandingHero() {
               </div>
             )) : (
               [...Array(4)].map((_, i) => (
-                <div key={i} className='aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg flex items-center justify-center'>
+                <div key={i} className='aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg flex items-center justify-center' data-aos="zoom-in" data-aos-delay={50 * (i + 1)}>
                   <Camera className='h-8 w-8 text-gray-400' />
                 </div>
               ))
@@ -548,4 +550,4 @@ export default async function LandingHero() {
       </div>
     </div>
   );
-} 
+}
