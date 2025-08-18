@@ -23,12 +23,9 @@ export default async function LandingHero() {
       take: 3
     }),
     
-    // Upcoming events (3 items)
+    // Latest events (3 items)
     prisma.event.findMany({
-      where: {
-        startDate: { gte: new Date() }
-      },
-      orderBy: { startDate: 'asc' },
+      orderBy: { date: 'desc' },
       take: 3
     }),
     
@@ -91,6 +88,23 @@ export default async function LandingHero() {
     }
   });
 
+  // Get media for events
+  const eventIds = upcomingEvents.map(item => item.id);
+  const eventMedia = await prisma.media.findMany({
+    where: {
+      entityType: 'event',
+      entityId: { in: eventIds },
+      mimeType: { startsWith: 'image/' }
+    },
+    orderBy: { createdAt: 'desc' }
+  });
+  const eventMediaMap = new Map();
+  eventMedia.forEach(media => {
+    if (!eventMediaMap.has(media.entityId)) {
+      eventMediaMap.set(media.entityId, media);
+    }
+  });
+
   return (
     <div className='min-h-[calc(100vh-6rem)] flex flex-col items-center py-20 px-6'>
       {/* Hero Section with Background Image */}
@@ -131,9 +145,8 @@ export default async function LandingHero() {
                   </Link>
                 </Button>
                 <Button
-                  variant='outline'
                   size='lg'
-                  className='w-full sm:w-auto rounded-full text-base shadow-none border-white text-white hover:bg-white hover:text-gray-900'
+                  className='w-full sm:w-auto rounded-full text-base bg-white/20 backdrop-blur-md text-white hover:bg-white/30 border border-white/30 hover:border-white/50 transition-all duration-300'
                   asChild
                 >
                   <Link href="/profil-desa/visi-misi">
@@ -291,7 +304,7 @@ export default async function LandingHero() {
           </div>
           
           {/* Fallback if image doesn't exist */}
-          <div className='absolute inset-0 bg-gradient-to-br from-green-600 via-green-500 to-emerald-600 flex items-center justify-center'>
+          <div className='absolute inset-0 bg-gradient-to-br from-primary via-primary/80 to-primary/60 flex items-center justify-center'>
             <div className='text-center text-white max-w-4xl px-6'>
               <h2 className='text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight'>
                 Keindahan Alam
@@ -363,7 +376,14 @@ export default async function LandingHero() {
                     <CardTitle className='text-lg leading-tight line-clamp-2'>{news.title}</CardTitle>
                   </CardHeader>
                   <CardContent className='pt-0'>
-                    <p className='text-sm text-muted-foreground line-clamp-3 mb-4'>{news.content}</p>
+                    <p className='text-sm text-muted-foreground line-clamp-3 mb-4'>
+                      {news.content
+                        .replace(/<[^>]*>/g, '') // Remove HTML tags
+                        .replace(/&[^;]+;/g, ' ') // Replace ALL HTML entities with space
+                        .replace(/\s+/g, ' ') // Replace multiple spaces with single space
+                        .trim()
+                        .substring(0, 120)}...
+                    </p>
                     <Link href={`/informasi/berita/${news.slug}`} className='text-primary hover:underline text-sm'>
                       Baca Selengkapnya →
                     </Link>
@@ -377,44 +397,66 @@ export default async function LandingHero() {
             )}
           </div>
           <div className='mt-8'>
-            <Link href="/informasi/berita" className='inline-flex items-center gap-2 text-primary hover:underline'>
+            <Link href="/informasi/berita" className='inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors'>
               Lihat Semua Berita <ArrowUpRight className='h-4 w-4' />
             </Link>
           </div>
         </div>
 
-        {/* Upcoming Events Section */}
+        {/* Latest Events Section */}
         <div className='text-center' data-aos="fade-up">
-          <h2 className='text-3xl font-bold mb-4' data-aos="fade-down" data-aos-delay="100">Agenda Kegiatan Mendatang</h2>
-          <p className='text-muted-foreground mb-8' data-aos="fade-up" data-aos-delay="200">Jadwal kegiatan yang akan diselenggarakan mengalami desa</p>
+          <h2 className='text-3xl font-bold mb-4' data-aos="fade-down" data-aos-delay="100">Agenda Kegiatan Terbaru</h2>
+          <p className='text-muted-foreground mb-8' data-aos="fade-up" data-aos-delay="200">Kegiatan terbaru yang telah dan akan diselenggarakan di desa</p>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-            {upcomingEvents.length > 0 ? upcomingEvents.map((event, index) => (
-              <Card key={event.id} className='hover:shadow-lg transition-shadow' data-aos="fade-up" data-aos-delay={50 * (index + 1)}>
-                <CardHeader>
-                  <div className='flex items-center gap-2 mb-3'>
-                    <Calendar className='h-4 w-4 text-green-500' />
-                    <span className='text-sm text-muted-foreground'>
-                      {format(event.startDate, 'dd MMM yyyy', { locale: idLocale })}
-                    </span>
+            {upcomingEvents.length > 0 ? upcomingEvents.map((event, index) => {
+              const eventImage = eventMediaMap.get(event.id);
+              return (
+                <Card key={event.id} className='hover:shadow-lg transition-shadow pt-0 overflow-hidden' data-aos="fade-up" data-aos-delay={50 * (index + 1)}>
+                  {/* Event Image */}
+                  <div className='aspect-video overflow-hidden'>
+                    {eventImage ? (
+                      <ImageWithFallback
+                        src={eventImage.fileUrl}
+                        alt={event.title}
+                        width={400}
+                        height={225}
+                        className='w-full h-full object-cover hover:scale-105 transition-transform duration-300'
+                        fallbackClassName='w-full h-full'
+                      />
+                    ) : (
+                      <div className='w-full h-full bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center'>
+                        <Calendar className='w-12 h-12 text-green-400' />
+                      </div>
+                    )}
                   </div>
-                  <CardTitle className='text-lg leading-tight'>{event.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className='text-sm text-muted-foreground line-clamp-3 mb-4'>{event.description}</p>
-                  <div className='flex items-center gap-2 text-sm text-muted-foreground'>
-                    <MapPin className='h-4 w-4' />
-                    <span>{event.location || 'Lokasi belum ditentukan'}</span>
-                  </div>
-                </CardContent>
-              </Card>
-            )) : (
+                  
+                  <CardHeader className='flex-1'>
+                    <div className='flex items-center gap-2 mb-3'>
+                      <Calendar className='h-4 w-4 text-green-500' />
+                      <span className='text-sm text-muted-foreground'>
+                        {format(event.date, 'dd MMM yyyy', { locale: idLocale })}
+                      </span>
+                    </div>
+                    <CardTitle className='text-lg leading-tight'>{event.title}</CardTitle>
+                  </CardHeader>
+                  
+                  <CardContent className='pt-0'>
+                    <p className='text-sm text-muted-foreground line-clamp-3 mb-4'>{event.description}</p>
+                    <div className='flex items-center gap-2 text-sm text-muted-foreground'>
+                      <MapPin className='h-4 w-4' />
+                      <span>{event.location || 'Lokasi belum ditentukan'}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            }) : (
               <div className='col-span-full text-center text-muted-foreground py-12'>
-                Belum ada agenda kegiatan mendatang
+                Belum ada agenda kegiatan yang tersedia
               </div>
             )}
           </div>
           <div className='mt-8'>
-            <Link href="/informasi/agenda-kegiatan" className='inline-flex items-center gap-2 text-primary hover:underline'>
+            <Link href="/informasi/agenda-kegiatan" className='inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors'>
               Lihat Semua Agenda <ArrowUpRight className='h-4 w-4' />
             </Link>
           </div>
@@ -427,7 +469,7 @@ export default async function LandingHero() {
           <div className='bg-primary rounded-2xl p-8'>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
               {villageOfficials.length > 0 ? villageOfficials.map((official, index) => (
-                <Card key={official.id} className='hover:shadow-lg transition-shadow text-center bg-white' data-aos="zoom-in" data-aos-delay={50 * (index + 1)}>
+                <Card key={official.id} className='hover:shadow-lg transition-shadow text-center' data-aos="zoom-in" data-aos-delay={50 * (index + 1)}>
                   <div className='p-6'>
                     <div className='h-32 w-32 bg-gradient-to-br from-primary/20 to-primary/30 rounded-full flex items-center justify-center mx-auto mb-4'>
                       {official.photoUrl ? (
@@ -458,7 +500,7 @@ export default async function LandingHero() {
             </div>
           </div>
           <div className='mt-8'>
-            <Link href="/pemerintah/perangkat-desa" className='inline-flex items-center gap-2 text-primary hover:underline'>
+            <Link href="/pemerintah/perangkat-desa" className='inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors'>
               Lihat Semua Perangkat <ArrowUpRight className='h-4 w-4' />
             </Link>
           </div>
@@ -511,7 +553,7 @@ export default async function LandingHero() {
             )}
           </div>
           <div className='mt-8'>
-            <Link href="/umkm" className='inline-flex items-center gap-2 text-primary hover:underline'>
+            <Link href="/umkm" className='inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors'>
               Lihat Semua UMKM <ArrowUpRight className='h-4 w-4' />
             </Link>
           </div>
@@ -542,7 +584,7 @@ export default async function LandingHero() {
             )}
           </div>
           <div className='mt-6'>
-            <Link href="/informasi/galeri" className='inline-flex items-center gap-2 text-primary hover:underline'>
+            <Link href="/informasi/galeri" className='inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors'>
               Lihat Semua Foto <ArrowUpRight className='h-4 w-4' />
             </Link>
           </div>
