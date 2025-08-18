@@ -4,6 +4,7 @@ import { getNewsById, getNewsCategories } from '../../query';
 import { updateNews } from './server-action';
 import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
+import { MediaManager } from '@/components/ui/custom/media-manager/media-manager';
 
 interface EditNewsPageProps {
   params: Promise<{
@@ -31,6 +32,17 @@ export default async function EditNewsPage({ params }: EditNewsPageProps) {
       <Separator />
       
       <NewsForm news={news} updateNews={updateNews} categories={categories} />
+      
+      <Separator />
+      
+      {/* Media Manager Example */}
+      <MediaManager
+        entityType="news"
+        entityId={news.id}
+        title="Media untuk News"
+        description="Kelola gambar dan media untuk news ini"
+        maxFiles={5}
+      />
     </div>
   );
 } 

@@ -4,8 +4,9 @@ import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
 import { Badge } from '@/components/ui/badge';
 import { TiptapViewer } from '@/components/ui/custom/tiptap-viewer/tiptap-viewer';
+import { ImagePreviewCarousel } from '@/components/ui/custom';
 import { ImageWithFallback } from '@/components/ui/image-with-fallback';
-import { Eye, Calendar, User, Tag } from 'lucide-react';
+import { Eye, Calendar, User, Tag, Image as ImageIcon } from 'lucide-react';
 
 interface NewsPageProps {
   params: Promise<{
@@ -26,6 +27,17 @@ export default async function NewsPage({ params }: NewsPageProps) {
   if (!news) {
     notFound();
   }
+
+  // Get media for this specific news
+  const newsMedia = await prisma.media.findMany({
+    where: {
+      entityType: 'news',
+      entityId: news.id
+    },
+    orderBy: {
+      createdAt: 'desc'
+    }
+  });
 
   await prisma.news.update({
     where: { id: news.id },
@@ -72,8 +84,39 @@ export default async function NewsPage({ params }: NewsPageProps) {
           </div>
         </div>
 
-        {news.featuredImage && (
+        {/* Featured Image or Media Gallery */}
+        {newsMedia.length > 0 ? (
+          <div className="mb-6">            
+            {newsMedia.length === 1 ? (
+              // Single image - no carousel needed
+              <div className="mb-4">
+                <ImageWithFallback
+                  src={newsMedia[0].fileUrl}
+                  alt={newsMedia[0].fileName}
+                  width={800}
+                  height={400}
+                  className="w-full h-64 object-cover rounded-lg"
+                  fallbackClassName="w-full h-64 rounded-lg"
+                />
+              </div>
+            ) : (
+              // Multiple images - use carousel
+              <ImagePreviewCarousel 
+                images={newsMedia.map(media => media.fileUrl)}
+                autoPlay={true}
+                interval={5000}
+                thumbnailSize="md"
+              />
+            )}
+          </div>
+        ) : news.featuredImage ? (
           <div className="mb-6">
+            <div className="flex items-center gap-2 mb-3">
+              <ImageIcon className="h-5 w-5 text-muted-foreground" />
+              <span className="text-sm font-medium text-muted-foreground">
+                Featured Image
+              </span>
+            </div>
             <ImageWithFallback
               src={news.featuredImage}
               alt={news.title}
@@ -83,7 +126,7 @@ export default async function NewsPage({ params }: NewsPageProps) {
               fallbackClassName="w-full h-64 rounded-lg"
             />
           </div>
-        )}
+        ) : null}
       </div>
 
       {/* Content */}

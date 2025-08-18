@@ -13,6 +13,7 @@ import {
   MapSelector,
   MapLocation,
 } from "@/components/ui"
+import { ImagePreviewCarousel } from "@/components/ui/custom"
 import { MapPin, Calendar, Clock, List, Search, FileText, Globe } from "lucide-react"
 
 export default function ComponentsDemoPage() {
@@ -209,6 +210,48 @@ export default function ComponentsDemoPage() {
             </div>
           </CardContent>
         </Card>
+
+        {/* ImagePreviewCarousel */}
+        <Card className="md:col-span-2">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <FileText className="h-5 w-5" />
+              ImagePreviewCarousel
+            </CardTitle>
+            <CardDescription>
+              Komponen carousel untuk preview gambar dengan fitur auto-slide dan thumbnail navigation
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <ImagePreviewCarousel 
+              images={[
+                'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+                'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop',
+                'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&h=600&fit=crop',
+                'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop'
+              ]}
+              autoPlay={true}
+              interval={5000}
+              thumbnailSize="md"
+            />
+            <div className="text-sm text-muted-foreground">
+              Fitur: Auto-slide setiap 5 detik, thumbnail navigation, play/pause control
+            </div>
+            
+            {/* Demo dengan 1 gambar */}
+            <div className="mt-6">
+              <h4 className="text-sm font-medium mb-3">Demo dengan 1 gambar (tidak ada carousel):</h4>
+              <ImagePreviewCarousel 
+                images={[
+                  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop'
+                ]}
+                autoPlay={true}
+                interval={5000}
+                thumbnailSize="md"
+              />
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       <Separator />
@@ -229,6 +272,21 @@ export default function ComponentsDemoPage() {
             <p>Mendukung accessibility dengan ARIA attributes</p>
           </div>
         </div>
+      </div>
+
+      <Separator />
+
+      {/* Media Uploader Demo Link */}
+      <div className="text-center space-y-4">
+        <h2 className="text-2xl font-semibold">Media Uploader Demo</h2>
+        <p className="text-muted-foreground">
+          Lihat demo komponen media uploader universal untuk Cloudinary
+        </p>
+        <Button asChild>
+          <a href="/admin/components-demo/media-uploader-demo">
+            Lihat Media Uploader Demo
+          </a>
+        </Button>
       </div>
     </div>
   )

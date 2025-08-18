@@ -204,6 +204,7 @@ CREATE TABLE "public"."UmkmProduct" (
 -- CreateTable
 CREATE TABLE "public"."Media" (
     "id" SERIAL NOT NULL,
+    "description" TEXT,
     "fileName" TEXT NOT NULL,
     "fileSize" INTEGER NOT NULL,
     "fileUrl" TEXT NOT NULL,

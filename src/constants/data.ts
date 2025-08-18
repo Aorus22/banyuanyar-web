@@ -13,11 +13,56 @@ export type Product = {
 
 export const navItems: NavItem[] = [
   {
-    title: 'admin',
+    title: 'Dashboard',
     url: '/admin/dashboard',
     icon: 'dashboard',
     isActive: false,
     shortcut: ['d', 'd'],
+    items: []
+  },
+  {
+    title: 'Profil Desa',
+    url: '/admin/village-profile',
+    icon: 'home',
+    shortcut: ['p', 'd'],
+    isActive: false,
+    items: [
+      {
+        title: 'Sejarah',
+        url: '/admin/village-profile/history',
+        icon: 'page',
+        shortcut: ['p', 's'],
+        isActive: false,
+      },
+      {
+        title: 'Visi & Misi',
+        url: '/admin/village-profile/vision-mission',
+        icon: 'target',
+        shortcut: ['p', 'v'],
+        isActive: false,
+      },
+      {
+        title: 'Tujuan & Sasaran',
+        url: '/admin/village-profile/objectives',
+        icon: 'flag',
+        shortcut: ['p', 't'],
+        isActive: false,
+      },
+      {
+        title: 'Demografi & Geografis',
+        url: '/admin/village-profile/demographics',
+        icon: 'map',
+        shortcut: ['p', 'd'],
+        isActive: false,
+      }
+    ]
+  },
+  {
+    title: 'Perangkat Desa',
+    url: '/admin/government-officials',
+    icon: 'users',
+    shortcut: ['p', 'd'],
+    isActive: false,
     items: []
   },
   {
@@ -105,51 +150,6 @@ export const navItems: NavItem[] = [
     shortcut: ['g', 'g'],
     isActive: false,
     items: []
-  },
-  {
-    title: 'Perangkat Desa',
-    url: '/admin/government-officials',
-    icon: 'users',
-    shortcut: ['p', 'd'],
-    isActive: false,
-    items: []
-  },
-  {
-    title: 'Profil Desa',
-    url: '/admin/village-profile',
-    icon: 'home',
-    shortcut: ['p', 'd'],
-    isActive: false,
-    items: [
-      {
-        title: 'Sejarah',
-        url: '/admin/village-profile/history',
-        icon: 'page',
-        shortcut: ['p', 's'],
-        isActive: false,
-      },
-      {
-        title: 'Visi & Misi',
-        url: '/admin/village-profile/vision-mission',
-        icon: 'target',
-        shortcut: ['p', 'v'],
-        isActive: false,
-      },
-      {
-        title: 'Tujuan & Sasaran',
-        url: '/admin/village-profile/objectives',
-        icon: 'flag',
-        shortcut: ['p', 't'],
-        isActive: false,
-      },
-      {
-        title: 'Demografi & Geografis',
-        url: '/admin/village-profile/demographics',
-        icon: 'map',
-        shortcut: ['p', 'd'],
-        isActive: false,
-      }
-    ]
   },
 ];
 
