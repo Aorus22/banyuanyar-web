@@ -42,12 +42,32 @@ export async function getUmkmById(id: number) {
     
     if (!umkm) return null;
     
+    // Get media for products
+    const productIds = umkm.products.map(p => p.id)
+    const productMedia = await prisma.media.findMany({
+      where: { 
+        entityType: 'umkm_product',
+        entityId: { in: productIds }
+      },
+      orderBy: { id: 'asc' }
+    })
+    
+    // Create map of product ID to media URLs (array for carousel)
+    const productIdToMedia = new Map<number, string[]>()
+    for (const m of productMedia) {
+      if (!productIdToMedia.has(m.entityId)) {
+        productIdToMedia.set(m.entityId, [])
+      }
+      productIdToMedia.get(m.entityId)!.push(m.fileUrl)
+    }
+    
     // Convert Decimal to number for client components
     return {
       ...umkm,
       products: umkm.products.map(product => ({
         ...product,
-        price: Number(product.price)
+        price: Number(product.price),
+        imageUrls: productIdToMedia.get(product.id) || []
       }))
     };
   } catch (error) {

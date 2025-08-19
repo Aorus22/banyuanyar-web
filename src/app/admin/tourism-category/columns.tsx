@@ -44,11 +44,6 @@ export const columns: ColumnDef<TourismCategory>[] = [
     cell: ({ row }) => (
       <div className="min-w-[200px]">
         <div className="font-medium">{row.getValue("name")}</div>
-        {row.original.description && (
-          <div className="text-sm text-muted-foreground line-clamp-2">
-            {row.original.description}
-          </div>
-        )}
       </div>
     ),
     enableSorting: true,

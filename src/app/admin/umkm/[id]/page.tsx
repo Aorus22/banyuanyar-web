@@ -22,6 +22,7 @@ interface ProductCardProps {
     price: number;
     unit: string | null;
     isActive: boolean;
+    imageUrls: string[];
   };
   umkmId: number;
 }
@@ -30,9 +31,19 @@ function ProductCard({ product, umkmId }: ProductCardProps) {
   return (
     <Card className="group overflow-hidden border transition-colors hover:border-primary/50">
       <div className="relative">
-        <div className="aspect-square bg-muted/30 flex items-center justify-center">
-          <Package className="h-16 w-16 text-muted-foreground/50" />
-        </div>
+        {product.imageUrls.length > 0 ? (
+          <ImagePreviewCarousel
+            images={product.imageUrls}
+            showThumbnails={true}
+            showSmallImages={false}
+            autoPlay={false}
+            className="w-full h-full"
+          />
+        ) : (
+          <div className="aspect-square bg-muted/30 flex items-center justify-center">
+            <Package className="h-16 w-16 text-muted-foreground/50" />
+          </div>
+        )}
       </div>
       <CardContent className="p-4">
         <div className="space-y-2">
@@ -54,16 +65,16 @@ function ProductCard({ product, umkmId }: ProductCardProps) {
             </div>
           </div>
           <div className="flex gap-2 pt-2">
-            <Button asChild size="sm" variant="outline" className="flex-1">
+            <Button asChild size="sm" className="flex-1">
               <Link href={`/admin/umkm/${umkmId}/product/${product.id}/edit`}>
                 Edit
               </Link>
             </Button>
-            <Button asChild size="sm" className="flex-1">
+            {/* <Button asChild size="sm" className="flex-1">
               <Link href={`/admin/umkm/${umkmId}/product/${product.id}`}>
                 Detail
               </Link>
-            </Button>
+            </Button> */}
           </div>
         </div>
       </CardContent>

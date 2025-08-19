@@ -32,6 +32,7 @@ interface GalleryCardProps {
     eventDate: Date | null;
     isActive: boolean;
     createdAt: Date;
+    imageUrls: string[];
   };
 }
 
@@ -71,12 +72,33 @@ export function GalleryCard({ gallery }: GalleryCardProps) {
   };
 
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-      {/* Placeholder Image */}
+    <Card className="overflow-hidden hover:shadow-lg transition-shadow pt-0">
+      {/* Gallery Images */}
       <div className="relative aspect-video bg-gray-100">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <ImageIcon className="w-16 h-16 text-gray-400" />
-        </div>
+        {gallery.imageUrls.length > 0 ? (
+          <div className="relative w-full h-full">
+            {/* Show first image as main */}
+            <Image
+              src={gallery.imageUrls[0]}
+              alt={gallery.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+            />
+            
+            {/* Show image count overlay if more than 1 image */}
+            {gallery.imageUrls.length > 1 && (
+              <div className="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded-full">
+                +{gallery.imageUrls.length - 1} foto
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <ImageIcon className="w-16 h-16 text-gray-400" />
+          </div>
+        )}
+        
         <Badge 
           variant="secondary" 
           className={`absolute top-2 right-2 ${

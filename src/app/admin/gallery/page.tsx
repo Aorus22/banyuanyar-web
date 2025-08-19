@@ -76,12 +76,12 @@ export default function GalleryPage() {
       </div>
 
       {/* Filters */}
-      <div className="flex items-center space-x-2">
+      {/* <div className="flex items-center space-x-2">
         <Button variant="outline" size="sm">
           <Filter className="w-4 h-4 mr-2" />
           Filter
         </Button>
-      </div>
+      </div> */}
 
       {/* Gallery Grid */}
       <Suspense fallback={<GalleryGridSkeleton />}>

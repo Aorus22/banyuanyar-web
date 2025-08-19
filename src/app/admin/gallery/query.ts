@@ -5,7 +5,31 @@ export async function getGalleryList() {
     const galleries = await prisma.gallery.findMany({
       orderBy: { createdAt: 'desc' },
     });
-    return galleries;
+
+    // Get media for all galleries
+    const galleryIds = galleries.map(g => g.id);
+    const allMedia = await prisma.media.findMany({
+      where: {
+        entityType: 'gallery',
+        entityId: { in: galleryIds }
+      },
+      orderBy: { createdAt: 'asc' }
+    });
+
+    // Create map of gallery ID to media URLs
+    const galleryIdToMedia = new Map<number, string[]>();
+    for (const m of allMedia) {
+      if (!galleryIdToMedia.has(m.entityId)) {
+        galleryIdToMedia.set(m.entityId, []);
+      }
+      galleryIdToMedia.get(m.entityId)!.push(m.fileUrl);
+    }
+
+    // Add media URLs to each gallery
+    return galleries.map(gallery => ({
+      ...gallery,
+      imageUrls: galleryIdToMedia.get(gallery.id) || []
+    }));
   } catch (error) {
     console.error('Error fetching gallery list:', error);
     throw new Error('Gagal mengambil daftar galeri');

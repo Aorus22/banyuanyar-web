@@ -104,14 +104,14 @@ export const navItems: NavItem[] = [
     isActive: false,
     items: []
   },
-  {
-    title: 'Omah',
-    url: '/admin/tourism-house',
-    icon: 'home',
-    shortcut: ['p', 'p'],
-    isActive: false,
-    items: []
-  },
+  // {
+  //   title: 'Omah',
+  //   url: '/admin/tourism-house',
+  //   icon: 'home',
+  //   shortcut: ['p', 'p'],
+  //   isActive: false,
+  //   items: []
+  // },
   {
     title: 'UMKM',
     url: '/admin/umkm',
@@ -120,14 +120,14 @@ export const navItems: NavItem[] = [
     isActive: false,
     items: []
   },
-  {
-    title: 'Media',
-    url: '/admin/media',
-    icon: 'image',
-    shortcut: ['m', 'm'],
-    isActive: false,
-    items: []
-  },
+  // {
+  //   title: 'Media',
+  //   url: '/admin/media',
+  //   icon: 'image',
+  //   shortcut: ['m', 'm'],
+  //   isActive: false,
+  //   items: []
+  // },
   {
     title: 'Galeri',
     url: '/admin/gallery',
