@@ -98,26 +98,11 @@ export const navItems: NavItem[] = [
   },
   {
     title: 'Wisata',
-    url: '/admin/tourism-package',
+    url: '/admin/tourism-category',
     icon: 'map',
     shortcut: ['t', 't'],
     isActive: false,
-    items: [
-      {
-        title: 'Paket Wisata',
-        url: '/admin/tourism-package',
-        icon: 'map',
-        shortcut: ['t', 'p'],
-        isActive: false,
-      },
-      {
-        title: 'Kategori Wisata',
-        url: '/admin/tourism-category',
-        icon: 'tag',
-        shortcut: ['t', 'c'],
-        isActive: false,
-      }
-    ]
+    items: []
   },
   {
     title: 'Omah',

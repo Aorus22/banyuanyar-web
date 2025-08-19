@@ -6,7 +6,7 @@ import { LandingCTABanner } from './landing-cta-banner';
 
 export default function LandingPage() {
   return (
-    <div className="overflow-x-hidden">    
+    <div className="overflow-x-hidden overflow-y-hidden">    
       <LandingHero />
       <LandingFeatures />
       <LandingPricing />

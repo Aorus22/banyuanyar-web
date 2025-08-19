@@ -5,14 +5,15 @@ import { Separator } from '@/components/ui/separator';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Edit, MapPin, Phone, Mail, User, Package, Calendar, Globe, Building2, Users, FileText, MapPinned } from 'lucide-react';
+import { Edit, MapPin, Phone, Mail, User, Package, Calendar, Globe, Building2, Users, FileText, MapPinned, Image as ImageIcon } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
 import UmkmProductTable from './umkm-product-table';
 import { TiptapViewer } from '@/components/ui/custom/tiptap-viewer/tiptap-viewer';
 import { GoogleMapsViewer } from '@/components/ui/custom/google-maps-viewer';
-import { ImagePreviewCarousel } from '@/components/ui/custom';
+import { ImagePreviewCarousel } from '@/components/ui/custom/media-manager/image-preview-carousel';
+import { prisma } from '@/lib/prisma';
 
 interface ProductCardProps {
   product: {
@@ -84,6 +85,17 @@ export default async function UmkmDetailPage({ params }: UmkmDetailPageProps) {
   if (!umkm) {
     notFound();
   }
+
+  // Get media for this UMKM
+  const umkmMedia = await prisma.media.findMany({
+    where: {
+      entityType: 'umkm',
+      entityId: umkm.id
+    },
+    orderBy: { id: 'asc' }
+  });
+
+  const umkmImageUrls = umkmMedia.map(m => m.fileUrl);
 
   return (
     <div className="space-y-8">
@@ -219,6 +231,29 @@ export default async function UmkmDetailPage({ params }: UmkmDetailPageProps) {
           </Card>
         )}
 
+        {/* Media UMKM */}
+        {umkmMedia.length > 0 && (
+          <Card className="border-2 border-primary/10 shadow-sm pt-0">
+            <div className="bg-gradient-to-r from-primary/5 to-primary/10 border-b px-6 py-4">
+              <h3 className="flex items-center gap-3 text-primary font-semibold text-lg">
+                <ImageIcon className="h-6 w-6" />
+                Media UMKM
+              </h3>
+            </div>
+            <CardContent className="pt-6">
+              <div className="max-w-2xl">
+                <ImagePreviewCarousel
+                  images={umkmImageUrls}
+                  showThumbnails={true}
+                  showSmallImages={true}
+                  autoPlay={false}
+                  className="h-full"
+                />
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Lokasi */}
         <Card className="border-2 border-primary/10 shadow-sm pt-0">
           <div className="bg-gradient-to-r from-primary/5 to-primary/10 border-b px-6 py-4">
@@ -337,8 +372,6 @@ export default async function UmkmDetailPage({ params }: UmkmDetailPageProps) {
             </CardContent>
           </Card>
         )}
-
-
 
         {/* Produk UMKM */}
         <Card className="border-2 border-primary/10 shadow-sm pt-0">

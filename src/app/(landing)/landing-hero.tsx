@@ -106,7 +106,7 @@ export default async function LandingHero() {
   });
 
   return (
-    <div className='min-h-[calc(100vh-6rem)] flex flex-col items-center py-20'>
+    <div className='flex flex-col items-center pt-20'>
       {/* Hero Section with Background Image */}
       <div className='relative w-full mb-16' data-aos="fade-up">
         <div className='relative overflow-hidden rounded-2xl min-h-[60vh]'>

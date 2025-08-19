@@ -3,7 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { MoreHorizontal, Edit, Trash2 } from "lucide-react"
+import { MoreHorizontal, Edit, Trash2, Eye, Package } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,6 +22,7 @@ import { toast } from "sonner"
 export type TourismCategory = {
   id: number
   name: string
+  description: string | null
   createdAt: Date
   updatedAt: Date
   _count: {
@@ -44,11 +45,16 @@ export const columns: ColumnDef<TourismCategory>[] = [
     cell: ({ row }) => (
       <div className="min-w-[200px]">
         <div className="font-medium">{row.getValue("name")}</div>
+        {row.original.description && (
+          <div className="text-sm text-muted-foreground line-clamp-2">
+            {row.original.description}
+          </div>
+        )}
       </div>
     ),
     enableSorting: true,
     enableHiding: true,
-    size: 250,
+    size: 300,
   },
   {
     accessorKey: "_count.packages",
@@ -93,6 +99,14 @@ export const columns: ColumnDef<TourismCategory>[] = [
             <DropdownMenuLabel>Aksi</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
+              <Link href={`/admin/tourism-category/${category.id}`} className="w-full">
+                <div className="flex items-center w-full px-2 py-1.5 text-sm">
+                  <Eye className="mr-2 h-4 w-4" />
+                  Lihat Detail
+                </div>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <Link href={`/admin/tourism-category/${category.id}/edit`} className="w-full">
                 <div className="flex items-center w-full px-2 py-1.5 text-sm">
                   <Edit className="mr-2 h-4 w-4" />
@@ -108,7 +122,7 @@ export const columns: ColumnDef<TourismCategory>[] = [
                 onClick={async () => {
                   if (!(await confirmModal(
                     "Hapus Kategori",
-                    `Apakah Anda yakin ingin menghapus kategori "${category.name}"? Tindakan ini tidak dapat dibatalkan.`
+                    `Apakah Anda yakin ingin menghapus kategori "${category.name}"? Semua paket dalam kategori ini juga akan dihapus. Tindakan ini tidak dapat dibatalkan.`
                   ))) {
                     return
                   }

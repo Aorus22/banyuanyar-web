@@ -15,7 +15,7 @@ export default async function TourismCategoryPage() {
     <div className="space-y-6">
       <div className='flex items-start justify-between'>
         <Heading
-          title='Tourism Categories'
+          title='Kategori Paket Wisata'
           description='Kelola kategori paket wisata dan destinasi'
         />
         <Button asChild className="flex items-center gap-2 button-primary">
