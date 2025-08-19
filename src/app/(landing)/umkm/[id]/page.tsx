@@ -8,8 +8,7 @@ import { ImagePreviewCarousel } from '@/components/ui/custom/media-manager'
 import { TiptapViewer } from '@/components/ui/custom/tiptap-viewer/tiptap-viewer'
 import { GoogleMapsViewer } from '@/components/ui/custom/google-maps-viewer'
 import { MapPin, Phone, Mail, Globe, Building2, Users, Package, Calendar, MapPinned } from 'lucide-react'
-import { format } from 'date-fns'
-import { id } from 'date-fns/locale'
+import { safeFormatDateFullMonth } from '@/lib/date-utils'
 import { PageHeaderEffect } from '@/components/layout/landing/PageBackgroundHeader/PageHeaderEffect'
 
 interface UmkmDetailPageProps {
@@ -131,7 +130,7 @@ export default async function UmkmDetailPage({ params }: UmkmDetailPageProps) {
                   </div>
                   <div>
                     <p className="text-sm text-white/80">Bergabung Sejak</p>
-                    <p className="font-semibold text-white">{format(new Date(umkm.createdAt), "dd MMMM yyyy", { locale: id })}</p>
+                    <p className="font-semibold text-white">{safeFormatDateFullMonth(umkm.createdAt)}</p>
                   </div>
                 </div>
               </div>

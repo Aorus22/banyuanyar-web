@@ -1,15 +1,14 @@
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
-import { format } from 'date-fns';
-import { id as idLocale } from 'date-fns/locale';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { ImageWithFallback } from '@/components/ui/image-with-fallback';
-import { Calendar, MapPin, Clock, ArrowRight, Image as ImageIcon } from 'lucide-react';
+import { User, Eye, ArrowRight, Image as ImageIcon, Calendar, Clock, MapPin } from 'lucide-react';
 import { PageHeaderEffect } from '@/components/layout/landing/PageBackgroundHeader/PageHeaderEffect';
 import { ClientPagination } from '@/components/ui/custom';
+import { safeFormatDateOnly } from '@/lib/date-utils';
 
 interface AgendaKegiatanPageProps {
   searchParams: Promise<{ page?: string }>;
@@ -136,7 +135,7 @@ export default async function AgendaKegiatanPage({ searchParams }: AgendaKegiata
                   <div className="flex items-center gap-2 mb-3">
                     {getStatusBadge(eventStatus)}
                     <span className="text-xs text-muted-foreground">
-                      {format(new Date(event.date), "dd MMM yyyy", { locale: idLocale })}
+                      {safeFormatDateOnly(event.date)}
                       {event.startTime && ` pukul ${event.startTime}`}
                     </span>
                   </div>
@@ -162,7 +161,7 @@ export default async function AgendaKegiatanPage({ searchParams }: AgendaKegiata
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <Calendar className="h-4 w-4" />
                       <span>
-                        {format(new Date(event.date), "dd MMM yyyy", { locale: idLocale })}
+                        {safeFormatDateOnly(event.date)}
                         {event.startTime && ` pukul ${event.startTime}`}
                         {event.endTime && event.startTime !== event.endTime && ` - ${event.endTime}`}
                       </span>

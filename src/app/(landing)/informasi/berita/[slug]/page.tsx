@@ -1,12 +1,12 @@
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
-import { format } from 'date-fns';
-import { id } from 'date-fns/locale';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { TiptapViewer } from '@/components/ui/custom/tiptap-viewer/tiptap-viewer';
 import { ImagePreviewCarousel } from '@/components/ui/custom';
 import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 import { Eye, Calendar, User, Tag, Image as ImageIcon } from 'lucide-react';
+import { safeFormatDateFullMonth } from '@/lib/date-utils';
 
 interface NewsPageProps {
   params: Promise<{
@@ -73,8 +73,8 @@ export default async function NewsPage({ params }: NewsPageProps) {
             <Calendar className="h-4 w-4" />
             <span>
               {news.publishedAt 
-                ? format(new Date(news.publishedAt), "dd MMMM yyyy", { locale: id })
-                : format(new Date(news.createdAt), "dd MMMM yyyy", { locale: id })
+                ? safeFormatDateFullMonth(news.publishedAt)
+                : safeFormatDateFullMonth(news.createdAt)
               }
             </span>
           </div>

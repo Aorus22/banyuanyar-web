@@ -11,8 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { format } from "date-fns"
-import { id } from "date-fns/locale"
+import { safeFormatDateTime, safeFormatDateOnly } from "@/lib/date-utils"
 import Link from "next/link"
 import { deleteEvent } from "./server-action"
 import { confirmModal } from "@/components/ui"
@@ -46,16 +45,16 @@ export const columns: ColumnDef<Event>[] = [
     accessorKey: "startDate",
     header: "Tanggal Mulai",
     cell: ({ row }) => {
-      const date = row.getValue("startDate") as Date
-      return format(date, "dd MMM yyyy HH:mm", { locale: id })
+      const dateValue = row.getValue("startDate")
+      return safeFormatDateTime(dateValue)
     },
   },
   {
     accessorKey: "endDate",
     header: "Tanggal Selesai",
     cell: ({ row }) => {
-      const date = row.getValue("endDate") as Date | null
-      return date ? format(date, "dd MMM yyyy HH:mm", { locale: id }) : "-"
+      const dateValue = row.getValue("endDate")
+      return safeFormatDateTime(dateValue)
     },
   },
   {
@@ -72,8 +71,8 @@ export const columns: ColumnDef<Event>[] = [
     accessorKey: "createdAt",
     header: "Dibuat",
     cell: ({ row }) => {
-      const date = row.getValue("createdAt") as Date
-      return format(date, "dd MMM yyyy", { locale: id })
+      const dateValue = row.getValue("createdAt")
+      return safeFormatDateOnly(dateValue)
     },
   },
   {

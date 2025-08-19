@@ -15,8 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { format } from "date-fns"
-import { id } from "date-fns/locale"
+import { safeFormatDateOnly } from "@/lib/date-utils"
 import Link from "next/link"
 import { DataTable } from "@/components/ui/custom/datatable/data-table"
 
@@ -134,8 +133,8 @@ export default function UmkmProductTable({ umkmId, products, showCreateButton = 
       accessorKey: "createdAt",
       header: "Dibuat",
       cell: ({ row }) => {
-        const date = row.getValue("createdAt") as Date
-        return format(date, "dd MMM yyyy", { locale: id })
+        const dateValue = row.getValue("createdAt")
+        return safeFormatDateOnly(dateValue)
       },
       enableSorting: true,
       enableHiding: true,

@@ -1,14 +1,13 @@
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
-import { format } from 'date-fns';
-import { id as idLocale } from 'date-fns/locale';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { ImagePreviewCarousel } from '@/components/ui/custom';
 import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 import { Calendar, MapPin, Clock, Image as ImageIcon, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { safeFormatDateFullMonth } from '@/lib/date-utils';
 
 interface EventDetailPageProps {
   params: Promise<{
@@ -108,7 +107,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
           {getStatusBadge(eventStatus)}
           <span className="text-sm text-muted-foreground">
-            {format(new Date(event.date), "dd MMMM yyyy", { locale: idLocale })}
+            {safeFormatDateFullMonth(event.date)}
             {event.startTime && ` pukul ${event.startTime}`}
           </span>
         </div>
@@ -119,7 +118,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
           <div className="flex items-center gap-2">
             <Calendar className="h-4 w-4" />
             <span>
-              {format(new Date(event.date), "dd MMMM yyyy", { locale: idLocale })}
+              {safeFormatDateFullMonth(event.date)}
               {event.startTime && ` pukul ${event.startTime}`}
               {event.endTime && event.startTime !== event.endTime && ` - ${event.endTime}`}
             </span>
@@ -209,7 +208,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
               <div className="space-y-2">
                 <label className="text-sm font-medium text-muted-foreground">Tanggal Event</label>
                 <p className="text-sm">
-                  {format(new Date(event.date), "dd MMMM yyyy", { locale: idLocale })}
+                  {safeFormatDateFullMonth(event.date)}
                 </p>
               </div>
               

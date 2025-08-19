@@ -4,8 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowUpRight, MapPin, Users, Calendar, Coffee, Mountain, Camera, Trees, Flower, Sun, Moon, FileText, Store } from 'lucide-react';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
-import { format } from 'date-fns';
-import { id as idLocale } from 'date-fns/locale';
+import { safeFormatDateOnly } from '@/lib/date-utils';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge as BadgeUI } from '@/components/ui/badge';
 import { ImageWithFallback } from '@/components/ui/image-with-fallback';
@@ -370,7 +369,7 @@ export default async function LandingHero() {
                         </BadgeUI>
                       )}
                       <span className='text-xs text-muted-foreground'>
-                        {news.publishedAt ? format(news.publishedAt, 'dd MMM yyyy', { locale: idLocale }) : 'N/A'}
+                        {news.publishedAt ? safeFormatDateOnly(news.publishedAt) : 'N/A'}
                       </span>
                     </div>
                     <CardTitle className='text-lg leading-tight line-clamp-2'>{news.title}</CardTitle>
@@ -434,7 +433,7 @@ export default async function LandingHero() {
                     <div className='flex items-center gap-2 mb-3'>
                       <Calendar className='h-4 w-4 text-green-500' />
                       <span className='text-sm text-muted-foreground'>
-                        {format(event.date, 'dd MMM yyyy', { locale: idLocale })}
+                        {safeFormatDateOnly(event.date)}
                       </span>
                     </div>
                     <CardTitle className='text-lg leading-tight'>{event.title}</CardTitle>

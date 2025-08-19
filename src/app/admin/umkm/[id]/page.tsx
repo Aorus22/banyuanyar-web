@@ -7,8 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Edit, MapPin, Phone, Mail, User, Package, Calendar, Globe, Building2, Users, FileText, MapPinned, Image as ImageIcon } from 'lucide-react';
 import Link from 'next/link';
-import { format } from 'date-fns';
-import { id } from 'date-fns/locale';
+import { safeFormatDateFullMonth } from '@/lib/date-utils';
 import UmkmProductTable from './umkm-product-table';
 import { TiptapViewer } from '@/components/ui/custom/tiptap-viewer/tiptap-viewer';
 import { GoogleMapsViewer } from '@/components/ui/custom/google-maps-viewer';
@@ -159,7 +158,7 @@ export default async function UmkmDetailPage({ params }: UmkmDetailPageProps) {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Bergabung Sejak</p>
-                    <p className="font-semibold">{format(new Date(umkm.createdAt), "dd MMMM yyyy", { locale: id })}</p>
+                    <p className="font-semibold">{safeFormatDateFullMonth(umkm.createdAt)}</p>
                   </div>
                 </div>
               </div>

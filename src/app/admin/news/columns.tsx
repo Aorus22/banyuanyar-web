@@ -12,8 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { format } from "date-fns"
-import { id } from "date-fns/locale"
+import { safeFormatDateOnly } from "@/lib/date-utils"
 import Link from "next/link"
 import { deleteNews } from "./server-action"
 import { confirmModal } from "@/components/ui"
@@ -68,11 +67,8 @@ export const columns: ColumnDef<News>[] = [
     accessorKey: "title",
     header: "Judul",
     cell: ({ row }) => (
-      <div className="min-w-[300px] max-w-[500px]">
-        <div className="font-medium break-words">{row.getValue("title")}</div>
-        <div className="text-sm text-muted-foreground break-all">
-          {row.original.slug}
-        </div>
+      <div className="max-w-3xl">
+        <p className="font-medium break-words whitespace-normal leading-tight">{row.getValue("title")}</p>
       </div>
     ),
     enableSorting: true,
@@ -143,8 +139,8 @@ export const columns: ColumnDef<News>[] = [
     accessorKey: "publishedAt",
     header: "Published",
     cell: ({ row }) => {
-      const date = row.getValue("publishedAt") as Date | null
-      return date ? format(date, "dd MMM yyyy", { locale: id }) : "-"
+      const dateValue = row.getValue("publishedAt")
+      return safeFormatDateOnly(dateValue)
     },
     enableSorting: true,
     enableHiding: true,
@@ -154,8 +150,8 @@ export const columns: ColumnDef<News>[] = [
     accessorKey: "createdAt",
     header: "Dibuat",
     cell: ({ row }) => {
-      const date = row.getValue("createdAt") as Date
-      return format(date, "dd MMM yyyy", { locale: id })
+      const dateValue = row.getValue("createdAt")
+      return safeFormatDateOnly(dateValue)
     },
     enableSorting: true,
     enableHiding: true,

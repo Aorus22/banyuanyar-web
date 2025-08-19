@@ -7,8 +7,7 @@ import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { ImagePreviewCarousel } from '@/components/ui/custom/media-manager'
 import { TiptapViewer } from '@/components/ui/custom/tiptap-viewer/tiptap-viewer'
 import { MapPin, Clock, Package, Calendar, Users, Globe } from 'lucide-react'
-import { format } from 'date-fns'
-import { id } from 'date-fns/locale'
+import { safeFormatDateFullMonth } from '@/lib/date-utils'
 import { PageHeaderEffect } from '@/components/layout/landing/PageBackgroundHeader/PageHeaderEffect'
 
 interface TourismPackageDetailPageProps {
@@ -141,7 +140,7 @@ export default async function TourismPackageDetailPage({ params }: TourismPackag
                     </div>
                     <div>
                       <p className="text-sm text-white/80">Dibuat Pada</p>
-                      <p className="font-semibold text-white">{format(new Date(packageWithConvertedPrice.createdAt), "dd MMMM yyyy", { locale: id })}</p>
+                      <p className="font-semibold text-white">{safeFormatDateFullMonth(packageWithConvertedPrice.createdAt)}</p>
                     </div>
                   </div>
               </div>

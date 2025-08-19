@@ -7,8 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Package, Plus, Edit, Users, Calendar, Globe, FileText, Image as ImageIcon } from 'lucide-react';
 import Link from 'next/link';
-import { format } from 'date-fns';
-import { id } from 'date-fns/locale';
+import { safeFormatDateFullMonth } from '@/lib/date-utils';
 import { TiptapViewer } from '@/components/ui/custom/tiptap-viewer/tiptap-viewer';
 import { ImagePreviewCarousel } from '@/components/ui/custom/media-manager/image-preview-carousel';
 import { prisma } from '@/lib/prisma';
@@ -157,7 +156,7 @@ export default async function TourismCategoryDetailPage({ params }: TourismCateg
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Dibuat Pada</p>
-                  <p className="font-semibold">{format(new Date(category.createdAt), "dd MMMM yyyy", { locale: id })}</p>
+                  <p className="font-semibold">{safeFormatDateFullMonth(category.createdAt)}</p>
                 </div>
               </div>
             </div>

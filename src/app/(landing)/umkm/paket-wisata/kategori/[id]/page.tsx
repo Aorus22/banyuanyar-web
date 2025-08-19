@@ -10,8 +10,7 @@ import { TiptapViewer } from '@/components/ui/custom/tiptap-viewer/tiptap-viewer
 import { PageHeaderEffect } from '@/components/layout/landing/PageBackgroundHeader/PageHeaderEffect'
 import { ImagePreviewCarousel } from '@/components/ui/custom/media-manager/image-preview-carousel'
 import Link from 'next/link'
-import { format } from 'date-fns'
-import { id } from 'date-fns/locale'
+import { safeFormatDateOnly } from '@/lib/date-utils'
 
 export const dynamic = 'force-dynamic'
 
@@ -133,7 +132,7 @@ export default async function CategoryDetailPage({ params }: CategoryDetailPageP
             </div>
             <div className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
-              <span>Dibuat {format(new Date(category.createdAt), "dd MMM yyyy", { locale: id })}</span>
+              <span>Dibuat {safeFormatDateOnly(category.createdAt)}</span>
             </div>
           </div>
         </div>

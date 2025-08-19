@@ -1,7 +1,5 @@
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
-import { format } from 'date-fns';
-import { id as idLocale } from 'date-fns/locale';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -10,6 +8,7 @@ import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 import { User, Eye, ArrowRight, Image as ImageIcon } from 'lucide-react';
 import { PageHeaderEffect } from '@/components/layout/landing/PageBackgroundHeader/PageHeaderEffect';
 import { ClientPagination } from '@/components/ui/custom';
+import { safeFormatDateOnly } from '@/lib/date-utils';
 
 interface NewsIndexPageProps {
   searchParams: Promise<{ page?: string }>;
@@ -105,8 +104,8 @@ export default async function NewsIndexPage({ searchParams }: NewsIndexPageProps
                     )}
                     <span className="text-xs text-muted-foreground">
                       {item.publishedAt 
-                        ? format(new Date(item.publishedAt), "dd MMM yyyy", { locale: idLocale })
-                        : format(new Date(item.createdAt), "dd MMM yyyy", { locale: idLocale })
+                        ? safeFormatDateOnly(item.publishedAt)
+                        : safeFormatDateOnly(item.createdAt)
                       }
                     </span>
                   </div>

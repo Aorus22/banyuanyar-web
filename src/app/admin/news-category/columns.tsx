@@ -12,8 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { format } from "date-fns"
-import { id } from "date-fns/locale"
+import { safeFormatDateOnly } from "@/lib/date-utils"
 import Link from "next/link"
 import { deleteNewsCategory } from "./server-action"
 import { confirmModal } from "@/components/ui"
@@ -114,8 +113,8 @@ export const columns: ColumnDef<NewsCategory>[] = [
     accessorKey: "createdAt",
     header: "Dibuat",
     cell: ({ row }) => {
-      const date = row.getValue("createdAt") as Date
-      return format(date, "dd MMM yyyy", { locale: id })
+      const dateValue = row.getValue("createdAt")
+      return safeFormatDateOnly(dateValue)
     },
     enableSorting: true,
     enableHiding: true,
