@@ -8,8 +8,7 @@ export const dynamic = 'force-dynamic';
 
 type Media = {
   id: string;
-  fileName: string;
-  // tambahkan properti lain jika diperlukan
+  fileUrl: string;
 };
 
 type Gallery = {
@@ -20,28 +19,32 @@ type Gallery = {
   media: Media[];
 };
 
-
 export default async function Page() {
-  // Ambil semua galeri
+  // Get all galleries
   const rawGalleries = await prisma.gallery.findMany({
+    where: { isActive: true },
     orderBy: { eventDate: 'desc' },
   });
 
-  // Ambil semua media yang terkait galeri
+  // Get all media for galleries
+  const galleryIds = rawGalleries.map(g => g.id);
   const allMedia = await prisma.media.findMany({
-    where: { entityType: 'gallery' },
+    where: { 
+      entityType: 'gallery',
+      entityId: { in: galleryIds }
+    },
+    orderBy: { id: 'asc' }
   });
 
-  // Gabungkan media ke galeri
-  const galleries: Gallery[] = rawGalleries.map(galeri => ({
-    id: galeri.id.toString(),
-    title: galeri.title,
-    description: galeri.description ?? undefined,
-    eventDate: galeri.eventDate ?? undefined,
-    media: allMedia.filter(m => m.entityId === galeri.id).map(media => ({
+  // Combine media with galleries
+  const galleries: Gallery[] = rawGalleries.map(gallery => ({
+    id: gallery.id.toString(),
+    title: gallery.title,
+    description: gallery.description ?? undefined,
+    eventDate: gallery.eventDate ?? undefined,
+    media: allMedia.filter(m => m.entityId === gallery.id).map(media => ({
       id: media.id.toString(),
-      fileName: media.fileName,
-      // tambahkan properti lain jika diperlukan
+      fileUrl: media.fileUrl,
     })),
   }));
 
@@ -69,7 +72,7 @@ export default async function Page() {
                     <AspectRatio ratio={1}>
                       {thumbnail ? (
                         <ImageWithFallback
-                          src={`/gallery/${thumbnail.fileName}`}
+                          src={thumbnail.fileUrl}
                           alt={galeri.title}
                           fill
                           sizes="(max-width: 768px) 100vw, 33vw"

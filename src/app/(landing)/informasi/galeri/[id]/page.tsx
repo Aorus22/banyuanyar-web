@@ -1,8 +1,9 @@
 import React from 'react';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
-import { ImageWithFallback } from '@/components/ui/image-with-fallback';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { ImagePreviewCarousel } from '@/components/ui/custom/media-manager';
+import { PageHeaderEffect } from '@/components/layout/landing/PageBackgroundHeader/PageHeaderEffect';
+import { Image as ImageIcon } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,40 +26,58 @@ export default async function Page({ params }: Props) {
     orderBy: { id: 'asc' },
   });
 
+  const imageUrls = media.map(m => m.fileUrl);
+
   return (
     <>
-      <div className="mt-24 mb-10">
+      <PageHeaderEffect 
+        title={galeri.title}
+        description={galeri.description || 'Galeri foto desa'}
+      />
+
+      <div className="max-w-6xl mx-auto px-4 space-y-8">
+        {/* Gallery Info */}
         <div className="bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-8 md:p-10 text-center text-primary-foreground shadow">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">{galeri.title}</h1>
-          <p className="text-base md:text-lg opacity-90">{galeri.description}</p>
+          {galeri.description && (
+            <p className="text-base md:text-lg opacity-90">{galeri.description}</p>
+          )}
           {galeri.eventDate && (
-            <div className="text-xs text-primary-foreground mt-2">
-              {new Date(galeri.eventDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
+            <div className="text-sm opacity-90 mt-4">
+              {new Date(galeri.eventDate).toLocaleDateString('id-ID', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              })}
             </div>
           )}
         </div>
-      </div>
 
-      <div className="max-w-4xl mx-auto">
-        {media.length === 0 ? (
-          <div className="text-center text-muted-foreground">Belum ada foto pada galeri ini.</div>
-        ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-            {media.map((m) => (
-              <div key={m.id} className="rounded-lg overflow-hidden border">
-                <AspectRatio ratio={1}>
-                  <ImageWithFallback
-                    src={`/gallery/${m.fileName}`}
-                    alt={galeri.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover"
-                  />
-                </AspectRatio>
+        {/* Gallery Images */}
+        <div>
+          <h2 className="text-2xl font-bold text-center mb-6">Foto Galeri</h2>
+          
+          {imageUrls.length === 0 ? (
+            <div className="text-center py-12 text-muted-foreground">
+              <ImageIcon className="h-16 w-16 mx-auto mb-4 opacity-50" />
+              <p className="text-lg">Belum ada foto pada galeri ini.</p>
+            </div>
+          ) : (
+            <div className="space-y-6">
+              {/* Main Image Carousel */}
+              <div className="rounded-lg overflow-hidden border shadow-lg">
+                <ImagePreviewCarousel
+                  images={imageUrls}
+                  showThumbnails={true}
+                  showSmallImages={true}
+                  autoPlay={true}
+                  interval={4000}
+                  className="w-full h-96 md:h-[500px]"
+                />
               </div>
-            ))}
-          </div>
-        )}
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
