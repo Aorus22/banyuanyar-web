@@ -11,6 +11,7 @@ import { SectionThree } from "./components/section/three"
 import { SectionFour } from "./components/section/four"
 import { SectionFive } from "./components/section/five"
 import { SectionTable } from "./components/section/table"
+import { AISection } from "./components/section/ai"
 import { useMinimalTiptapEditor } from "./hooks/use-minimal-tiptap"
 import { MeasuredContainer } from "./components/measured-container"
 
@@ -69,6 +70,8 @@ const Toolbar = ({ editor }: { editor: Editor }) => (
         activeActions={["insertTable", "addColumnBefore", "addColumnAfter", "deleteColumn", "addRowBefore", "addRowAfter", "deleteRow", "deleteTable"]}
         mainActionCount={1}
       />
+
+      <AISection editor={editor} />
     </div>
   </div>
 )

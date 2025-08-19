@@ -163,6 +163,17 @@ export default function MinimalTiptapDemoPage() {
               <p>• Horizontal rules</p>
               <p>• Tables with resizable columns</p>
               <p>• Text color customization</p>
+              <p className="font-semibold text-blue-600 dark:text-blue-400">🤖 AI-Powered Features:</p>
+              <p>• AI text generation and content expansion</p>
+              <p>• Smart content improvement and grammar correction</p>
+              <p>• AI-powered suggestions and recommendations</p>
+              <p>• Multi-language translation support</p>
+              <p>• Intelligent text summarization</p>
+              <p>• Smart content generation with multiple AI models</p>
+              <p className="font-semibold text-green-600 dark:text-green-400">🚀 AI Providers:</p>
+              <p>• <strong>Google Gemini</strong> - Recommended, free tier available</p>
+              <p>• <strong>OpenAI</strong> - Powerful GPT models</p>
+              <p>• <strong>Mock AI</strong> - Free demo mode</p>
             </div>
             
             <div className="border rounded-lg">
