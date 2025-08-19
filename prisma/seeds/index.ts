@@ -5,7 +5,6 @@ export { seedNewsCategory } from './news-category.seed';
 export { seedNews } from './news.seed';
 export { seedEvent } from './event.seed';
 export { seedTourismCategory } from './tourism-category.seed';
-export { seedTourismPackage } from './tourism-package.seed';
 export { seedTourismHouse } from './tourism-house.seed';
 export { seedGallery } from './gallery.seed';
 export { seedUmkm } from './umkm.seed';

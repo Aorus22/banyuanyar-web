@@ -10,7 +10,6 @@ const {
   seedNews,
   seedEvent,
   seedTourismCategory,
-  seedTourismPackage,
   seedTourismHouse,
   seedGallery,
   seedUmkm,
@@ -52,7 +51,6 @@ async function main() {
     // 2. Seed data with dependencies (including their media)
     await seedNews(prisma);
     await seedEvent(prisma);
-    await seedTourismPackage(prisma);
     await seedTourismHouse(prisma);
     await seedGallery(prisma);
     await seedUmkm(prisma);
