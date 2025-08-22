@@ -1,5 +1,9 @@
 export * from "./minimal-tiptap"
 
+// Extensions
+export { YouTube } from "./extensions/youtube"
+export { PDF } from "./extensions/pdf"
+
 // AI Components
 export { AISection } from "./components/section/ai"
 

@@ -15,6 +15,8 @@ import {
   ResetMarksOnEnter,
   FileHandler,
   TableExtensions,
+  YouTube,
+  PDF,
 } from "../extensions"
 import { cn } from "@/lib/utils"
 import { fileToBase64, getOutput, randomId } from "../utils"
@@ -182,6 +184,8 @@ const createExtensions = ({
   ResetMarksOnEnter,
   CodeBlockLowlight,
   ...TableExtensions,
+  YouTube,
+  PDF,
   Placeholder.configure({ placeholder: () => placeholder }),
 ]
 

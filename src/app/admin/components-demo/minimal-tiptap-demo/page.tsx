@@ -163,6 +163,10 @@ export default function MinimalTiptapDemoPage() {
               <p>• Horizontal rules</p>
               <p>• Tables with resizable columns</p>
               <p>• Text color customization</p>
+              <p className="font-semibold text-green-600 dark:text-green-400">📹 Media Embedding:</p>
+              <p>• YouTube video embedding with responsive design</p>
+              <p>• PDF document embedding with viewer</p>
+              <p>• Customizable dimensions and titles</p>
               <p className="font-semibold text-blue-600 dark:text-blue-400">🤖 AI-Powered Features:</p>
               <p>• AI text generation and content expansion</p>
               <p>• Smart content improvement and grammar correction</p>
@@ -179,6 +183,42 @@ export default function MinimalTiptapDemoPage() {
             <div className="border rounded-lg">
               <MinimalTiptapEditor
                 placeholder="Start typing your content here..."
+                className="min-h-[400px]"
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Embed Features Demo */}
+      <Card>
+        <CardHeader>
+          <CardTitle>📹 Media Embedding Features</CardTitle>
+          <CardDescription>
+            Try the new YouTube video and PDF embedding features. Look for the "+" button in the toolbar.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="text-sm text-muted-foreground space-y-1">
+              <p className="font-semibold text-green-600 dark:text-green-400">YouTube Videos:</p>
+              <p>• Click the "+" button in the toolbar</p>
+              <p>• Select YouTube tab and paste a YouTube URL</p>
+              <p>• Supports: youtube.com/watch?v=, youtu.be/, youtube.com/embed/</p>
+              <p>• Responsive design with customizable dimensions</p>
+              <p>• Hover to see edit and remove options</p>
+              
+              <p className="font-semibold text-blue-600 dark:text-blue-400 mt-4">PDF Documents:</p>
+              <p>• Click the "+" button in the toolbar</p>
+              <p>• Select PDF tab and paste a PDF URL</p>
+              <p>• Add custom title and adjust dimensions</p>
+              <p>• Built-in viewer with download and external link options</p>
+              <p>• Professional header with document information</p>
+            </div>
+            
+            <div className="border rounded-lg">
+              <MinimalTiptapEditor
+                placeholder="Try embedding YouTube videos and PDF documents using the + button in the toolbar..."
                 className="min-h-[400px]"
               />
             </div>

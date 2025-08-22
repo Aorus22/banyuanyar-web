@@ -1,0 +1,89 @@
+/* YouTube Embed Styles */
+.youtube-embed-node {
+  @apply my-4;
+}
+
+.youtube-embed-node iframe {
+  @apply border-0 rounded-lg shadow-sm;
+}
+
+.youtube-embed-node .youtube-embed-node {
+  @apply relative;
+}
+
+/* YouTube Error States */
+.youtube-error {
+  @apply p-4 text-center text-red-500 bg-red-50 border border-red-200 rounded-lg;
+}
+
+.dark .youtube-error {
+  @apply bg-red-900/20 border-red-800 text-red-400;
+}
+
+/* PDF Embed Styles */
+.pdf-embed-node {
+  @apply my-4;
+}
+
+.pdf-embed-node iframe {
+  @apply border-0 rounded-b-lg shadow-sm;
+}
+
+.pdf-embed-node .pdf-embed-node {
+  @apply relative;
+}
+
+/* PDF Error States */
+.pdf-error {
+  @apply p-4 text-center text-red-500 bg-red-50 border border-red-200 rounded-lg;
+}
+
+.dark .pdf-error {
+  @apply bg-red-900/20 border-red-800 text-red-400;
+}
+
+/* Responsive design for embeds */
+@media (max-width: 768px) {
+  .youtube-embed-node iframe,
+  .pdf-embed-node iframe {
+    @apply w-full;
+  }
+  
+  .youtube-embed-node,
+  .pdf-embed-node {
+    @apply mx-0;
+  }
+}
+
+/* Hover effects for embed controls */
+.youtube-embed-node .group:hover .opacity-0,
+.pdf-embed-node .group:hover .opacity-0 {
+  @apply opacity-100;
+}
+
+/* Embed node selection styles */
+.minimal-tiptap-editor .ProseMirror .youtube-embed-node.ProseMirror-selectednode,
+.minimal-tiptap-editor .ProseMirror .pdf-embed-node.ProseMirror-selectednode {
+  @apply outline-muted-foreground rounded-lg outline-2 outline-offset-1;
+}
+
+/* Empty state styling */
+.youtube-embed-node .border-dashed,
+.pdf-embed-node .border-dashed {
+  @apply border-gray-300 dark:border-gray-600;
+}
+
+.youtube-embed-node .bg-gray-50,
+.pdf-embed-node .bg-gray-50 {
+  @apply bg-gray-50 dark:bg-gray-800;
+}
+
+.youtube-embed-node .text-gray-500,
+.pdf-embed-node .text-gray-500 {
+  @apply text-gray-500 dark:text-gray-400;
+}
+
+.youtube-embed-node .text-gray-400,
+.pdf-embed-node .text-gray-400 {
+  @apply text-gray-400 dark:text-gray-500;
+} 

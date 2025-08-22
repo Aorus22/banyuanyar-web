@@ -4,6 +4,7 @@
 @import "./partials/typography.css";
 @import "./partials/zoom.css";
 @import "./partials/table.css";
+@import "./partials/embed.css";
 
 @reference "../../../../../app/globals.css";
 
