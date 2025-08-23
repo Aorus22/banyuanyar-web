@@ -6,10 +6,12 @@ import { revalidatePath } from 'next/cache';
 export async function createTourismCategory(formData: FormData) {
   try {
     const name = formData.get('name') as string;
+    const description = formData.get('description') as string;
 
     const category = await prisma.tourismCategory.create({
       data: {
-        name
+        name,
+        description: description || null
       }
     });
 

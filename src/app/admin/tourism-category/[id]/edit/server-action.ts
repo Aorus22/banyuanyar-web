@@ -6,11 +6,13 @@ import { revalidatePath } from 'next/cache';
 export async function updateTourismCategory(id: number, formData: FormData) {
   try {
     const name = formData.get('name') as string;
+    const description = formData.get('description') as string;
 
     const category = await prisma.tourismCategory.update({
       where: { id },
       data: {
-        name
+        name,
+        description: description || null
       }
     });
 

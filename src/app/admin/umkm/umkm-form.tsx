@@ -52,7 +52,6 @@ interface UmkmFormProps {
 
 export function UmkmForm({ umkm, createUmkm, updateUmkm }: UmkmFormProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [description, setDescription] = useState(umkm?.description || "");
   const [isMapOpen, setIsMapOpen] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState<Location | null>(
     umkm?.latitude && umkm?.longitude 
@@ -64,18 +63,18 @@ export function UmkmForm({ umkm, createUmkm, updateUmkm }: UmkmFormProps) {
 
   const handleCreate = useCallback(
     ({ editor }: { editor: Editor }) => {
-      if (description && editor.isEmpty) {
-        editor.commands.setContent(description)
+      if (umkm?.description && editor.isEmpty) {
+        editor.commands.setContent(umkm.description)
       }
       editorRef.current = editor
     },
-    [description]
+    [umkm?.description]
   )
 
   const handleEditorChange = (content: any) => {
     if (editorRef.current && editorRef.current.isEditable) {
       const html = editorRef.current.getHTML()
-      setDescription(html)
+      form.setValue('description', html)
     }
   }
 
@@ -113,11 +112,6 @@ export function UmkmForm({ umkm, createUmkm, updateUmkm }: UmkmFormProps) {
           formData.append(key, value);
         }
       });
-      
-      // Add description from Tiptap editor
-      if (description && description.trim() !== '') {
-        formData.append('description', description);
-      }
 
       // Add location coordinates
       if (selectedLocation) {
@@ -220,7 +214,7 @@ export function UmkmForm({ umkm, createUmkm, updateUmkm }: UmkmFormProps) {
             <div className="space-y-2">
               <Label htmlFor="description">Deskripsi</Label>
               <MinimalTiptapEditor
-                value={description}
+                value={form.watch("description") || ""}
                 onChange={handleEditorChange}
                 className="w-full min-h-[200px]"
                 output="html"
@@ -382,22 +376,15 @@ export function UmkmForm({ umkm, createUmkm, updateUmkm }: UmkmFormProps) {
         </Card>
 
         {/* Card 4: Media Manager */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Media & Foto</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <MediaManager
-              entityType="umkm"
-              entityId={umkm?.id}
-              title="Media untuk UMKM"
-              description="Kelola gambar dan media untuk UMKM ini"
-              maxFiles={10}
-              acceptedFileTypes={['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']}
-              maxFileSize={5}
-            />
-          </CardContent>
-        </Card>
+        <MediaManager
+          entityType="umkm"
+          entityId={umkm?.id}
+          title="Media untuk UMKM"
+          description="Kelola gambar dan media untuk UMKM ini"
+          maxFiles={10}
+          acceptedFileTypes={['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']}
+          maxFileSize={5}
+        />
 
         {/* Card 5: Actions */}
         <Card>
