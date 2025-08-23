@@ -9,25 +9,32 @@ import { User, Eye, ArrowRight, Image as ImageIcon } from 'lucide-react';
 import { PageHeaderEffect } from '@/components/layout/landing/PageBackgroundHeader/PageHeaderEffect';
 import { ClientPagination } from '@/components/ui/custom';
 import { safeFormatDateOnly } from '@/lib/date-utils';
+import CategoryFilter from './category-filter';
 
 interface NewsIndexPageProps {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string; category?: string }>;
 }
 
 export default async function NewsIndexPage({ searchParams }: NewsIndexPageProps) {
-  const { page } = await searchParams;
+  const { page, category } = await searchParams;
   const currentPage = page ? parseInt(page) : 1;
   const itemsPerPage = 12;
   const skip = (currentPage - 1) * itemsPerPage;
 
+  // Build where clause for filtering
+  const whereClause = {
+    status: 'PUBLISHED' as const,
+    ...(category && { categoryId: parseInt(category) })
+  };
+
   // Get total count for pagination
   const totalNews = await prisma.news.count({
-    where: { status: 'PUBLISHED' }
+    where: whereClause
   });
   const totalPages = Math.ceil(totalNews / itemsPerPage);
 
   const news = await prisma.news.findMany({
-    where: { status: 'PUBLISHED' },
+    where: whereClause,
     include: {
       author: true,
       category: true
@@ -68,6 +75,12 @@ export default async function NewsIndexPage({ searchParams }: NewsIndexPageProps
       />
       
       <div className="container mx-auto px-4 py-8 max-w-7xl">
+        {/* Category Filter */}
+        <CategoryFilter 
+          selectedCategoryId={category}
+          totalNews={totalNews}
+        />
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {news.map((item) => {
             const itemImage = mediaMap.get(item.id);
@@ -95,12 +108,15 @@ export default async function NewsIndexPage({ searchParams }: NewsIndexPageProps
                 <CardHeader className="flex-1">
                   <div className="flex items-center gap-2 mb-3">
                     {item.category && (
-                      <Badge 
-                        variant="outline" 
-                        style={{ borderColor: item.category.color, color: item.category.color }}
-                      >
-                        {item.category.name}
-                      </Badge>
+                      <Link href={`/informasi/berita?category=${item.category.id}`}>
+                        <Badge 
+                          variant="outline" 
+                          style={{ borderColor: item.category.color, color: item.category.color }}
+                          className="cursor-pointer hover:scale-105 transition-transform"
+                        >
+                          {item.category.name}
+                        </Badge>
+                      </Link>
                     )}
                     <span className="text-xs text-muted-foreground">
                       {item.publishedAt 
@@ -157,7 +173,7 @@ export default async function NewsIndexPage({ searchParams }: NewsIndexPageProps
         <ClientPagination
           currentPage={currentPage}
           totalPages={totalPages}
-          baseUrl="/informasi/berita"
+          baseUrl={`/informasi/berita${category ? `?category=${category}` : ''}`}
         />
       </div>
     </>

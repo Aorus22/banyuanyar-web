@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { TiptapViewer } from '@/components/ui/custom/tiptap-viewer/tiptap-viewer';
@@ -7,6 +8,7 @@ import { ImagePreviewCarousel } from '@/components/ui/custom';
 import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 import { Eye, Calendar, User, Tag, Image as ImageIcon } from 'lucide-react';
 import { safeFormatDateFullMonth } from '@/lib/date-utils';
+import RelatedNews from './related-news';
 
 interface NewsPageProps {
   params: Promise<{
@@ -45,18 +47,24 @@ export default async function NewsPage({ params }: NewsPageProps) {
   });
 
   return (
-    <div className="container mx-auto px-4 py-8 mt-24 max-w-4xl">
-      {/* Header */}
-      <div className="mb-8">
+    <div className="container mx-auto px-4 py-8 mt-24 max-w-7xl">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Main Content */}
+        <div className="lg:col-span-2">
+          {/* Header */}
+          <div className="mb-8">
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
           <Tag className="h-4 w-4" />
           {news.category ? (
-            <Badge 
-              variant="outline" 
-              style={{ borderColor: news.category.color, color: news.category.color }}
-            >
-              {news.category.name}
-            </Badge>
+            <Link href={`/informasi/berita?category=${news.category.id}`}>
+              <Badge 
+                variant="outline" 
+                style={{ borderColor: news.category.color, color: news.category.color }}
+                className="cursor-pointer hover:scale-105 transition-transform"
+              >
+                {news.category.name}
+              </Badge>
+            </Link>
           ) : (
             <span>Tanpa Kategori</span>
           )}
@@ -87,27 +95,13 @@ export default async function NewsPage({ params }: NewsPageProps) {
         {/* Media Gallery */}
         {newsMedia.length > 0 ? (
           <div className="mb-6">            
-            {newsMedia.length === 1 ? (
-              // Single image - no carousel needed
-              <div className="mb-4">
-                <ImageWithFallback
-                  src={newsMedia[0].fileUrl}
-                  alt={newsMedia[0].fileName}
-                  width={800}
-                  height={400}
-                  className="w-full h-64 object-cover rounded-lg"
-                  fallbackClassName="w-full h-64 rounded-lg"
-                />
-              </div>
-            ) : (
-              // Multiple images - use carousel
-              <ImagePreviewCarousel 
-                images={newsMedia.map(media => media.fileUrl)}
-                autoPlay={true}
-                interval={5000}
-                thumbnailSize="md"
-              />
-            )}
+            <ImagePreviewCarousel 
+              images={newsMedia.map(media => media.fileUrl)}
+              autoPlay={true}
+              interval={5000}
+              className='h-full'
+              thumbnailSize="md"
+            />
           </div>
         ) : (
           // No media available
@@ -125,11 +119,21 @@ export default async function NewsPage({ params }: NewsPageProps) {
         )}
       </div>
 
-      {/* Content */}
-      <TiptapViewer 
-        content={news.content}
-        className="min-h-[200px]"
-      />
+          {/* Content */}
+          <TiptapViewer 
+            content={news.content}
+            className="min-h-[200px]"
+          />
+        </div>
+
+        {/* Sidebar - Related News */}
+        <div className="lg:col-span-1">
+          <RelatedNews 
+            currentNewsId={news.id}
+            currentCategoryId={news.categoryId || undefined}
+          />
+        </div>
+      </div>
     </div>
   );
 } 
