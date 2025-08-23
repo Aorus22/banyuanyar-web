@@ -190,28 +190,15 @@ export function TourismCategoryForm({ category, createTourismCategory, updateTou
       </Card>
 
       {/* Media Management */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <ImageIcon className="h-5 w-5" />
-            Media Kategori
-          </CardTitle>
-          <CardDescription>
-            Pilih media untuk kategori wisata ini. Media akan ditampilkan di halaman landing.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <MediaManager
-            entityType="tourism_category"
-            entityId={category?.id || 0}
-            title="Media Kategori"
-            description="Pilih media untuk kategori wisata ini. Media akan ditampilkan di halaman landing."
-            maxFiles={5}
-            acceptedFileTypes={['image/jpeg', 'image/jpg', 'image/png', 'image/webp']}
-            className="min-h-[200px]"
-          />
-        </CardContent>
-      </Card>
+      <MediaManager
+        entityType="tourism_category"
+        entityId={category?.id || 0}
+        title="Media Kategori"
+        description="Pilih media untuk kategori wisata ini. Media akan ditampilkan di halaman landing."
+        maxFiles={5}
+        acceptedFileTypes={['image/jpeg', 'image/jpg', 'image/png', 'image/webp']}
+        className="min-h-[200px]"
+      />
     </div>
   )
 } 

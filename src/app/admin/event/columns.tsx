@@ -93,7 +93,7 @@ export const columns: ColumnDef<Event>[] = [
             <DropdownMenuLabel>Aksi</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link className="!px-0" href={`/admin/event/${event.id}/edit`}>
+              <Link className="!p-0" href={`/admin/event/${event.id}/edit`}>
                 <Button variant="ghost" size="sm" className="w-full justify-start">
                   <Edit className="mr-2 h-4 w-4" />
                   Edit

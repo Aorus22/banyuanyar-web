@@ -160,10 +160,10 @@ export function MediaGallery({
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold">Media ({media.length})</h3>
         <div className="flex items-center gap-3">
-          <div className="text-sm text-muted-foreground">
+          {/* <div className="text-sm text-muted-foreground">
             Entity: {entityType}
             {entityId && ` (ID: ${entityId})`}
-          </div>
+          </div> */}
           
           {selectedIds.size > 0 && (
             <Button

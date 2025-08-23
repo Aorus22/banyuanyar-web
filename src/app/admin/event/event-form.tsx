@@ -260,26 +260,13 @@ export function EventForm({ event, createEvent, updateEvent }: EventFormProps) {
 
       {/* Media Manager Section */}
       {event && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <ImageIcon className="h-5 w-5" />
-              Media Event
-            </CardTitle>
-            <CardDescription>
-              Upload dan kelola gambar untuk event ini
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <MediaManager
-              entityType="event"
-              entityId={event.id}
-              title={`Media untuk Event: ${event.title}`}
-              description="Upload gambar untuk event ini. Gambar akan ditampilkan di halaman detail event."
-              maxFiles={10}
-            />
-          </CardContent>
-        </Card>
+        <MediaManager
+          entityType="event"
+          entityId={event.id}
+          title={`Media untuk Event: ${event.title}`}
+          description="Upload gambar untuk event ini. Gambar akan ditampilkan di halaman detail event."
+          maxFiles={10}
+        />
       )}
     </div>
   )

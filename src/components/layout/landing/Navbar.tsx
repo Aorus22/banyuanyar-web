@@ -125,21 +125,21 @@ export function LandingNavbar() {
                             <AccordionContent>
                               <div className='flex flex-col gap-2 pl-2'>
                                 {menu.children.map((child) => (
-                                  <a
+                                  <Link
                                     key={child.href}
                                     href={child.href}
                                     className='text-sm px-3 py-2 rounded-md hover:bg-accent hover:text-accent-foreground'
                                   >
                                     {child.label}
-                                  </a>
+                                  </Link>
                                 ))}
                               </div>
                             </AccordionContent>
                           </>
                         ) : (
-                          <a href={(menu as any).href} className='block px-3 py-2 text-base rounded-md hover:bg-accent hover:text-accent-foreground'>
+                          <Link href={(menu as any).href} className='block px-3 py-2 text-base rounded-md hover:bg-accent hover:text-accent-foreground'>
                             {menu.label}
-                          </a>
+                          </Link>
                         )}
                       </AccordionItem>
                     ))}

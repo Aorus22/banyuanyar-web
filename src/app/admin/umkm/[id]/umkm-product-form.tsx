@@ -181,22 +181,15 @@ export function UmkmProductForm({ product, umkmId, createProduct, updateProduct 
 
     {/* Media Manager for Product */}
     {product && (
-      <Card className="mt-6">
-        <CardHeader>
-          <CardTitle>Media & Foto Produk</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <MediaManager
-            entityType="umkm_product"
-            entityId={product.id}
-            title="Media untuk Produk"
-            description="Kelola gambar dan media untuk produk ini"
-            maxFiles={5}
-            acceptedFileTypes={['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']}
-            maxFileSize={5}
-          />
-        </CardContent>
-      </Card>
+      <MediaManager
+        entityType="umkm_product"
+        entityId={product.id}
+        title="Media untuk Produk"
+        description="Kelola gambar dan media untuk produk ini"
+        maxFiles={5}
+        acceptedFileTypes={['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']}
+        maxFileSize={5}
+      />
     )}
   </div>
   );

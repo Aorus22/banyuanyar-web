@@ -135,15 +135,15 @@ export default async function PaketWisataPage() {
 
                           <div className="space-y-2">
                             <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                              <div className="flex items-center gap-2">
-                                <Package className="h-4 w-4" />
-                                <span>{category._count.packages} paket tersedia</span>
-                              </div>
                             </div>
                           </div>
                         </div>
 
-                        <div className="pt-4 mt-auto">
+                        <div className="pt-4 flex flex-col gap-2 mt-auto">
+                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <Package className="h-4 w-4" />
+                            <span>{category._count.packages} paket tersedia</span>
+                          </div>
                           <Button asChild className="w-full group-hover:bg-primary/90 transition-colors">
                             <Link href={`/umkm/paket-wisata/kategori/${category.id}`}>
                               Lihat Paket

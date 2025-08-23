@@ -1,5 +1,26 @@
 import { prisma } from '@/lib/prisma';
 
+export async function getGalleryStats() {
+  try {
+    const [totalGalleries, totalPhotos] = await Promise.all([
+      prisma.gallery.count(),
+      prisma.media.count({
+        where: {
+          entityType: 'gallery'
+        }
+      })
+    ]);
+
+    return {
+      totalGalleries,
+      totalPhotos
+    };
+  } catch (error) {
+    console.error('Error fetching gallery stats:', error);
+    throw new Error('Gagal mengambil statistik galeri');
+  }
+}
+
 export async function getGalleryList() {
   try {
     const galleries = await prisma.gallery.findMany({

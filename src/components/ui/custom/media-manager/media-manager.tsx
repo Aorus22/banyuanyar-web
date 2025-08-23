@@ -96,7 +96,7 @@ export function MediaManager({
       
       <Separator />
       
-      <CardContent className="pt-6">
+      <CardContent>
         {isLoading ? (
           <div className="text-center py-8">
             <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-2" />

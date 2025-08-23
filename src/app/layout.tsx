@@ -20,9 +20,9 @@ export const metadata: Metadata = {
   title: 'Desa Banyuanyar',
   description: 'Website resmi Green Smart Village Desa Banyuanyar Kecamatan Ampel Kabupaten Boyolali',
   icons: {
-    icon: '/logo.png',
-    shortcut: '/logo.png',
-    apple: '/logo.png'
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico'
   }
 };
 

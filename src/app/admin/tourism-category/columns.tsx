@@ -93,7 +93,7 @@ export const columns: ColumnDef<TourismCategory>[] = [
             <DropdownMenuLabel>Aksi</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href={`/admin/tourism-category/${category.id}`} className="w-full">
+              <Link href={`/admin/tourism-category/${category.id}`} className="w-full !p-0">
                 <div className="flex items-center w-full px-2 py-1.5 text-sm">
                   <Eye className="mr-2 h-4 w-4" />
                   Lihat Detail
@@ -101,7 +101,7 @@ export const columns: ColumnDef<TourismCategory>[] = [
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href={`/admin/tourism-category/${category.id}/edit`} className="w-full">
+              <Link href={`/admin/tourism-category/${category.id}/edit`} className="w-full !p-0">
                 <div className="flex items-center w-full px-2 py-1.5 text-sm">
                   <Edit className="mr-2 h-4 w-4" />
                   Edit

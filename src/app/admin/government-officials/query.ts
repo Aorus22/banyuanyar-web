@@ -3,7 +3,6 @@ import { prisma } from '@/lib/prisma';
 export async function getGovernmentOfficials() {
   try {
     const officials = await prisma.governmentOfficial.findMany({
-      where: { isActive: true },
       orderBy: { sortOrder: 'asc' }
     });
     return officials;

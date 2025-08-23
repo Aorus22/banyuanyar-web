@@ -138,7 +138,7 @@ export const columns: ColumnDef<NewsCategory>[] = [
             <DropdownMenuLabel>Aksi</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href={`/admin/news-category/${category.id}/edit`} className="w-full">
+              <Link href={`/admin/news-category/${category.id}/edit`} className="w-full !p-0">
                 <div className="flex items-center w-full px-2 py-1.5 text-sm">
                   <Edit className="mr-2 h-4 w-4" />
                   Edit

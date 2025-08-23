@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { deleteGovernmentOfficial, toggleGovernmentOfficialStatus } from "./server-action";
 import { toast } from "sonner";
+import Link from "next/link";
 
 export type GovernmentOfficial = {
   id: number;
@@ -139,22 +140,17 @@ export const columns: ColumnDef<GovernmentOfficial>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Aksi</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(official.id.toString())}
-            >
-              Copy ID
-            </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <a href={`/admin/government-officials/${official.id}`}>
+              <Link href={`/admin/government-officials/${official.id}`}>
                 <Eye className="mr-2 h-4 w-4" />
                 Lihat Detail
-              </a>
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <a href={`/admin/government-officials/${official.id}/edit`}>
+              <Link href={`/admin/government-officials/${official.id}/edit`}>
                 <Edit className="mr-2 h-4 w-4" />
                 Edit
-              </a>
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleToggleStatus}>
