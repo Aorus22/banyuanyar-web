@@ -104,5 +104,6 @@ export const Icons = {
   creditCard: IconCreditCard,
   logout: IconLogout,
   photoUp: IconPhotoUp,
-  edit: IconEdit
+  edit: IconEdit,
+  file: IconFile
 };

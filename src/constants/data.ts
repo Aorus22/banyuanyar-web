@@ -97,6 +97,14 @@ export const navItems: NavItem[] = [
     ]
   },
   {
+    title: 'Dokumen',
+    url: '/admin/document',
+    icon: 'file',
+    shortcut: ['d', 'd'],
+    isActive: false,
+    items: []
+  },
+  {
     title: 'Wisata',
     url: '/admin/tourism-category',
     icon: 'map',
