@@ -9,8 +9,7 @@ const nextConfig: NextConfig = {
       }
     ]
   },
-  transpilePackages: ['geist'],
-  output: 'standalone'
+  transpilePackages: ['geist']
 };
 
 export default nextConfig;

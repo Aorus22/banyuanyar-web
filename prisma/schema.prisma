@@ -10,7 +10,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -35,8 +35,8 @@ model User {
 model VillageProfile {
   id          Int      @id @default(autoincrement())
   key         String   @unique
-  value       String?  @db.Text
-  name        String?  @db.Text
+  value       String?
+  name        String?
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -47,8 +47,8 @@ model GovernmentOfficial {
   name        String
   position    String
   photoUrl    String?
-  bio         String?  @db.Text
-  socialMedia Json?
+  bio         String?
+  socialMedia String?
   sortOrder   Int      @default(0)
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
@@ -65,7 +65,7 @@ model NewsCategory {
   id          Int      @id @default(autoincrement())
   name        String
   slug        String   @unique
-  description String?  @db.Text
+  description String?
   color       String   @default("#000000")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -77,7 +77,7 @@ model News {
   id            Int          @id @default(autoincrement())
   title         String
   slug          String       @unique
-  content       String       @db.Text
+  content       String
   authorId      Int?
   categoryId    Int?
   status        NewsStatus   @default(DRAFT)
@@ -93,7 +93,7 @@ model News {
 model Event {
   id            Int           @id @default(autoincrement())
   title         String
-  description   String?       @db.Text
+  description   String?
   date          DateTime
   startTime     String?       // Format: "HH:mm" (e.g., "09:00")
   endTime       String?       // Format: "HH:mm" (e.g., "17:00")
@@ -106,7 +106,7 @@ model Event {
 model Gallery {
   id          Int      @id @default(autoincrement())
   title       String
-  description String?  @db.Text
+  description String?
   eventDate   DateTime?
   isActive    Boolean   @default(true)
   createdAt   DateTime  @default(now())
@@ -117,9 +117,9 @@ model Document {
   id            Int      @id @default(autoincrement())
   title         String
   fileUrl       String
-  description   String?  @db.Text
+  description   String?
   filename      String
-  fileSize      BigInt?
+  fileSize      Int?
   fileType      String?
   isActive      Boolean  @default(true)
   createdAt     DateTime @default(now())
@@ -129,7 +129,7 @@ model Document {
 model TourismCategory {
   id          Int      @id @default(autoincrement())
   name        String   @unique
-  description String?  @db.Text
+  description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -139,8 +139,8 @@ model TourismCategory {
 model TourismPackage {
   id               Int              @id @default(autoincrement())
   name             String
-  description      String?          @db.Text
-  price            Decimal?         @db.Decimal(10, 2)
+  description      String?
+  price            Real?
   duration         String?
   maxParticipants  Int?
   categoryId       Int
@@ -154,7 +154,7 @@ model TourismPackage {
 model TourismHouse {
   id            Int      @id @default(autoincrement())
   name          String
-  description   String?  @db.Text
+  description   String?
   category      String?
   location      String?
   contactPerson String?
@@ -168,13 +168,13 @@ model Umkm {
   id          Int      @id @default(autoincrement())
   name        String
   ownerName   String?
-  description String?  @db.Text
-  address     String?  @db.Text
+  description String?
+  address     String?
   phone       String?
   email       String?
-  socialMedia Json?
-  latitude    Float?
-  longitude   Float?
+  socialMedia String?
+  latitude    Real?
+  longitude   Real?
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -185,8 +185,8 @@ model Umkm {
 model UmkmProduct {
   id          Int      @id @default(autoincrement())
   name        String
-  description String?  @db.Text
-  price       Decimal?  @db.Decimal(10, 2)
+  description String?
+  price       Real?
   unit        String?   // satuan: kg, pcs, pack, dll
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
