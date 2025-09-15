@@ -11,7 +11,9 @@ interface EditTourismHousePageProps {
   }>;
 }
 
-export default async function EditTourismHousePage({ params }: EditTourismHousePageProps) {
+export default async function EditTourismHousePage({
+  params
+}: EditTourismHousePageProps) {
   const { id } = await params;
   const house = await getTourismHouseById(parseInt(id));
 
@@ -20,14 +22,14 @@ export default async function EditTourismHousePage({ params }: EditTourismHouseP
   }
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <Heading
         title='Edit Omah Wisata'
         description='Edit informasi omah wisata yang sudah ada'
       />
       <Separator />
-      
+
       <TourismHouseForm house={house} updateTourismHouse={updateTourismHouse} />
     </div>
   );
-} 
+}

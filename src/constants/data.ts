@@ -32,28 +32,28 @@ export const navItems: NavItem[] = [
         url: '/admin/village-profile/history',
         icon: 'page',
         shortcut: ['p', 's'],
-        isActive: false,
+        isActive: false
       },
       {
         title: 'Visi & Misi',
         url: '/admin/village-profile/vision-mission',
         icon: 'target',
         shortcut: ['p', 'v'],
-        isActive: false,
+        isActive: false
       },
       {
         title: 'Tujuan & Sasaran',
         url: '/admin/village-profile/objectives',
         icon: 'flag',
         shortcut: ['p', 't'],
-        isActive: false,
+        isActive: false
       },
       {
         title: 'Demografi & Geografis',
         url: '/admin/village-profile/demographics',
         icon: 'map',
         shortcut: ['p', 'd'],
-        isActive: false,
+        isActive: false
       }
     ]
   },
@@ -85,14 +85,14 @@ export const navItems: NavItem[] = [
         url: '/admin/news',
         icon: 'post',
         shortcut: ['n', 'l'],
-        isActive: false,
+        isActive: false
       },
       {
         title: 'Kategori',
         url: '/admin/news-category',
         icon: 'tag',
         shortcut: ['n', 'c'],
-        isActive: false,
+        isActive: false
       }
     ]
   },
@@ -143,7 +143,7 @@ export const navItems: NavItem[] = [
     shortcut: ['g', 'g'],
     isActive: false,
     items: []
-  },
+  }
 ];
 
 export interface SaleUser {

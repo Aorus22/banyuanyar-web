@@ -10,9 +10,9 @@ export async function getTourismPackages() {
         createdAt: 'desc'
       }
     });
-    
+
     // Convert Decimal to number for client components
-    return packages.map(pkg => ({
+    return packages.map((pkg) => ({
       ...pkg,
       price: pkg.price ? Number(pkg.price) : null
     }));
@@ -30,9 +30,9 @@ export async function getTourismPackageById(id: number) {
         category: true
       }
     });
-    
+
     if (!package_) return null;
-    
+
     // Convert Decimal to number for client components
     return {
       ...package_,
@@ -51,10 +51,10 @@ export async function getTourismCategories() {
         name: 'asc'
       }
     });
-    
+
     return categories;
   } catch (error) {
     console.error('Error fetching tourism categories:', error);
     throw new Error('Failed to fetch tourism categories');
   }
-} 
+}

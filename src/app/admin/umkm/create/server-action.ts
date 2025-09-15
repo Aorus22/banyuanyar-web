@@ -1,4 +1,4 @@
-'use server'
+'use server';
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
@@ -23,8 +23,14 @@ export async function createUmkm(formData: FormData) {
         address: address || null,
         phone: phone || null,
         email: email || null,
-        latitude: latitude && !isNaN(parseFloat(latitude)) ? parseFloat(latitude) : null,
-        longitude: longitude && !isNaN(parseFloat(longitude)) ? parseFloat(longitude) : null,
+        latitude:
+          latitude && !isNaN(parseFloat(latitude))
+            ? parseFloat(latitude)
+            : null,
+        longitude:
+          longitude && !isNaN(parseFloat(longitude))
+            ? parseFloat(longitude)
+            : null,
         socialMedia: socialMedia ? JSON.parse(socialMedia) : {},
         isActive: true
       }
@@ -36,4 +42,4 @@ export async function createUmkm(formData: FormData) {
     console.error('Error creating UMKM:', error);
     return { success: false, error: 'Failed to create UMKM' };
   }
-} 
+}

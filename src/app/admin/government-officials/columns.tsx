@@ -1,20 +1,23 @@
-"use client";
+'use client';
 
-import { ColumnDef } from "@tanstack/react-table";
-import { Button } from "@/components/ui/button";
-import { ArrowUpDown, MoreHorizontal, Edit, Trash2, Eye } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { ColumnDef } from '@tanstack/react-table';
+import { Button } from '@/components/ui/button';
+import { ArrowUpDown, MoreHorizontal, Edit, Trash2, Eye } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { deleteGovernmentOfficial, toggleGovernmentOfficialStatus } from "./server-action";
-import { toast } from "sonner";
-import Link from "next/link";
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
+import {
+  deleteGovernmentOfficial,
+  toggleGovernmentOfficialStatus
+} from './server-action';
+import { toast } from 'sonner';
+import Link from 'next/link';
 
 export type GovernmentOfficial = {
   id: number;
@@ -31,71 +34,77 @@ export type GovernmentOfficial = {
 
 export const columns: ColumnDef<GovernmentOfficial>[] = [
   {
-    accessorKey: "sortOrder",
+    accessorKey: 'sortOrder',
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          variant='ghost'
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Urutan
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     },
-    cell: ({ row }) => <div className="text-center">{row.getValue("sortOrder")}</div>,
+    cell: ({ row }) => (
+      <div className='text-center'>{row.getValue('sortOrder')}</div>
+    )
   },
   {
-    accessorKey: "name",
+    accessorKey: 'name',
     header: ({ column }) => {
       return (
         <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          variant='ghost'
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Nama
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
-    },
+    }
   },
   {
-    accessorKey: "position",
-    header: "Jabatan",
+    accessorKey: 'position',
+    header: 'Jabatan'
   },
   {
-    accessorKey: "photoUrl",
-    header: "Foto",
+    accessorKey: 'photoUrl',
+    header: 'Foto',
     cell: ({ row }) => {
-      const photoUrl = row.getValue("photoUrl") as string;
+      const photoUrl = row.getValue('photoUrl') as string;
       if (photoUrl) {
         return (
-          <div className="w-12 h-12 rounded-full overflow-hidden">
+          <div className='h-12 w-12 overflow-hidden rounded-full'>
             <img
               src={photoUrl}
-              alt="Foto"
-              className="w-full h-full object-cover"
+              alt='Foto'
+              className='h-full w-full object-cover'
             />
           </div>
         );
       }
-      return <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">-</div>;
-    },
+      return (
+        <div className='flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 text-gray-500'>
+          -
+        </div>
+      );
+    }
   },
   {
-    accessorKey: "isActive",
-    header: "Status",
+    accessorKey: 'isActive',
+    header: 'Status',
     cell: ({ row }) => {
-      const isActive = row.getValue("isActive") as boolean;
+      const isActive = row.getValue('isActive') as boolean;
       return (
-        <Badge variant={isActive ? "default" : "secondary"}>
-          {isActive ? "Aktif" : "Tidak Aktif"}
+        <Badge variant={isActive ? 'default' : 'secondary'}>
+          {isActive ? 'Aktif' : 'Tidak Aktif'}
         </Badge>
       );
-    },
+    }
   },
   {
-    id: "actions",
+    id: 'actions',
     cell: ({ row }) => {
       const official = row.original;
 
@@ -104,13 +113,13 @@ export const columns: ColumnDef<GovernmentOfficial>[] = [
           try {
             const result = await deleteGovernmentOfficial(official.id);
             if (result.success) {
-              toast.success("Perangkat desa berhasil dihapus");
+              toast.success('Perangkat desa berhasil dihapus');
               window.location.reload();
             } else {
-              toast.error(result.error || "Gagal menghapus perangkat desa");
+              toast.error(result.error || 'Gagal menghapus perangkat desa');
             }
           } catch (error) {
-            toast.error("Terjadi kesalahan saat menghapus");
+            toast.error('Terjadi kesalahan saat menghapus');
           }
         }
       };
@@ -122,50 +131,53 @@ export const columns: ColumnDef<GovernmentOfficial>[] = [
             toast.success(`Status ${official.name} berhasil diubah`);
             window.location.reload();
           } else {
-            toast.error(result.error || "Gagal mengubah status");
+            toast.error(result.error || 'Gagal mengubah status');
           }
         } catch (error) {
-          toast.error("Terjadi kesalahan saat mengubah status");
+          toast.error('Terjadi kesalahan saat mengubah status');
         }
       };
 
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
+            <Button variant='ghost' className='h-8 w-8 p-0'>
+              <span className='sr-only'>Open menu</span>
+              <MoreHorizontal className='h-4 w-4' />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align='end'>
             <DropdownMenuLabel>Aksi</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
               <Link href={`/admin/government-officials/${official.id}`}>
-                <Eye className="mr-2 h-4 w-4" />
+                <Eye className='mr-2 h-4 w-4' />
                 Lihat Detail
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link href={`/admin/government-officials/${official.id}/edit`}>
-                <Edit className="mr-2 h-4 w-4" />
+                <Edit className='mr-2 h-4 w-4' />
                 Edit
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleToggleStatus}>
-              <Badge variant={official.isActive ? "secondary" : "default"} className="mr-2">
-                {official.isActive ? "Nonaktifkan" : "Aktifkan"}
+              <Badge
+                variant={official.isActive ? 'secondary' : 'default'}
+                className='mr-2'
+              >
+                {official.isActive ? 'Nonaktifkan' : 'Aktifkan'}
               </Badge>
-              {official.isActive ? "Nonaktifkan" : "Aktifkan"}
+              {official.isActive ? 'Nonaktifkan' : 'Aktifkan'}
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleDelete} className="text-red-600">
-              <Trash2 className="mr-2 h-4 w-4" />
+            <DropdownMenuItem onClick={handleDelete} className='text-red-600'>
+              <Trash2 className='mr-2 h-4 w-4' />
               Hapus
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
-    },
-  },
-]; 
+    }
+  }
+];

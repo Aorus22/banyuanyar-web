@@ -4,23 +4,34 @@ export async function seedNews(prisma: PrismaClient) {
   console.log('🌱 Seeding news...');
 
   // Get admin user for news author
-  const adminUser = await prisma.user.findFirst({ where: { role: "ADMIN" } });
-  const beritaCategory = await prisma.newsCategory.findFirst({ where: { slug: "berita-desa" } });
-  const umumCategory = await prisma.newsCategory.findFirst({ where: { slug: "umum" } });
-  const wisataCategory = await prisma.newsCategory.findFirst({ where: { slug: "wisata" } });
-  const umkmCategory = await prisma.newsCategory.findFirst({ where: { slug: "umkm" } });
-  const pemerintahanCategory = await prisma.newsCategory.findFirst({ where: { slug: "pemerintahan" } });
+  const adminUser = await prisma.user.findFirst({ where: { role: 'ADMIN' } });
+  const beritaCategory = await prisma.newsCategory.findFirst({
+    where: { slug: 'berita-desa' }
+  });
+  const umumCategory = await prisma.newsCategory.findFirst({
+    where: { slug: 'umum' }
+  });
+  const wisataCategory = await prisma.newsCategory.findFirst({
+    where: { slug: 'wisata' }
+  });
+  const umkmCategory = await prisma.newsCategory.findFirst({
+    where: { slug: 'umkm' }
+  });
+  const pemerintahanCategory = await prisma.newsCategory.findFirst({
+    where: { slug: 'pemerintahan' }
+  });
 
   // News 1: PENERAPAN BIOPORI DESA BANYUANYAR
   const news1 = await prisma.news.create({
     data: {
-      title: "Cara Unik Warga Desa Banyuanyar Boyolali dalam Rangka Memohon Hujan",
-      slug: "cara-unik-warga-desa-banyuanyar-boyolali-dalam-rangka-memohon-hujan",
+      title:
+        'Cara Unik Warga Desa Banyuanyar Boyolali dalam Rangka Memohon Hujan',
+      slug: 'cara-unik-warga-desa-banyuanyar-boyolali-dalam-rangka-memohon-hujan',
       content: `<p class="text-node">FOKUS JATENG-BOYOLALI-Tradisi unik dilakukan warga Desa Banyuanyar, Kecamatan Ampel, Boyolali, Jumat 20 September 2019. Mereka menggelar ritual doa minta hujan melalui acara Kenduren Udan Dawet atau minuman khas warga.</p><p class="text-node">Ritual diawali dengan kirab sejumlah gunungan nasi lengkap dengan lauk pauknya. Selain itu juga terdapat gunungan dawet lengkap dengan peralatannya. Kirab dari Masjid Anur menuju Punden Mandirejo sejauh 200 meter.</p><p class="text-node">Kirab diikuti warga di tiga dukuh di Desa Banyuanyar, yaitu Dukuh Dukuh, Dukuh Bunder dan Dukuh Ngemplak. Sesampai di Punden Mandirejo yang terdapat sumber air, lantas dilakukan doa untuk memohon hujan dan keselamatan oleh tokoh agama setempat.</p><p class="text-node">Puncak acara dilakukan warga dengan menyiramkan dawet sembari berteriak Bismilahirohmanirohim. Hal ini sebagai simbol agar hujan segera datang. Selanjutnya, seluruh warga yang ikut kirab, bersama-sama menikmati gunungan lengkap dengan aneka lauknya.</p><p class="text-node">Menurut Kades Banyuanyar, Komarudin, kegiatan tersebut sudah dilakukan secara turun- temurun. Yaitu digelar setahun sekali pada mongso kapat pada penanggalan Jawa, dilaksanakan pada Jumat pon. “Tujuannya, untuk memohon kepada Tuhan agar segera turun hujan,” ujar Komarudin disela acara.</p><p class="text-node">Dijelaskan, kegiatan didukung sepenuhnya oleh masyarakat Banyuanyar. Bahkan, setiap keluarga di tiga dukuh tersebut rela membuat tumpeng dan pelengkapan lauk ayam dan sayuran. Mereka juga membuat minuman dawet.</p><p class="text-node">“Oleh masyarakat di Desa Banyuanyar dan desa di kawasan lereng Gunung Merbabu, ritual ini sebagai simbol awal memasuki musim hujan dan dimulainya masa bercocok tanam.”</p><p class="text-node">Sayangnya, di era modern dan era globalisasi saat ini, terjadi degradasi pelestarian budaya dan adat lokal. Maka Pemdes Banyuanyar kemudian mengambil inisiatif untuk melestarikan ritual itu dengan kemasan yang sesuai dengan kondisi sekarang.</p><p class="text-node">Salah satu pengunjung Murni (34) asal Kecamatan Mojosongo mengaku senang bisa mengikuti ritual Kenduren Udan Dawet di Desa Banyuanyar. Tradisi unik tersebut bisa dikemas untuk menarik wisatawan.</p><p class="text-node">“Kami berharap tradisi unik ini bisa terus digelar rutin setiap tahun dan sekaligus sebagai upaya melestarikan budaya gotong royong”.</p><p class="text-node">Sumber : <a target="_blank" rel="noopener noreferrer nofollow" class="link" href="https://www.fokusjateng.com">https://www.fokusjateng.com</a></p>`,
       authorId: adminUser?.id,
       categoryId: wisataCategory?.id,
       status: NewsStatus.PUBLISHED,
-      publishedAt: new Date("2019-09-20"),
+      publishedAt: new Date('2019-09-20'),
       viewCount: 150
     }
   });
@@ -28,23 +39,24 @@ export async function seedNews(prisma: PrismaClient) {
     data: {
       fileName: 'kenduren-udan-dawet.jpg',
       fileSize: 1024000,
-      fileUrl: 'https://desabanyuanyar.com/wp-content/uploads/2024/11/WhatsApp-Image-2024-11-04-at-19.31.33-1.jpeg.webp',
+      fileUrl:
+        'https://desabanyuanyar.com/wp-content/uploads/2024/11/WhatsApp-Image-2024-11-04-at-19.31.33-1.jpeg.webp',
       mimeType: 'image/jpeg',
       description: '',
       entityType: 'news',
-      entityId: news1.id,
+      entityId: news1.id
     }
   });
 
   const news2 = await prisma.news.create({
     data: {
-      title: "Nikmatnya Kopi Nangka Asli Desa Banyuanyar",
-      slug: "nikmatnya-kopi-nangka-asli-desa-banyuanyar",
+      title: 'Nikmatnya Kopi Nangka Asli Desa Banyuanyar',
+      slug: 'nikmatnya-kopi-nangka-asli-desa-banyuanyar',
       content: `<p class="text-node"><strong>RACIKAN</strong>&nbsp;kopi nikmat kini bisa dinikmati seluruh kalangan masyarakat. Bahkan di pelosok pedesaan pun, penikmat kopi bisa mendapatkannya dengan mudah.</p><p class="text-node">Seperti di sebuah kedai kopi di Desa Banyuanyar, Kecamatan Ampel Boyolali. Uniknya, kedai kopi yang berada di tengah perkampungan penduduk ini dikelola oleh Kelompok Tani Ternak (KTT) Ngudi Utomo, dibawah binaan BUMDes Banyuanyar.</p><p class="text-node">Ada yang unik dari kedai kopi milik Kelompok Tani tersebut, yaitu kopi nangka. Kopi nangka ini juga merupakan khas-nya kedai yang diberi nama Omah Kopi Ngemplak (Om Koplak) Desa Banyuanyar. Ada pula kopi bir yang berasa laiknya bir.</p><p class="text-node">Sungguh nikmat merasakan kopi di kedai itu. Berada persis di tengah perkampungan dengan alam pedesaan yang asri. Lengkap dengan kebun kopi yang bisa dilihat dengan mata telanjang. Ditambah menu singkong atau sukun goreng.</p><p class="text-node">Menurut Pengelola Omah Kopi Ngemplak, Eko Budi Suroso, kopi nangka ini merupakan unggulan di Desa Banyuanyar. Karena kopi itu saat ini sudah langka, namun masih dibudidayakan masyarakat Desa di kaki Gunung Merbabu tersebut.</p><p class="text-node">“Keunikan kopi nangka adalah dari rasanya. Sangat lengkap, ada manisnya, ada pahitnya dan aromanya itu yang bikin unik, aroma nangka yang khas banget,” katanya.</p><p class="text-node">Tak hanya mengandalkan kopi nangka, Budi bersama kelompoknya juga menciptakan menu baru untuk sajian minuman kopi. Dari mengulik menu baru itulah, ketemu kopi dengan rasa dan aroma bir yang kemudian diberi nama kopi bir.</p><p class="text-node">“Awalnya kita ketemu dengan teman-teman, ngulik gimana caranya kita bikin menu baru. Karena kita sudah terjun di kopi, jadi harus bikin menu yang baru.”</p><p class="text-node">Racikan kopi bir berbahan dari kopi nangka yang dibikin wine dan bunga kopi yang dibikin fermentasi. “Biang birnya itu dari bunga kopi yang difermentasi untuk menjadi pemanis dari kopi bir ini,” lanjut dia.</p><p class="text-node">Jadi, tak ada campuran minuman bir sama sekali. Namun, ada aroma dan rasa bir serta busa layaknya bir. “Yang bikin busanya itu dari es batu dan wine kopi nangka. Kopi bir ini untuk menghangatkan badan dan juga rasa, mirip bir.”</p><p class="text-node">Tak hanya itu, pihaknya juga membuat menu dengan memanfaatkan potensi lokal. Yaitu kopi susu koplak. Dimana kopi ditambah dengan susu kental manis (SKM). Uniknya, SKM dibuat dari susu murni hasil ternak sapi perah setempat.</p><p class="text-node">Penikmat kopi sekaligus pegiat pariwisata, Kusworo Rahardian, mengaku senang menikmati racikan kopi di kedai yang Omah Kopi Ngemplak. Menu atau racikan kopi terasa nikmat dengan suasana pedesaan yang alami.</p><p class="text-node">“Kopi bir ini layak untuk diangkat menjadi lokal brand yang mendunia.”<br>Sementara, Kades Banyuanyar, Komarudin, menjelaskan kopi nangka di Desa Banyuanyar ini merupakan kopi yang sudah langka. Ini merupakan kopi peninggalan jaman belanda sejak tahun 1880. Semula dipasar hanya dihargai Rp 19.000/kg, kini dibeli BUMDes dengan harga Rp 24.000- Rp 25.000/kg.</p><p class="text-node">“Keberadaan BUMDes mampu mendongkrak harga kopi Banyuanyar serta<br>mendorong desa wisata perkebunan, khususnya kampung kopi.” (Joko Murdowo)</p><p class="text-node">Sumber : <a target="_blank" rel="noopener noreferrer nofollow" class="link" href="https://newsreal.id/2021/02/14/nikmatnya-kopi-nangka-asli-desa-banyuanyar/">https://newsreal.id/2021/02/14/nikmatnya-kopi-nangka-asli-desa-banyuanyar/</a></p>`,
       authorId: adminUser?.id,
       categoryId: umkmCategory?.id,
       status: NewsStatus.PUBLISHED,
-      publishedAt: new Date("2021-02-14"),
+      publishedAt: new Date('2021-02-14'),
       viewCount: 89
     }
   });
@@ -52,62 +64,69 @@ export async function seedNews(prisma: PrismaClient) {
     data: {
       fileName: 'kopi-nangka-asli-desa-banyuanyar.jpg',
       fileSize: 1536000,
-      fileUrl: 'https://desabanyuanyar.com/wp-content/uploads/2024/11/WhatsApp-Image-2024-11-04-at-19.31.33-1.jpeg.webp',
+      fileUrl:
+        'https://desabanyuanyar.com/wp-content/uploads/2024/11/WhatsApp-Image-2024-11-04-at-19.31.33-1.jpeg.webp',
       mimeType: 'image/jpeg',
       description: '',
       entityType: 'news',
-      entityId: news2.id,
+      entityId: news2.id
     }
   });
 
   const news3 = await prisma.news.create({
     data: {
-      title: "PPK Ormawa KSP “Principium” UNS Wujudkan Pembangunan Barendo Coffee Land And Nature Camp Di Desa Banyuanyar, Boyolali",
-      slug: "ppk-ormawa-ksp-principium-unswujudkan-pembangunan-barendo-coffee-land-and-nature-camp-di-desa-banyuanyar-boyolali",
+      title:
+        'PPK Ormawa KSP “Principium” UNS Wujudkan Pembangunan Barendo Coffee Land And Nature Camp Di Desa Banyuanyar, Boyolali',
+      slug: 'ppk-ormawa-ksp-principium-unswujudkan-pembangunan-barendo-coffee-land-and-nature-camp-di-desa-banyuanyar-boyolali',
       content: `<p class="text-node"><a target="_blank" rel="noopener noreferrer nofollow" class="link" href="http://BeritaWonogiri.com">BeritaWonogiri.com</a> [SOLO] – Program Penguatan Kapasitas Organisasi Kemahasiswaan (PPK Ormawa) KSP “Principium” yang terdiri dari mahasiswa Fakultas Hukum (FH) dan Fakultas Ekonomi dan Bisnis (FEB) Universitas Sebelas Maret (UNS) Surakarta mengusung konsep pembangunan destinasi wisata dengan tema Barendo Coffee Land and Nature Camp di desa Banyuanyar.</p><p class="text-node">Penetapan Desa Banyuanyar di Kecamatan Ampel, Kabupaten Boyolali sebagai desa wisata pada tahun 2021 menandakan eksistensi keberadaan wisata Kampus Kopi Banyuanyar. Namun, selama dua tahun pasca penetapan belum diperoleh perubahan yang signifikan dan belum ada magnet destinasi yang menjadi ikon Banyuanyar yang membedakan dengan destinasi desa wisata lainnya.</p><p class="text-node">Dengan adanya permasalahan tersebut, PPK Ormawa menggagas Camping Ground yang menyatu dengan alam. Kunjungan wisatawan yang relatif singkat menjadi permasalahan yang sedang diurai dengan hadirnya Barendo Coffee Land and Nature Camp.</p><p class="text-node">Pelaksanaan PPK Ormawa ini mewujudkan inisiasi pembangunan Barendo Coffee Land and Nature Camp yang berlokasi di Lapangan Gedung Industri Kecil Masyarakat (IKM) Kampus Kopi, Desa Banyuanyar, Kabupaten Boyolali. Keseluruhan program PPK Ormawa termasuk rancang bangun Barendo Coffee Land and Nature Camp didanai oleh Direktorat Jenderal Pembelajaran dan Kemahasiswaan Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi (Kemendikbudristek) Republik Indonesia.</p><p class="text-node">Selain itu, UNS dan Desa Banyuanyar sebagai mitra juga turut memberikan bantuan dana guna menyukseskan program kerja tim PPK Ormawa KSP “Principium” FH UNS.</p><p class="text-node">Tifani selaku Ketua PPK Ormawa KSP “Principium” menjelaskan inisiasi Barendo Coffee Land and Nature Camp bertujuan untuk meningkatkan durasi kunjungan wisatawan dalam menjelajahi sembilan klaster UMKM unggulan. Kunjungan wisata konvensional (mass tourism) berdurasi terbatas sekitar 2-3 jam, sehingga para wisatawan tidak dapat menikmati keseluruhan Desa Wisata Banyuanyar.</p><p class="text-node">“Tim PPK Ormawa KSP Principium membuat Barendo Coffee Land Nature yang berkonsep nomadic tourism guna mengoptimalkan kunjungan wisatawan agar dapat mengenal lebih dalam tentang Desa Banyuanyar,” ungkap Tifani.</p><p class="text-node">Launching Barendo Coffee Land and Nature Camp dilaksanakan pada hari Jumat (22/9/2023) oleh Tim PPK Ormawa KSP “Principium”. Acara tersebut dihadiri Kepala Desa Banyuanyar, Dinas Pemuda, Olahraga dan Pariwisata (Disporapar) Kabupaten Boyolali, serta Dinas Pemuda, Olahraga dan Pariwisata Provinsi Jawa Tengah. Bertepatan dengan pembukaan Forum Komunikasi Desa Wisata se-Jawa Tengah di Balai Desa Banyuanyar.</p><p class="text-node">Launching juga dihadiri perusahaan swasta Boyolali jeep adventure, dan beberapa media lokal yang turut meliput kegiatan launching. Hadirnya Barendo Coffee Land and Nature Camp diharapkan dapat menjadi daya tarik bagi wisatawan untuk berkunjung ke Desa Banyuanyar, sehingga mampu meningkatkan Pendapatan Asli Desa.</p><p class="text-node">Kemudian, guna mengoptimalkan destinasi baru, Barendo Coffee Land and Nature Camp diintegrasikan dengan Paket Tour Wisata Jelajah UMKM di sembilan klaster unggulan Desa Banyuanyar.</p><p class="text-node">Kepala Desa Banyuanyar, Komaruddin, ST menyampaikan bahwa Desa Wisata Kampus Kopi Banyuanyar dapat menjadi desa wisata edukasi dengan menggandeng berbagai pihak kampus untuk memberikan edukasi kepada masyarakat. Pembangunan Barendo Coffee Land and Nature Camp yang diinisiasi PPK Ormawa KSP “Principium” FH UNS merupakan proyek kolaboratif yang melibatkan kerja sama antara desa dengan perguruan tinggi.</p><p class="text-node">“Harapannya melalui program yang telah dilaksanakan dapat membangkitkan destinasi wisata di Desa Banyuanyar dan menjadi kampus terapan yang unggul di Jawa Tengah,” imbuh Komaruddin.</p><p class="text-node">Sementara itu, dosen pembimbing tim PPK Ormawa KSP “Principium”, Dr Muhammad Rustamaji, SH, MH berharap ada peningkatan penjualan produk UMKM Desa Banyuanyar. Perlu adanya daya ungkit yang membuat wisatawan dapat berkunjung lama guna menikmati kesenian, olahan produk dan keindahan alam pedesaan.</p><p class="text-node">“Maka dari itu semoga peluncuran Barendo Coffee Land and Nature Camp ini dapat memberikan manfaat ekonomi bagi Desa Banyuanyar dengan mempromosikan pariwisata lokal dan memberikan peluang kerja bagi penduduk setempat,” imbuh Dr Muhammad Rustamaji.</p><p class="text-node">Upacara simbolik launching Barendo Coffee Land and Nature Camp dilakukan dengan pemotongan pita oleh Kepala Disporapar Kabupaten Boyolali bersama seluruh tim PPK Ormawa, tim Bina Desa Center (BDC) UNS, perwakilan Ormawa KSP “Principium”, serta perwakilan sivitas FH UNS. Kepala Disporapar Kabupaten Boyolali, Budi Prasetyaningsih, SPd, MPd turut mengapresiasi acara ini.</p><p class="text-node">Dia menyampaikan bahwa untuk kedepannya Barendo Coffee Land and Nature Camp dapat menjadi daya tarik Desa Banyuanyar dan dapat meraih penghargaan Desa Wisata yang lebih tinggi. (Triantohs)</p><p class="text-node"></p><p class="text-node">Sumber : <a target="_blank" rel="noopener noreferrer nofollow" class="link" href="https://beritawonogiri.com/ppk-ormawa-ksp-principium-uns-wujudkan-pembangunan-barendo-coffee-land-and-nature-camp-di-desa-banyuanyar-boyolali/">https://beritawonogiri.com/ppk-ormawa-ksp-principium-uns-wujudkan-pembangunan-barendo-coffee-land-and-nature-camp-di-desa-banyuanyar-boyolali/</a></p>`,
       authorId: adminUser?.id,
       categoryId: beritaCategory?.id,
       status: NewsStatus.PUBLISHED,
-      publishedAt: new Date("2021-09-30"),
+      publishedAt: new Date('2021-09-30'),
       viewCount: 89
     }
-  })
+  });
   await prisma.media.create({
     data: {
-      fileName: 'ppk-ormawa-ksp-principium-uns-wujudkan-pembangunan-barendo-coffee-land-and-nature-camp-di-desa-banyuanyar-boyolali.jpg',
+      fileName:
+        'ppk-ormawa-ksp-principium-uns-wujudkan-pembangunan-barendo-coffee-land-and-nature-camp-di-desa-banyuanyar-boyolali.jpg',
       fileSize: 1536000,
-      fileUrl: 'https://desabanyuanyar.com/wp-content/uploads/2024/11/IMG-20230930-WA0021-975x731.jpg',
+      fileUrl:
+        'https://desabanyuanyar.com/wp-content/uploads/2024/11/IMG-20230930-WA0021-975x731.jpg',
       mimeType: 'image/jpeg',
       description: '',
       entityType: 'news',
-      entityId: news3.id,
+      entityId: news3.id
     }
   });
 
   const news4 = await prisma.news.create({
     data: {
-      title: "Biodata Komarudin Kades Banyuanyar Boyolali: Kembangkan Desa Digital untuk Memajukan Masyarakat",
-      slug: "biodata-komarudin-kades-banyuanyar-boyolali-kembangkan-desa-digital-untuk-memajukan-masyarakat",
+      title:
+        'Biodata Komarudin Kades Banyuanyar Boyolali: Kembangkan Desa Digital untuk Memajukan Masyarakat',
+      slug: 'biodata-komarudin-kades-banyuanyar-boyolali-kembangkan-desa-digital-untuk-memajukan-masyarakat',
       content: `<p class="text-node"><strong>Laporan Wartawan </strong><a target="_blank" rel="noopener noreferrer nofollow" class="link" href="http://TribunSolo.com"><strong>TribunSolo.com</strong></a><strong>, Tri Widodo</strong></p><p class="text-node"><a target="_blank" rel="noopener noreferrer nofollow" class="link" href="http://TRIBUNSOLO.COM"><strong>TRIBUNSOLO.COM</strong></a><strong>, BOYOLALI –</strong>&nbsp;Komarudin kini menjabat sebagai Kepala Desa Banyuanyar, Kecamatan Ampel, Kabupaten Boyolali.</p><p class="text-node">Dalam memajukan desanya, Komarudin mencoba mengembangkan&nbsp;<a target="_blank" rel="noopener noreferrer nofollow" class="link" href="https://solo.tribunnews.com/tag/desa-digital">Desa&nbsp;Digital</a>.</p><p class="text-node">Tujuannya untuk menggerakkan perekonomian masyarakat desa.</p><p class="text-node">Sebab melalui beberapa fasilitas yang ada didalam Desa Digital ini, semua dapat lebih mudah.</p><p class="text-node">Baik dalam pengembangan ekonomi masyarakat, layanan, ketersediaan infrastruktur internet hingga meningkatkan pengetahuan warga masyarakat.</p><p class="text-node">Menurut Komarudin, di zaman modern seperti ini, kebutuhan akan internet seakan menjadi kebutuhan ‘wajib’.</p><p class="text-node">Bahkan kebutuhan itu berada di atas kebutuhan sandang, pangan, dan papan.</p><p class="text-node">Sehingga meski hanya sebuah desa bukan berarti harus jauh dari internet.</p><p class="text-node">“Untuk itu, kami sejak tahun 2013 lalu mulai merancang agar masyarakat dapat memenuhi kebutuhan internet,” ujar Komar, kepada <a target="_blank" rel="noopener noreferrer nofollow" class="link" href="http://TribunSolo.com">TribunSolo.com</a>, Senin (24/1/2022)</p><p class="text-node">Tekad itu pun perlahan mulai direalisasikan.</p><p class="text-node">Pertama dengan pemasangan wifi hotspot untuk akses internet gratis.</p><p class="text-node">Secara pasti program utama sebagai infrastruktur jaringan itu mulai terbangun.</p><p class="text-node">Hingga saat ini, sudah ada puluhan titik hotspot sebagai sarana internet gratis telah terpasang.</p><p class="text-node">Ia menyebut saat ini telah ada 30 titik hotspot internet yang disediakan pemerintah desa untuk warga, tersebar di setiap dukuh yang terpasang di masjid, pos kampling serta balai desa.</p><p class="text-node">“Sekarang ini mau tak mau masyarakat desa harus melek teknologi informasi agar tak ketinggalan jaman.<br>Masyarakat yang berwawasan menjadi pondasi untuk pembangunan desa ke depan,” jelasnya.</p><p class="text-node">Hal itu semata-mata sebagai upaya meningkatkan kesejahteraan dan kemandirian desa.</p><p class="text-node">Melalui program ini masyarakat dapat melakukan pengembangan sektor ekonomi, dengan tetap berbasis lingkungan.</p><p class="text-node">“Seluruh warga Banyuanyar dapat mengakses internet dan mengambil manfaat di dalamnya,” ungkapnya.</p><p class="text-node">Selain untuk sektor pendidikan, digitalisasi ini juga untuk membantu meningkatkan pengembangan UMKM yang banyak dilakukan masyarakat Desa Banyuanyar.</p><p class="text-node">“Warga (pelaku UMKM) bisa memasarkan produknya melalui media sosial. Semoga keberadaan hotspot akan sangat membantu mereka untuk memanfaatkan hotspot,” pungkasnya.</p><p class="text-node"><strong>Biodata Komarudin</strong></p><p class="text-node">Nama: Komarudin, S T</p><p class="text-node">Tempat Tanggal Lahir: Boyolali, 5 Februari 1974</p><p class="text-node">Alamat: Dk. Grenjeng RT 3 RW 2 Desa Banyuanyar, Kecamatan Ampel, Kabupaten Boyolali</p><p class="text-node">Nama Istri: HURIP SRI HARTATIK, S.Pd</p><p class="text-node">Nama Anak:</p><p class="text-node">– Rafa’ Ahmad Fawzi</p><p class="text-node">– Cantika Intan Naila</p><p class="text-node"><strong>Riwayat Pendidikan</strong></p><p class="text-node">– SD N Banyuanyar</p><p class="text-node">– MTsN Surakarta</p><p class="text-node">– MAN 1 Boyolali</p><p class="text-node">– S1, Teknik Mesin UMS</p><p class="text-node"><strong>Pengalaman Kerja</strong></p><p class="text-node">– General Contractor &amp; Consultant Pabrik Kelapa Sawit di CV. Palm Service Indonesia, Medan, Sumut</p><p class="text-node">– Wakil Kepala Sekolah Bid. Kurikulum di SMK Bhinneka Karya 4 Ampel, 2006 – 2013</p><p class="text-node">–&nbsp;<a target="_blank" rel="noopener noreferrer nofollow" class="link" href="https://solo.tribunnews.com/tag/kades-banyuanyar">Kades&nbsp;Banyuanyar</a>&nbsp;Periode 2013-2019</p><p class="text-node">– Kades Banyuanyar Periode 2019-2025</p><p class="text-node"><strong>Pengalaman Organisasi</strong></p><p class="text-node">– Sekretaris MWC Nahdlatul Ulama (NU) Kecamatan Ampel Tahun 2008 – 2010</p><p class="text-node">– Anggota PPK (Panitia Pemilihan Kecamatan) Kecamatan Ampel Tahun 2010 – 2013</p><p class="text-node">– Ketua Lembaga Pendidikan Ma’arif NU Kecamatan Ampel Tahun 2010 – 2015</p><p class="text-node">– Sekretaris UPK (Unit Pengelola Kegiatan) Kecamatan Ampel Tahun 2013 – 2016</p><p class="text-node">– Sekretaris DPC Asosiasi Pemerintah Desa Seluruh Indonesia (APDESI) Kabupaten Boyolali Tahun 2015 – 2019</p><p class="text-node">– Ketua Cabang Persaudaraan Setia Hati Terate (PSHT) Kabupaten Boyolali, Tahun 2017 – 2022</p><p class="text-node">– Pembina Komunitas Masyarakat Peduli Kemanusiaan (KOMPAK) Tahun 2018 – sekarang</p><p class="text-node">– Sekretaris Paguyuban Kepala Desa Ki Ageng Pandaran Kabupaten Boyolali Tahun 2019 – 2025</p><p class="text-node">– Ketua DPD LPM (Lembaga Pemberdayaan Masyarakat) Kabupaten Boyolali Tahun 2020 – skrg</p><p class="text-node">– DPC APEDI (Asosiasi Pengusaha Desa Indonesia) Kabupaten Boyolali, Tahun 2020 – sekarang</p><p class="text-node">– Ketua DPC ASPRINDO (Asosiasi Pengusaha Bumiputera Nusantara Indonesia) Kabupaten Boyolali</p><p class="text-node">– Wakil Ketua DPD Perkumpulan Aparatur Pemerintah Desa Seluruh Indonesia (PAPDESI) Provinsi Jawa Tengah Tahun 2021 – sekarang</p><p class="text-node">Artikel ini telah tayang di&nbsp;<a target="_blank" rel="noopener noreferrer nofollow" class="link" href="http://TribunSolo.com">TribunSolo.com</a>&nbsp;dengan judul Biodata Komarudin Kades Banyuanyar Boyolali: Kembangkan Desa Digital untuk Memajukan Masyarakat,&nbsp;<a target="_blank" rel="noopener noreferrer nofollow" class="link" href="https://solo.tribunnews.com/2022/01/24/biodata-komarudin-kades-banyuanyar-boyolali-kembangkan-desa-digital-untuk-memajukan-masyarakat?page=4">https://solo.tribunnews.com/2022/01/24/biodata-komarudin-kades-banyuanyar-boyolali-kembangkan-desa-digital-untuk-memajukan-masyarakat?page=4</a>.<br>Penulis: Tri Widodo | Editor: Reza Dwi Wijayanti</p>`,
       authorId: adminUser?.id,
       categoryId: beritaCategory?.id,
       status: NewsStatus.PUBLISHED,
-      publishedAt: new Date("2022-01-24"),
+      publishedAt: new Date('2022-01-24'),
       viewCount: 89
     }
-  })
+  });
   await prisma.media.create({
     data: {
-      fileName: 'biodata-komarudin-kades-banyuanyar-boyolali-kembangkan-desa-digital-untuk-memajukan-masyarakat.jpg',
+      fileName:
+        'biodata-komarudin-kades-banyuanyar-boyolali-kembangkan-desa-digital-untuk-memajukan-masyarakat.jpg',
       fileSize: 1536000,
-      fileUrl: 'https://desabanyuanyar.com/wp-content/uploads/2024/11/uuu7y2412022.jpg.webp',
+      fileUrl:
+        'https://desabanyuanyar.com/wp-content/uploads/2024/11/uuu7y2412022.jpg.webp',
       mimeType: 'image/jpeg',
       description: '',
       entityType: 'news',
-      entityId: news4.id,
+      entityId: news4.id
     }
   });
 
   console.log(`✅ News seeded: 4 records with their media`);
   return { news1, news2, news3, news4 };
-} 
+}

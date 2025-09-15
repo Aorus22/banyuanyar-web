@@ -1,7 +1,26 @@
 import React from 'react';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Camera, Users, Star, Coffee, Mountain, Home, Car, Tent, BookOpen, Users2, Building } from 'lucide-react';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card';
+import {
+  MapPin,
+  Camera,
+  Users,
+  Star,
+  Coffee,
+  Mountain,
+  Home,
+  Car,
+  Tent,
+  BookOpen,
+  Users2,
+  Building
+} from 'lucide-react';
 import Link from 'next/link';
 
 const tourismPackages = [
@@ -104,34 +123,44 @@ const omahWisata = [
 
 export function LandingPricing() {
   return (
-    <div id='tourism' className='w-full py-12 xs:py-20'>
-      <div className='w-full max-w-screen-xl mx-auto'>
+    <div id='tourism' className='xs:py-20 w-full py-12'>
+      <div className='mx-auto w-full max-w-screen-xl'>
         {/* Tourism Packages */}
-        <div className='text-center mb-16'>
-          <h2 className='text-3xl xs:text-4xl sm:text-5xl font-bold tracking-tight' data-aos="fade-down">
+        <div className='mb-16 text-center'>
+          <h2
+            className='xs:text-4xl text-3xl font-bold tracking-tight sm:text-5xl'
+            data-aos='fade-down'
+          >
             Paket Wisata Desa Banyuanyar
           </h2>
-          <p className='mt-4 text-lg text-muted-foreground max-w-3xl mx-auto' data-aos="fade-up" data-aos-delay="200">
-            Pilih paket wisata yang sesuai dengan kebutuhan Anda. Setiap paket dirancang untuk memberikan pengalaman terbaik di Desa Banyuanyar.
+          <p
+            className='text-muted-foreground mx-auto mt-4 max-w-3xl text-lg'
+            data-aos='fade-up'
+            data-aos-delay='200'
+          >
+            Pilih paket wisata yang sesuai dengan kebutuhan Anda. Setiap paket
+            dirancang untuk memberikan pengalaman terbaik di Desa Banyuanyar.
           </p>
         </div>
 
-        <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20'>
+        <div className='mb-20 grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
           {tourismPackages.map((pkg, index) => (
             <Card
               key={pkg.title}
-              className={`relative ${pkg.popular ? 'border-primary shadow-lg scale-105' : ''} hover:shadow-xl transition-all duration-300`}
-              data-aos="fade-up"
+              className={`relative ${pkg.popular ? 'border-primary scale-105 shadow-lg' : ''} transition-all duration-300 hover:shadow-xl`}
+              data-aos='fade-up'
               data-aos-delay={100 * (index + 1)}
             >
               {pkg.popular && (
-                <Badge className='absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary'>
+                <Badge className='bg-primary absolute -top-3 left-1/2 -translate-x-1/2 transform'>
                   Paling Populer
                 </Badge>
               )}
               <CardHeader>
-                <div className='flex items-center gap-3 mb-3'>
-                  <div className={`h-12 w-12 flex items-center justify-center bg-gradient-to-r ${pkg.color} text-white rounded-full`}>
+                <div className='mb-3 flex items-center gap-3'>
+                  <div
+                    className={`flex h-12 w-12 items-center justify-center bg-gradient-to-r ${pkg.color} rounded-full text-white`}
+                  >
                     <pkg.icon className='h-6 w-6' />
                   </div>
                   <CardTitle className='text-xl'>{pkg.title}</CardTitle>
@@ -139,16 +168,18 @@ export function LandingPricing() {
                 <CardDescription>{pkg.description}</CardDescription>
               </CardHeader>
               <CardContent>
-                <ul className='space-y-3 mb-6'>
+                <ul className='mb-6 space-y-3'>
                   {pkg.features.map((feature) => (
                     <li key={feature} className='flex items-center'>
-                      <Star className='h-4 w-4 text-primary mr-2' />
+                      <Star className='text-primary mr-2 h-4 w-4' />
                       <span className='text-sm'>{feature}</span>
                     </li>
                   ))}
                 </ul>
                 <Link href={pkg.link}>
-                  <div className={`w-full text-center py-3 px-4 bg-gradient-to-r ${pkg.color} text-white rounded-lg hover:opacity-90 transition-opacity cursor-pointer font-medium`}>
+                  <div
+                    className={`w-full bg-gradient-to-r px-4 py-3 text-center ${pkg.color} cursor-pointer rounded-lg font-medium text-white transition-opacity hover:opacity-90`}
+                  >
                     Lihat Detail Paket
                   </div>
                 </Link>
@@ -158,23 +189,34 @@ export function LandingPricing() {
         </div>
 
         {/* CTA Section */}
-        <div className='grid md:grid-cols-2 gap-8'>
-          <div className='bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-8 text-white text-center' data-aos="fade-right">
-            <h3 className='text-2xl font-bold mb-4'>Ingin Memesan Paket?</h3>
-            <p className='mb-6 opacity-90'>Hubungi kami melalui WhatsApp untuk informasi lebih lanjut dan pemesanan</p>
-            <Link href="https://wa.me/your-number">
-              <div className='inline-flex items-center gap-2 bg-white text-primary px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors'>
+        <div className='grid gap-8 md:grid-cols-2'>
+          <div
+            className='from-primary to-primary/80 rounded-2xl bg-gradient-to-r p-8 text-center text-white'
+            data-aos='fade-right'
+          >
+            <h3 className='mb-4 text-2xl font-bold'>Ingin Memesan Paket?</h3>
+            <p className='mb-6 opacity-90'>
+              Hubungi kami melalui WhatsApp untuk informasi lebih lanjut dan
+              pemesanan
+            </p>
+            <Link href='https://wa.me/your-number'>
+              <div className='text-primary inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 font-medium transition-colors hover:bg-gray-100'>
                 <span>💬</span>
                 Chat WhatsApp
               </div>
             </Link>
           </div>
 
-          <div className='bg-gradient-to-r from-green-500 to-green-600 rounded-2xl p-8 text-white text-center' data-aos="fade-left">
-            <h3 className='text-2xl font-bold mb-4'>Kunjungi Kami</h3>
-            <p className='mb-6 opacity-90'>Desa Banyuanyar, Kecamatan Ampel, Kabupaten Boyolali</p>
-            <Link href="/profil-desa/demografi-geografis">
-              <div className='inline-flex items-center gap-2 bg-white text-green-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors'>
+          <div
+            className='rounded-2xl bg-gradient-to-r from-green-500 to-green-600 p-8 text-center text-white'
+            data-aos='fade-left'
+          >
+            <h3 className='mb-4 text-2xl font-bold'>Kunjungi Kami</h3>
+            <p className='mb-6 opacity-90'>
+              Desa Banyuanyar, Kecamatan Ampel, Kabupaten Boyolali
+            </p>
+            <Link href='/profil-desa/demografi-geografis'>
+              <div className='inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 font-medium text-green-600 transition-colors hover:bg-gray-100'>
                 <MapPin className='h-5 w-5' />
                 Lihat Lokasi
               </div>
@@ -184,4 +226,4 @@ export function LandingPricing() {
       </div>
     </div>
   );
-} 
+}

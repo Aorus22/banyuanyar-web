@@ -12,7 +12,9 @@ export interface UploadResult {
   error?: string;
 }
 
-export async function uploadImageToCloudinary(formData: FormData): Promise<UploadResult> {
+export async function uploadImageToCloudinary(
+  formData: FormData
+): Promise<UploadResult> {
   try {
     const file = formData.get('file') as File;
     const entityType = formData.get('entityType') as string;
@@ -27,11 +29,20 @@ export async function uploadImageToCloudinary(formData: FormData): Promise<Uploa
     }
 
     if (!entityId) {
-      return { success: false, error: 'Entity ID diperlukan untuk upload media' };
+      return {
+        success: false,
+        error: 'Entity ID diperlukan untuk upload media'
+      };
     }
 
     // Validate file type
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
+    const allowedTypes = [
+      'image/jpeg',
+      'image/jpg',
+      'image/png',
+      'image/webp',
+      'image/gif'
+    ];
     if (!allowedTypes.includes(file.type)) {
       return { success: false, error: 'Tipe file tidak didukung' };
     }
@@ -39,7 +50,10 @@ export async function uploadImageToCloudinary(formData: FormData): Promise<Uploa
     // Validate file size (10MB max)
     const maxSize = 10 * 1024 * 1024; // 10MB
     if (file.size > maxSize) {
-      return { success: false, error: 'Ukuran file terlalu besar (maksimal 10MB)' };
+      return {
+        success: false,
+        error: 'Ukuran file terlalu besar (maksimal 10MB)'
+      };
     }
 
     // Upload to Cloudinary
@@ -61,7 +75,7 @@ export async function uploadImageToCloudinary(formData: FormData): Promise<Uploa
         fileUrl: uploadResult.url,
         mimeType: file.type,
         entityType: entityType,
-        entityId: parseInt(entityId),
+        entityId: parseInt(entityId)
       }
     });
 
@@ -75,17 +89,19 @@ export async function uploadImageToCloudinary(formData: FormData): Promise<Uploa
       fileName: media.fileName,
       fileUrl: media.fileUrl
     };
-
   } catch (error) {
     console.error('Error uploading image:', error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Terjadi kesalahan saat upload'
+      error:
+        error instanceof Error ? error.message : 'Terjadi kesalahan saat upload'
     };
   }
 }
 
-export async function deleteMedia(mediaId: number): Promise<{ success: boolean; error?: string }> {
+export async function deleteMedia(
+  mediaId: number
+): Promise<{ success: boolean; error?: string }> {
   try {
     const media = await prisma.media.findUnique({
       where: { id: mediaId }
@@ -101,7 +117,7 @@ export async function deleteMedia(mediaId: number): Promise<{ success: boolean; 
     let publicId = '';
     try {
       const urlParts = media.fileUrl.split('/');
-      const uploadIndex = urlParts.findIndex(part => part === 'upload');
+      const uploadIndex = urlParts.findIndex((part) => part === 'upload');
       if (uploadIndex !== -1 && uploadIndex + 2 < urlParts.length) {
         // Skip version number and get folder/filename
         const folderAndFile = urlParts.slice(uploadIndex + 2).join('/');
@@ -133,12 +149,14 @@ export async function deleteMedia(mediaId: number): Promise<{ success: boolean; 
     revalidatePath(`/admin/${media.entityType}`);
 
     return { success: true };
-
   } catch (error) {
     console.error('Error deleting media:', error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Terjadi kesalahan saat menghapus media'
+      error:
+        error instanceof Error
+          ? error.message
+          : 'Terjadi kesalahan saat menghapus media'
     };
   }
 }
@@ -162,7 +180,9 @@ export async function getMediaByEntity(entityType: string, entityId: number) {
   }
 }
 
-export async function deleteMultipleMedia(mediaIds: number[]): Promise<{ success: boolean; deletedCount: number; error?: string }> {
+export async function deleteMultipleMedia(
+  mediaIds: number[]
+): Promise<{ success: boolean; deletedCount: number; error?: string }> {
   try {
     let deletedCount = 0;
     let errors: string[] = [];
@@ -176,34 +196,38 @@ export async function deleteMultipleMedia(mediaIds: number[]): Promise<{ success
           errors.push(`Media ID ${mediaId}: ${result.error}`);
         }
       } catch (error) {
-        errors.push(`Media ID ${mediaId}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        errors.push(
+          `Media ID ${mediaId}: ${error instanceof Error ? error.message : 'Unknown error'}`
+        );
       }
     }
 
     if (deletedCount === 0) {
-      return { 
-        success: false, 
-        deletedCount: 0, 
-        error: `Gagal menghapus semua media: ${errors.join('; ')}` 
+      return {
+        success: false,
+        deletedCount: 0,
+        error: `Gagal menghapus semua media: ${errors.join('; ')}`
       };
     }
 
     if (errors.length > 0) {
-      return { 
-        success: true, 
-        deletedCount, 
-        error: `Berhasil hapus ${deletedCount} media, ${errors.length} gagal: ${errors.join('; ')}` 
+      return {
+        success: true,
+        deletedCount,
+        error: `Berhasil hapus ${deletedCount} media, ${errors.length} gagal: ${errors.join('; ')}`
       };
     }
 
     return { success: true, deletedCount };
-
   } catch (error) {
     console.error('Error in batch delete:', error);
     return {
       success: false,
       deletedCount: 0,
-      error: error instanceof Error ? error.message : 'Terjadi kesalahan saat batch delete'
+      error:
+        error instanceof Error
+          ? error.message
+          : 'Terjadi kesalahan saat batch delete'
     };
   }
-} 
+}

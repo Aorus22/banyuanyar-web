@@ -12,27 +12,27 @@ export default async function EventPage() {
   const events = await getEvents();
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <div className='flex items-start justify-between'>
         <Heading
           title='Event'
           description='Kelola semua event dan kegiatan desa'
         />
-        <Button asChild className="flex items-center gap-2 button-primary">
-          <Link href="/admin/event/create">
-            <Plus className="h-4 w-4" /> Tambah Event
+        <Button asChild className='button-primary flex items-center gap-2'>
+          <Link href='/admin/event/create'>
+            <Plus className='h-4 w-4' /> Tambah Event
           </Link>
         </Button>
       </div>
       <Separator />
-      
+
       <Card>
         <CardHeader>
           <CardTitle>Daftar Event yang Tersedia</CardTitle>
         </CardHeader>
-        <CardContent className="px-3 sm:px-6">
-          <DataTable 
-            columns={columns} 
+        <CardContent className='px-3 sm:px-6'>
+          <DataTable
+            columns={columns}
             data={events as any}
             hideToolbar={false}
           />
@@ -40,4 +40,4 @@ export default async function EventPage() {
       </Card>
     </div>
   );
-} 
+}

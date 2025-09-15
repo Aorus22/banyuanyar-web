@@ -20,8 +20,8 @@ export async function uploadMediaAction(formData: FormData) {
       allowedFormats: ['jpg', 'jpeg', 'png', 'webp', 'gif'],
       maxFileSize: 10 * 1024 * 1024, // 10MB
       transformation: {
-        quality: 'auto:good',
-      },
+        quality: 'auto:good'
+      }
     });
 
     // Save to database
@@ -32,17 +32,17 @@ export async function uploadMediaAction(formData: FormData) {
         fileUrl: uploadResult.url,
         mimeType: file.type,
         entityType: entityType || 'general',
-        entityId: entityId ? parseInt(entityId) : 0,
-      },
+        entityId: entityId ? parseInt(entityId) : 0
+      }
     });
 
     revalidatePath('/admin/media');
     return { success: true, data: media };
   } catch (error) {
     console.error('Error uploading media:', error);
-    return { 
-      success: false, 
-      error: error instanceof Error ? error.message : 'Failed to upload media' 
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to upload media'
     };
   }
 }
@@ -51,7 +51,7 @@ export async function deleteMediaAction(id: number) {
   try {
     // Get media info first
     const media = await prisma.media.findUnique({
-      where: { id },
+      where: { id }
     });
 
     if (!media) {
@@ -67,23 +67,23 @@ export async function deleteMediaAction(id: number) {
 
     // Delete from database
     await prisma.media.delete({
-      where: { id },
+      where: { id }
     });
 
     revalidatePath('/admin/media');
     return { success: true };
   } catch (error) {
     console.error('Error deleting media:', error);
-    return { 
-      success: false, 
-      error: error instanceof Error ? error.message : 'Failed to delete media' 
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to delete media'
     };
   }
 }
 
 export async function updateMediaEntityAction(
-  id: number, 
-  entityType: string, 
+  id: number,
+  entityType: string,
   entityId: number
 ) {
   try {
@@ -91,17 +91,17 @@ export async function updateMediaEntityAction(
       where: { id },
       data: {
         entityType,
-        entityId,
-      },
+        entityId
+      }
     });
 
     revalidatePath('/admin/media');
     return { success: true, data: media };
   } catch (error) {
     console.error('Error updating media entity:', error);
-    return { 
-      success: false, 
-      error: error instanceof Error ? error.message : 'Failed to update media' 
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to update media'
     };
   }
-} 
+}

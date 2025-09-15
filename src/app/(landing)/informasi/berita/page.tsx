@@ -15,7 +15,9 @@ interface NewsIndexPageProps {
   searchParams: Promise<{ page?: string; category?: string }>;
 }
 
-export default async function NewsIndexPage({ searchParams }: NewsIndexPageProps) {
+export default async function NewsIndexPage({
+  searchParams
+}: NewsIndexPageProps) {
   const { page, category } = await searchParams;
   const currentPage = page ? parseInt(page) : 1;
   const itemsPerPage = 12;
@@ -47,7 +49,7 @@ export default async function NewsIndexPage({ searchParams }: NewsIndexPageProps
   });
 
   // Get media for news in a separate query
-  const newsIds = news.map(item => item.id);
+  const newsIds = news.map((item) => item.id);
   const newsMedia = await prisma.media.findMany({
     where: {
       entityType: 'news',
@@ -61,7 +63,7 @@ export default async function NewsIndexPage({ searchParams }: NewsIndexPageProps
 
   // Create a map of news ID to media
   const mediaMap = new Map();
-  newsMedia.forEach(media => {
+  newsMedia.forEach((media) => {
     if (!mediaMap.has(media.entityId)) {
       mediaMap.set(media.entityId, media);
     }
@@ -69,89 +71,93 @@ export default async function NewsIndexPage({ searchParams }: NewsIndexPageProps
 
   return (
     <>
-      <PageHeaderEffect 
-        title="Berita Desa"
-        description="Temukan berita dan informasi terbaru seputar desa kami"
+      <PageHeaderEffect
+        title='Berita Desa'
+        description='Temukan berita dan informasi terbaru seputar desa kami'
       />
-      
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
+
+      <div className='container mx-auto max-w-7xl px-4 py-8'>
         {/* Category Filter */}
-        <CategoryFilter 
-          selectedCategoryId={category}
-          totalNews={totalNews}
-        />
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <CategoryFilter selectedCategoryId={category} totalNews={totalNews} />
+
+        <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
           {news.map((item) => {
             const itemImage = mediaMap.get(item.id);
-            
+
             return (
-              <Card key={item.id} className="hover:shadow-lg transition-shadow pt-0 overflow-hidden">
+              <Card
+                key={item.id}
+                className='overflow-hidden pt-0 transition-shadow hover:shadow-lg'
+              >
                 {/* News Image */}
-                <div className="aspect-video overflow-hidden">
+                <div className='aspect-video overflow-hidden'>
                   {itemImage ? (
                     <ImageWithFallback
                       src={itemImage.fileUrl}
                       alt={item.title}
                       width={400}
                       height={225}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                      fallbackClassName="w-full h-full"
+                      className='h-full w-full object-cover transition-transform duration-300 hover:scale-105'
+                      fallbackClassName='w-full h-full'
                     />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                      <ImageIcon className="w-12 h-12 text-blue-400" />
+                    <div className='flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-100 to-blue-200'>
+                      <ImageIcon className='h-12 w-12 text-blue-400' />
                     </div>
                   )}
                 </div>
-                
-                <CardHeader className="flex-1">
-                  <div className="flex items-center gap-2 mb-3">
+
+                <CardHeader className='flex-1'>
+                  <div className='mb-3 flex items-center gap-2'>
                     {item.category && (
-                      <Link href={`/informasi/berita?category=${item.category.id}`}>
-                        <Badge 
-                          variant="outline" 
-                          style={{ borderColor: item.category.color, color: item.category.color }}
-                          className="cursor-pointer hover:scale-105 transition-transform"
+                      <Link
+                        href={`/informasi/berita?category=${item.category.id}`}
+                      >
+                        <Badge
+                          variant='outline'
+                          style={{
+                            borderColor: item.category.color,
+                            color: item.category.color
+                          }}
+                          className='cursor-pointer transition-transform hover:scale-105'
                         >
                           {item.category.name}
                         </Badge>
                       </Link>
                     )}
-                    <span className="text-xs text-muted-foreground">
-                      {item.publishedAt 
+                    <span className='text-muted-foreground text-xs'>
+                      {item.publishedAt
                         ? safeFormatDateOnly(item.publishedAt)
-                        : safeFormatDateOnly(item.createdAt)
-                      }
+                        : safeFormatDateOnly(item.createdAt)}
                     </span>
                   </div>
-                  
-                  <CardTitle className="line-clamp-2 text-lg">
-                    <Link 
+
+                  <CardTitle className='line-clamp-2 text-lg'>
+                    <Link
                       href={`/informasi/berita/${item.slug}`}
-                      className="hover:text-primary transition-colors"
+                      className='hover:text-primary transition-colors'
                     >
                       {item.title}
                     </Link>
                   </CardTitle>
                 </CardHeader>
-                
+
                 <CardContent>
-                  <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
-                    <div className="flex items-center gap-2">
-                      <User className="h-4 w-4" />
+                  <div className='text-muted-foreground mb-4 flex items-center justify-between text-sm'>
+                    <div className='flex items-center gap-2'>
+                      <User className='h-4 w-4' />
                       <span>{item.author?.name || 'Anonymous'}</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Eye className="h-4 w-4" />
+                    <div className='flex items-center gap-2'>
+                      <Eye className='h-4 w-4' />
                       <span>{item.viewCount}</span>
                     </div>
                   </div>
-                  
-                  <Button asChild size="sm" className="w-full">
+
+                  <Button asChild size='sm' className='w-full'>
                     <Link href={`/informasi/berita/${item.slug}`}>
                       Baca Selengkapnya
-                      <ArrowRight className="ml-2 h-4 w-4" />
+                      <ArrowRight className='ml-2 h-4 w-4' />
                     </Link>
                   </Button>
                 </CardContent>
@@ -162,8 +168,8 @@ export default async function NewsIndexPage({ searchParams }: NewsIndexPageProps
 
         {news.length === 0 && (
           <Card>
-            <CardContent className="text-center py-12">
-              <p className="text-muted-foreground mb-4">
+            <CardContent className='py-12 text-center'>
+              <p className='text-muted-foreground mb-4'>
                 Belum ada berita yang dipublikasikan
               </p>
             </CardContent>
@@ -178,4 +184,4 @@ export default async function NewsIndexPage({ searchParams }: NewsIndexPageProps
       </div>
     </>
   );
-} 
+}

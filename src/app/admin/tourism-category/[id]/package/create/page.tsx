@@ -14,7 +14,9 @@ interface CreateTourismPackagePageProps {
   }>;
 }
 
-export default async function CreateTourismPackagePage({ params }: CreateTourismPackagePageProps) {
+export default async function CreateTourismPackagePage({
+  params
+}: CreateTourismPackagePageProps) {
   const { id: categoryId } = await params;
   const category = await getTourismCategoryById(parseInt(categoryId));
 
@@ -23,30 +25,33 @@ export default async function CreateTourismPackagePage({ params }: CreateTourism
   }
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       {/* Header */}
-      <div className="space-y-2">
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Link 
+      <div className='space-y-2'>
+        <div className='text-muted-foreground flex items-center gap-2 text-sm'>
+          <Link
             href={`/admin/tourism-category/${category.id}`}
-            className="flex items-center gap-1 hover:text-primary transition-colors"
+            className='hover:text-primary flex items-center gap-1 transition-colors'
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className='h-4 w-4' />
             Kembali ke {category.name}
           </Link>
         </div>
-        
+
         <Heading
-          title="Tambah Paket Wisata"
+          title='Tambah Paket Wisata'
           description={`Tambahkan paket wisata baru ke kategori "${category.name}"`}
         />
-        
-        <div className="flex items-center gap-2">
-          <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">
-            <Package className="h-3 w-3 mr-1" />
+
+        <div className='flex items-center gap-2'>
+          <Badge
+            variant='outline'
+            className='bg-primary/10 text-primary border-primary/20'
+          >
+            <Package className='mr-1 h-3 w-3' />
             {category.name}
           </Badge>
-          <span className="text-sm text-muted-foreground">
+          <span className='text-muted-foreground text-sm'>
             {category._count.packages} paket saat ini
           </span>
         </div>
@@ -57,8 +62,8 @@ export default async function CreateTourismPackagePage({ params }: CreateTourism
       {/* Form */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Package className="h-5 w-5" />
+          <CardTitle className='flex items-center gap-2'>
+            <Package className='h-5 w-5' />
             Form Paket Wisata
           </CardTitle>
         </CardHeader>
@@ -68,4 +73,4 @@ export default async function CreateTourismPackagePage({ params }: CreateTourism
       </Card>
     </div>
   );
-} 
+}

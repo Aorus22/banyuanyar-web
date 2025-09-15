@@ -8,14 +8,14 @@ export default async function CreateNewsPage() {
   const categories = await getNewsCategories();
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <Heading
         title='Tambah News Baru'
         description='Buat berita dan artikel baru untuk desa'
       />
       <Separator />
-      
+
       <NewsForm createNews={createNews} categories={categories} />
     </div>
   );
-} 
+}

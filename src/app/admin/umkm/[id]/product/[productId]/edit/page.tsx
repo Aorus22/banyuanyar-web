@@ -12,7 +12,9 @@ interface EditUmkmProductPageProps {
   }>;
 }
 
-export default async function EditUmkmProductPage({ params }: EditUmkmProductPageProps) {
+export default async function EditUmkmProductPage({
+  params
+}: EditUmkmProductPageProps) {
   const { id: umkmId, productId } = await params;
   const product = await getUmkmProductById(parseInt(productId));
 
@@ -21,18 +23,18 @@ export default async function EditUmkmProductPage({ params }: EditUmkmProductPag
   }
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <Heading
-        title="Edit Produk UMKM"
+        title='Edit Produk UMKM'
         description={`Edit data produk: ${product.name}`}
       />
       <Separator />
-      
-      <UmkmProductForm 
-        product={product} 
+
+      <UmkmProductForm
+        product={product}
         umkmId={parseInt(umkmId)}
-        updateProduct={updateUmkmProduct} 
+        updateProduct={updateUmkmProduct}
       />
     </div>
   );
-} 
+}

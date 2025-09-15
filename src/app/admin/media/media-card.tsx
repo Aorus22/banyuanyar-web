@@ -5,18 +5,18 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { 
-  MoreVertical, 
-  Trash2, 
-  Download, 
-  Copy, 
+import {
+  MoreVertical,
+  Trash2,
+  Download,
+  Copy,
   ExternalLink
 } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { deleteMediaAction } from './server-action';
 import { toast } from 'sonner';
@@ -50,11 +50,13 @@ export function MediaCard({ media }: MediaCardProps) {
   const getEntityTypeColor = (type: string) => {
     const colors: Record<string, string> = {
       news: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-      gallery: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
+      gallery:
+        'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
       umkm: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-      tourism: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
+      tourism:
+        'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
       event: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-      general: 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200',
+      general: 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
     };
     return colors[type] || colors.general;
   };
@@ -67,15 +69,15 @@ export function MediaCard({ media }: MediaCardProps) {
     setIsDeleting(true);
     try {
       const result = await deleteMediaAction(media.id);
-      
+
       if (result.success) {
-        toast.success("File media berhasil dihapus");
+        toast.success('File media berhasil dihapus');
         router.refresh();
       } else {
-        toast.error(result.error || "Gagal menghapus file media");
+        toast.error(result.error || 'Gagal menghapus file media');
       }
     } catch (error) {
-      toast.error("Terjadi kesalahan yang tidak terduga");
+      toast.error('Terjadi kesalahan yang tidak terduga');
     } finally {
       setIsDeleting(false);
     }
@@ -84,9 +86,9 @@ export function MediaCard({ media }: MediaCardProps) {
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      toast.success("URL berhasil disalin ke clipboard");
+      toast.success('URL berhasil disalin ke clipboard');
     } catch (error) {
-      toast.error("Gagal menyalin ke clipboard");
+      toast.error('Gagal menyalin ke clipboard');
     }
   };
 
@@ -103,66 +105,72 @@ export function MediaCard({ media }: MediaCardProps) {
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
     } catch (error) {
-      toast.error("Gagal mengunduh file");
+      toast.error('Gagal mengunduh file');
     }
   };
 
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-      <div className="relative aspect-square bg-gray-100">
+    <Card className='overflow-hidden transition-shadow hover:shadow-lg'>
+      <div className='relative aspect-square bg-gray-100'>
         <Image
           src={media.fileUrl}
           alt={media.fileName}
           fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className='object-cover'
+          sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
         />
       </div>
 
-      <CardContent className="p-4">
-        <div className="space-y-3">
+      <CardContent className='p-4'>
+        <div className='space-y-3'>
           {/* File name */}
-          <div className="flex items-start justify-between">
-            <h3 className="font-medium text-sm leading-tight line-clamp-2 flex-1">
+          <div className='flex items-start justify-between'>
+            <h3 className='line-clamp-2 flex-1 text-sm leading-tight font-medium'>
               {media.fileName}
             </h3>
           </div>
 
           {/* File info */}
-          <div className="space-y-2 text-xs text-muted-foreground">
-            <div className="flex items-center justify-between">
-              <span className="font-medium">{formatFileSize(media.fileSize)}</span>
-              
+          <div className='text-muted-foreground space-y-2 text-xs'>
+            <div className='flex items-center justify-between'>
+              <span className='font-medium'>
+                {formatFileSize(media.fileSize)}
+              </span>
+
               {/* Actions Menu */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-6 w-6 p-0 hover:bg-muted"
+                    variant='ghost'
+                    size='sm'
+                    className='hover:bg-muted h-6 w-6 p-0'
                   >
-                    <MoreVertical className="h-3 w-3" />
+                    <MoreVertical className='h-3 w-3' />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => copyToClipboard(media.fileUrl)}>
-                    <Copy className="mr-2 h-3 w-3" />
+                <DropdownMenuContent align='end'>
+                  <DropdownMenuItem
+                    onClick={() => copyToClipboard(media.fileUrl)}
+                  >
+                    <Copy className='mr-2 h-3 w-3' />
                     Salin URL
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={downloadFile}>
-                    <Download className="mr-2 h-3 w-3" />
+                    <Download className='mr-2 h-3 w-3' />
                     Unduh
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => window.open(media.fileUrl, '_blank')}>
-                    <ExternalLink className="mr-2 h-3 w-3" />
+                  <DropdownMenuItem
+                    onClick={() => window.open(media.fileUrl, '_blank')}
+                  >
+                    <ExternalLink className='mr-2 h-3 w-3' />
                     Buka di tab baru
                   </DropdownMenuItem>
-                  <DropdownMenuItem 
+                  <DropdownMenuItem
                     onClick={handleDelete}
                     disabled={isDeleting}
-                    className="text-red-600 focus:text-red-600"
+                    className='text-red-600 focus:text-red-600'
                   >
-                    <Trash2 className="mr-2 h-3 w-3" />
+                    <Trash2 className='mr-2 h-3 w-3' />
                     {isDeleting ? 'Menghapus...' : 'Hapus'}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -171,15 +179,15 @@ export function MediaCard({ media }: MediaCardProps) {
           </div>
 
           {/* Entity info */}
-          <div className="flex items-center justify-between">
-            <Badge 
-              variant="secondary" 
+          <div className='flex items-center justify-between'>
+            <Badge
+              variant='secondary'
               className={`text-xs ${getEntityTypeColor(media.entityType)}`}
             >
               {media.entityType}
             </Badge>
             {media.entityId > 0 && (
-              <span className="text-xs text-muted-foreground">
+              <span className='text-muted-foreground text-xs'>
                 ID: {media.entityId}
               </span>
             )}
@@ -188,4 +196,4 @@ export function MediaCard({ media }: MediaCardProps) {
       </CardContent>
     </Card>
   );
-} 
+}

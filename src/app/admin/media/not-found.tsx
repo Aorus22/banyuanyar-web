@@ -4,33 +4,32 @@ import Link from 'next/link';
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
-      <div className="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-        <Search className="w-12 h-12 text-gray-400" />
+    <div className='flex min-h-[400px] flex-col items-center justify-center text-center'>
+      <div className='mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-gray-100'>
+        <Search className='h-12 w-12 text-gray-400' />
       </div>
-      
-      <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+
+      <h2 className='mb-2 text-2xl font-semibold text-gray-900'>
         Halaman tidak ditemukan
       </h2>
-      
-      <p className="text-gray-600 mb-6 max-w-md">
-        Halaman yang Anda cari tidak ada. Mungkin telah dipindahkan atau dihapus.
+
+      <p className='mb-6 max-w-md text-gray-600'>
+        Halaman yang Anda cari tidak ada. Mungkin telah dipindahkan atau
+        dihapus.
       </p>
-      
-      <div className="flex space-x-3">
-        <Button asChild variant="outline">
-          <Link href="/admin">
-            <Home className="w-4 h-4 mr-2" />
+
+      <div className='flex space-x-3'>
+        <Button asChild variant='outline'>
+          <Link href='/admin'>
+            <Home className='mr-2 h-4 w-4' />
             Ke Dashboard
           </Link>
         </Button>
-        
+
         <Button asChild>
-          <Link href="/admin/media">
-            Ke Perpustakaan Media
-          </Link>
+          <Link href='/admin/media'>Ke Perpustakaan Media</Link>
         </Button>
       </div>
     </div>
   );
-} 
+}

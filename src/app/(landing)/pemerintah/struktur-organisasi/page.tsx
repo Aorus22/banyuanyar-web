@@ -4,11 +4,11 @@ import { PageHeaderEffect } from '@/components/layout/landing/PageBackgroundHead
 export default function Page() {
   return (
     <>
-      <PageHeaderEffect 
-        title="Struktur Organisasi"
-        description="Struktur organisasi pemerintahan desa Banyuanyar"
+      <PageHeaderEffect
+        title='Struktur Organisasi'
+        description='Struktur organisasi pemerintahan desa Banyuanyar'
       />
       <p>Konten akan segera hadir.</p>
     </>
   );
-} 
+}

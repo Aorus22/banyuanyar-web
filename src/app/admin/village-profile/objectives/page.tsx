@@ -7,17 +7,17 @@ export default async function ObjectivesPage() {
   const objectivesProfile = await getVillageProfileByKey('objectives');
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <Heading
-        title="Tujuan & Sasaran Desa"
-        description="Edit tujuan dan sasaran pembangunan desa Banyuanyar"
+        title='Tujuan & Sasaran Desa'
+        description='Edit tujuan dan sasaran pembangunan desa Banyuanyar'
       />
       <Separator />
-      
-      <ObjectivesForm 
+
+      <ObjectivesForm
         initialValue={objectivesProfile?.value || ''}
-        profileKey="objectives"
+        profileKey='objectives'
       />
     </div>
   );
-} 
+}

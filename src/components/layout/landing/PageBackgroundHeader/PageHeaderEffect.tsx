@@ -9,7 +9,11 @@ interface PageHeaderEffectProps {
   backgroundImage?: string;
 }
 
-export function PageHeaderEffect({ title, description, backgroundImage }: PageHeaderEffectProps) {
+export function PageHeaderEffect({
+  title,
+  description,
+  backgroundImage
+}: PageHeaderEffectProps) {
   const { setHeaderData } = usePageHeader();
 
   useEffect(() => {
@@ -23,4 +27,4 @@ export function PageHeaderEffect({ title, description, backgroundImage }: PageHe
 
   // Komponen ini tidak me-render apapun, hanya effect
   return null;
-} 
+}

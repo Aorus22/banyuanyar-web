@@ -5,8 +5,20 @@ import { useDropzone } from 'react-dropzone';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog';
 import { Upload, X, Image as ImageIcon } from 'lucide-react';
 import { uploadMediaAction } from './server-action';
 import { toast } from 'sonner';
@@ -26,7 +38,7 @@ export function UploadMediaModal({ children }: UploadMediaModalProps) {
   const router = useRouter();
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    setUploadedFiles(prev => [...prev, ...acceptedFiles]);
+    setUploadedFiles((prev) => [...prev, ...acceptedFiles]);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -34,16 +46,16 @@ export function UploadMediaModal({ children }: UploadMediaModalProps) {
     accept: {
       'image/*': ['.jpeg', '.jpg', '.png', '.webp', '.gif']
     },
-    maxSize: 10 * 1024 * 1024, // 10MB
+    maxSize: 10 * 1024 * 1024 // 10MB
   });
 
   const removeFile = (index: number) => {
-    setUploadedFiles(prev => prev.filter((_, i) => i !== index));
+    setUploadedFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleUpload = async () => {
     if (uploadedFiles.length === 0) {
-      toast.error("Silakan pilih minimal satu file untuk diupload");
+      toast.error('Silakan pilih minimal satu file untuk diupload');
       return;
     }
 
@@ -59,7 +71,7 @@ export function UploadMediaModal({ children }: UploadMediaModalProps) {
         formData.append('entityId', entityId);
 
         const result = await uploadMediaAction(formData);
-        
+
         if (result.success) {
           successCount++;
         } else {
@@ -73,9 +85,11 @@ export function UploadMediaModal({ children }: UploadMediaModalProps) {
     }
 
     setIsUploading(false);
-    
+
     if (successCount > 0) {
-      toast.success(`Berhasil upload ${successCount} file${errorCount > 0 ? `, ${errorCount} gagal` : ''}`);
+      toast.success(
+        `Berhasil upload ${successCount} file${errorCount > 0 ? `, ${errorCount} gagal` : ''}`
+      );
       setUploadedFiles([]);
       setIsOpen(false);
       router.refresh();
@@ -94,40 +108,38 @@ export function UploadMediaModal({ children }: UploadMediaModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        {children}
-      </DialogTrigger>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogContent className='max-h-[90vh] max-w-2xl overflow-y-auto'>
         <DialogHeader>
           <DialogTitle>Upload File Media</DialogTitle>
         </DialogHeader>
-        
-        <div className="space-y-6">
+
+        <div className='space-y-6'>
           {/* Entity Type Selection */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="entityType">Jenis Entitas</Label>
+          <div className='grid grid-cols-2 gap-4'>
+            <div className='space-y-2'>
+              <Label htmlFor='entityType'>Jenis Entitas</Label>
               <Select value={entityType} onValueChange={setEntityType}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Pilih jenis entitas" />
+                  <SelectValue placeholder='Pilih jenis entitas' />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="general">Umum</SelectItem>
-                  <SelectItem value="news">Berita</SelectItem>
-                  <SelectItem value="gallery">Galeri</SelectItem>
-                  <SelectItem value="umkm">UMKM</SelectItem>
-                  <SelectItem value="tourism">Wisata</SelectItem>
-                  <SelectItem value="event">Acara</SelectItem>
+                  <SelectItem value='general'>Umum</SelectItem>
+                  <SelectItem value='news'>Berita</SelectItem>
+                  <SelectItem value='gallery'>Galeri</SelectItem>
+                  <SelectItem value='umkm'>UMKM</SelectItem>
+                  <SelectItem value='tourism'>Wisata</SelectItem>
+                  <SelectItem value='event'>Acara</SelectItem>
                 </SelectContent>
               </Select>
             </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="entityId">ID Entitas (Opsional)</Label>
+
+            <div className='space-y-2'>
+              <Label htmlFor='entityId'>ID Entitas (Opsional)</Label>
               <Input
-                id="entityId"
-                type="number"
-                placeholder="Masukkan ID entitas"
+                id='entityId'
+                type='number'
+                placeholder='Masukkan ID entitas'
                 value={entityId}
                 onChange={(e) => setEntityId(e.target.value)}
               />
@@ -137,25 +149,27 @@ export function UploadMediaModal({ children }: UploadMediaModalProps) {
           {/* Drag & Drop Zone */}
           <div
             {...getRootProps()}
-            className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+            className={`cursor-pointer rounded-lg border-2 border-dashed p-8 text-center transition-colors ${
               isDragActive
                 ? 'border-primary bg-primary/5'
                 : 'border-border hover:border-primary/50'
             }`}
           >
             <input {...getInputProps()} />
-            <div className="space-y-4">
-              <div className="mx-auto w-16 h-16 bg-muted rounded-full flex items-center justify-center">
-                <Upload className="w-8 h-8 text-muted-foreground" />
+            <div className='space-y-4'>
+              <div className='bg-muted mx-auto flex h-16 w-16 items-center justify-center rounded-full'>
+                <Upload className='text-muted-foreground h-8 w-8' />
               </div>
               <div>
-                <p className="text-lg font-medium">
-                  {isDragActive ? 'Jatuhkan file di sini' : 'Drag & drop file di sini'}
+                <p className='text-lg font-medium'>
+                  {isDragActive
+                    ? 'Jatuhkan file di sini'
+                    : 'Drag & drop file di sini'}
                 </p>
-                <p className="text-sm text-muted-foreground mt-1">
+                <p className='text-muted-foreground mt-1 text-sm'>
                   atau klik untuk memilih file
                 </p>
-                <p className="text-xs text-muted-foreground/70 mt-2">
+                <p className='text-muted-foreground/70 mt-2 text-xs'>
                   Mendukung: JPG, PNG, WebP, GIF (Maks: 10MB)
                 </p>
               </div>
@@ -164,30 +178,30 @@ export function UploadMediaModal({ children }: UploadMediaModalProps) {
 
           {/* File List */}
           {uploadedFiles.length > 0 && (
-            <div className="space-y-3">
+            <div className='space-y-3'>
               <Label>File Terpilih ({uploadedFiles.length})</Label>
-              <div className="space-y-2 max-h-40 overflow-y-auto">
+              <div className='max-h-40 space-y-2 overflow-y-auto'>
                 {uploadedFiles.map((file, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between p-3 bg-muted rounded-lg"
+                    className='bg-muted flex items-center justify-between rounded-lg p-3'
                   >
-                    <div className="flex items-center space-x-3">
-                      <ImageIcon className="w-5 h-5 text-muted-foreground" />
+                    <div className='flex items-center space-x-3'>
+                      <ImageIcon className='text-muted-foreground h-5 w-5' />
                       <div>
-                        <p className="text-sm font-medium">{file.name}</p>
-                        <p className="text-xs text-muted-foreground">
+                        <p className='text-sm font-medium'>{file.name}</p>
+                        <p className='text-muted-foreground text-xs'>
                           {formatFileSize(file.size)}
                         </p>
                       </div>
                     </div>
                     <Button
-                      variant="ghost"
-                      size="sm"
+                      variant='ghost'
+                      size='sm'
                       onClick={() => removeFile(index)}
-                      className="text-red-500 hover:text-red-700"
+                      className='text-red-500 hover:text-red-700'
                     >
-                      <X className="w-4 h-4" />
+                      <X className='h-4 w-4' />
                     </Button>
                   </div>
                 ))}
@@ -196,9 +210,9 @@ export function UploadMediaModal({ children }: UploadMediaModalProps) {
           )}
 
           {/* Upload Button */}
-          <div className="flex justify-end space-x-3">
+          <div className='flex justify-end space-x-3'>
             <Button
-              variant="outline"
+              variant='outline'
               onClick={() => setIsOpen(false)}
               disabled={isUploading}
             >
@@ -207,16 +221,16 @@ export function UploadMediaModal({ children }: UploadMediaModalProps) {
             <Button
               onClick={handleUpload}
               disabled={uploadedFiles.length === 0 || isUploading}
-              className="min-w-[100px]"
+              className='min-w-[100px]'
             >
               {isUploading ? (
                 <>
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                  <div className='mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent' />
                   Mengupload...
                 </>
               ) : (
                 <>
-                  <Upload className="w-4 h-4 mr-2" />
+                  <Upload className='mr-2 h-4 w-4' />
                   Upload
                 </>
               )}
@@ -226,4 +240,4 @@ export function UploadMediaModal({ children }: UploadMediaModalProps) {
       </DialogContent>
     </Dialog>
   );
-} 
+}

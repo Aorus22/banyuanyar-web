@@ -1,4 +1,4 @@
-'use server'
+'use server';
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
@@ -15,4 +15,4 @@ export async function deleteEvent(id: number) {
     console.error('Error deleting event:', error);
     return { success: false, error: 'Failed to delete event' };
   }
-} 
+}

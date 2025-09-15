@@ -13,7 +13,9 @@ interface PageHeaderContextType {
   setHeaderData: (data: PageHeaderData | null) => void;
 }
 
-const PageHeaderContext = createContext<PageHeaderContextType | undefined>(undefined);
+const PageHeaderContext = createContext<PageHeaderContextType | undefined>(
+  undefined
+);
 
 export function PageHeaderProvider({ children }: { children: ReactNode }) {
   const [headerData, setHeaderData] = useState<PageHeaderData | null>(null);
@@ -31,4 +33,4 @@ export function usePageHeader() {
     throw new Error('usePageHeader must be used within a PageHeaderProvider');
   }
   return context;
-} 
+}

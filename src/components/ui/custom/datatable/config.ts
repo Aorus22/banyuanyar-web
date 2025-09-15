@@ -79,4 +79,4 @@ export const dataTableConfig = {
     'isRelativeToToday'
   ] as const,
   joinOperators: ['and', 'or'] as const
-}; 
+};

@@ -8,4 +8,4 @@ export { seedTourismCategory } from './tourism-category.seed';
 export { seedTourismHouse } from './tourism-house.seed';
 export { seedGallery } from './gallery.seed';
 export { seedUmkm } from './umkm.seed';
-export { seedDocument } from './document.seed'; 
+export { seedDocument } from './document.seed';

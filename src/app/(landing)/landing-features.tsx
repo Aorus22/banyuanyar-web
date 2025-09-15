@@ -11,7 +11,7 @@ import {
   Coffee,
   BookOpen,
   Palette,
-  Heart,
+  Heart
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -104,30 +104,35 @@ const features = [
 
 export function LandingFeatures() {
   return (
-    <div id='features' className='w-full py-12 xs:py-20'>
-      <h2 className='text-3xl xs:text-4xl sm:text-5xl font-bold tracking-tight text-center' data-aos="fade-down">
+    <div id='features' className='xs:py-20 w-full py-12'>
+      <h2
+        className='xs:text-4xl text-center text-3xl font-bold tracking-tight sm:text-5xl'
+        data-aos='fade-down'
+      >
         Jelajahi Desa Banyuanyar
       </h2>
-      <p className='mt-4 text-lg text-muted-foreground max-w-2xl mx-auto text-center' data-aos="fade-up" data-aos-delay="200">
+      <p
+        className='text-muted-foreground mx-auto mt-4 max-w-2xl text-center text-lg'
+        data-aos='fade-up'
+        data-aos-delay='200'
+      >
         Temukan berbagai informasi dan layanan yang tersedia di desa kami
       </p>
-      <div className='w-full max-w-screen-xl mx-auto mt-10 sm:mt-16 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
+      <div className='mx-auto mt-10 grid w-full max-w-screen-xl gap-6 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
         {features.map((feature, index) => (
-          <Link
-            key={feature.title}
-            href={feature.link}
-            className='group'
-          >
-            <div 
-              className='flex flex-col bg-background border rounded-xl py-6 px-5 h-full transition-all duration-200 hover:shadow-lg hover:border-primary/50 group-hover:scale-[1.02]'
-              data-aos="fade-up"
+          <Link key={feature.title} href={feature.link} className='group'>
+            <div
+              className='bg-background hover:border-primary/50 flex h-full flex-col rounded-xl border px-5 py-6 transition-all duration-200 group-hover:scale-[1.02] hover:shadow-lg'
+              data-aos='fade-up'
               data-aos-delay={100 * (index + 1)}
             >
-              <div className='mb-3 h-10 w-10 flex items-center justify-center bg-muted rounded-full group-hover:bg-primary/10 transition-colors'>
-                <feature.icon className='h-6 w-6 group-hover:text-primary transition-colors' />
+              <div className='bg-muted group-hover:bg-primary/10 mb-3 flex h-10 w-10 items-center justify-center rounded-full transition-colors'>
+                <feature.icon className='group-hover:text-primary h-6 w-6 transition-colors' />
               </div>
-              <span className='text-lg font-semibold group-hover:text-primary transition-colors'>{feature.title}</span>
-              <p className='mt-1 text-foreground/80 text-[15px]'>
+              <span className='group-hover:text-primary text-lg font-semibold transition-colors'>
+                {feature.title}
+              </span>
+              <p className='text-foreground/80 mt-1 text-[15px]'>
                 {feature.description}
               </p>
             </div>
@@ -136,4 +141,4 @@ export function LandingFeatures() {
       </div>
     </div>
   );
-} 
+}

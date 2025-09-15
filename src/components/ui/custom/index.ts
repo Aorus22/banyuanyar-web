@@ -1,6 +1,6 @@
 // Date Components
 export { DatePickerWithTime } from './date-picker-with-time';
-export { DatePickerMonthYear } from './date-picker-month-year'; 
+export { DatePickerMonthYear } from './date-picker-month-year';
 
 // Media Components
 export { ImagePreviewCarousel } from './media-manager/image-preview-carousel';
@@ -11,4 +11,4 @@ export type { UploadResult } from '@/app/admin/media/universal-upload-action';
 export { deleteMultipleMedia } from '@/app/admin/media/universal-upload-action';
 
 // Pagination Components
-export { ClientPagination } from './client-pagination'; 
+export { ClientPagination } from './client-pagination';

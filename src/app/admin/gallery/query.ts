@@ -24,11 +24,11 @@ export async function getGalleryStats() {
 export async function getGalleryList() {
   try {
     const galleries = await prisma.gallery.findMany({
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: 'desc' }
     });
 
     // Get media for all galleries
-    const galleryIds = galleries.map(g => g.id);
+    const galleryIds = galleries.map((g) => g.id);
     const allMedia = await prisma.media.findMany({
       where: {
         entityType: 'gallery',
@@ -47,7 +47,7 @@ export async function getGalleryList() {
     }
 
     // Add media URLs to each gallery
-    return galleries.map(gallery => ({
+    return galleries.map((gallery) => ({
       ...gallery,
       imageUrls: galleryIdToMedia.get(gallery.id) || []
     }));
@@ -105,4 +105,4 @@ export async function deleteGallery(id: number) {
     console.error('Error deleting gallery:', error);
     throw new Error('Gagal menghapus galeri');
   }
-} 
+}

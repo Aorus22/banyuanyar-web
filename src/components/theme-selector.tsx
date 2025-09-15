@@ -70,9 +70,7 @@ export function ThemeSelector() {
           id='theme-selector'
           className='justify-start *:data-[slot=select-value]:w-12'
         >
-          <span className='text-muted-foreground hidden sm:block'>
-            Tema:
-          </span>
+          <span className='text-muted-foreground hidden sm:block'>Tema:</span>
           <SelectValue placeholder='Tema' />
         </SelectTrigger>
         <SelectContent align='end'>
@@ -80,9 +78,9 @@ export function ThemeSelector() {
             <SelectLabel>Default</SelectLabel>
             {DEFAULT_THEMES.map((theme) => (
               <SelectItem key={theme.name} value={theme.value}>
-                <div className="flex items-center gap-2">
-                  <div 
-                    className="w-3 h-3 rounded-full border border-border" 
+                <div className='flex items-center gap-2'>
+                  <div
+                    className='border-border h-3 w-3 rounded-full border'
                     style={{ backgroundColor: theme.color }}
                   />
                   {theme.name}
@@ -95,9 +93,9 @@ export function ThemeSelector() {
             <SelectLabel>Scaled</SelectLabel>
             {SCALED_THEMES.map((theme) => (
               <SelectItem key={theme.name} value={theme.value}>
-                <div className="flex items-center gap-2">
-                  <div 
-                    className="w-3 h-3 rounded-full border border-border" 
+                <div className='flex items-center gap-2'>
+                  <div
+                    className='border-border h-3 w-3 rounded-full border'
                     style={{ backgroundColor: theme.color }}
                   />
                   {theme.name}
@@ -109,9 +107,9 @@ export function ThemeSelector() {
             <SelectLabel>Monospaced</SelectLabel>
             {MONO_THEMES.map((theme) => (
               <SelectItem key={theme.name} value={theme.value}>
-                <div className="flex items-center gap-2">
-                  <div 
-                    className="w-3 h-3 rounded-full border border-border" 
+                <div className='flex items-center gap-2'>
+                  <div
+                    className='border-border h-3 w-3 rounded-full border'
                     style={{ backgroundColor: theme.color }}
                   />
                   {theme.name}

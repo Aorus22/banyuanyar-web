@@ -1,1 +1,1 @@
-export { UmkmMapViewer } from './map-viewer' 
+export { UmkmMapViewer } from './map-viewer';

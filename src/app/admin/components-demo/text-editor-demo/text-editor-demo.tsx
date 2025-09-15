@@ -1,14 +1,20 @@
-import React, { useState } from "react";
-import { TextEditor } from "../../../../components/ui/text-editor";
-import { Button } from "../../../../components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../../../components/ui/card";
-import { Separator } from "../../../../components/ui/separator";
-import { Switch } from "../../../../components/ui/switch";
-import { Label } from "../../../../components/ui/label";
+import React, { useState } from 'react';
+import { TextEditor } from '../../../../components/ui/text-editor';
+import { Button } from '../../../../components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from '../../../../components/ui/card';
+import { Separator } from '../../../../components/ui/separator';
+import { Switch } from '../../../../components/ui/switch';
+import { Label } from '../../../../components/ui/label';
 
 export const TextEditorDemo = () => {
-  const [content, setContent] = useState("");
-  const [savedContent, setSavedContent] = useState("");
+  const [content, setContent] = useState('');
+  const [savedContent, setSavedContent] = useState('');
   const [showPreview, setShowPreview] = useState(false);
   const [editorHeight, setEditorHeight] = useState(200);
 
@@ -18,12 +24,12 @@ export const TextEditorDemo = () => {
 
   const handleSave = () => {
     setSavedContent(content);
-    console.log("Content saved:", content);
+    console.log('Content saved:', content);
   };
 
   const handleClear = () => {
-    setContent("");
-    setSavedContent("");
+    setContent('');
+    setSavedContent('');
   };
 
   const sampleContent = `
@@ -61,15 +67,15 @@ export const TextEditorDemo = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      <div className="text-center">
-        <h1 className="text-3xl font-bold mb-2">Text Editor Demo</h1>
-        <p className="text-muted-foreground">
+    <div className='container mx-auto space-y-6 p-6'>
+      <div className='text-center'>
+        <h1 className='mb-2 text-3xl font-bold'>Text Editor Demo</h1>
+        <p className='text-muted-foreground'>
           Demonstrasi penggunaan komponen TextEditor dengan SunEditor dan KaTeX
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
         {/* Editor Section */}
         <Card>
           <CardHeader>
@@ -78,35 +84,35 @@ export const TextEditorDemo = () => {
               Editor teks dengan fitur formatting, gambar, dan matematika
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex gap-2 flex-wrap">
-              <Button onClick={loadSampleContent} variant="outline" size="sm">
+          <CardContent className='space-y-4'>
+            <div className='flex flex-wrap gap-2'>
+              <Button onClick={loadSampleContent} variant='outline' size='sm'>
                 Load Sample Content
               </Button>
-              <Button onClick={handleSave} size="sm">
+              <Button onClick={handleSave} size='sm'>
                 Save Content
               </Button>
-              <Button onClick={handleClear} variant="destructive" size="sm">
+              <Button onClick={handleClear} variant='destructive' size='sm'>
                 Clear
               </Button>
             </div>
 
-            <div className="flex items-center space-x-2">
+            <div className='flex items-center space-x-2'>
               <Switch
-                id="preview-mode"
+                id='preview-mode'
                 checked={showPreview}
                 onCheckedChange={setShowPreview}
               />
-              <Label htmlFor="preview-mode">Show Preview</Label>
+              <Label htmlFor='preview-mode'>Show Preview</Label>
             </div>
 
-            <div className="flex items-center space-x-2">
-              <Label htmlFor="height">Editor Height:</Label>
+            <div className='flex items-center space-x-2'>
+              <Label htmlFor='height'>Editor Height:</Label>
               <select
-                id="height"
+                id='height'
                 value={editorHeight}
                 onChange={(e) => setEditorHeight(Number(e.target.value))}
-                className="border rounded px-2 py-1 text-sm"
+                className='rounded border px-2 py-1 text-sm'
               >
                 <option value={150}>150px</option>
                 <option value={200}>200px</option>
@@ -114,13 +120,13 @@ export const TextEditorDemo = () => {
                 <option value={400}>400px</option>
               </select>
             </div>
-            
-            <TextEditor 
+
+            <TextEditor
               value={content}
               onChange={handleContentChange}
               height={editorHeight}
               showPreview={showPreview}
-              placeholder="Ketik konten Anda di sini..."
+              placeholder='Ketik konten Anda di sini...'
             />
           </CardContent>
         </Card>
@@ -135,14 +141,14 @@ export const TextEditorDemo = () => {
           </CardHeader>
           <CardContent>
             {savedContent ? (
-              <div 
-                className="prose prose-sm max-w-none"
+              <div
+                className='prose prose-sm max-w-none'
                 // dangerouslySetInnerHTML={{ __html: savedContent }}
               >
                 {savedContent}
               </div>
             ) : (
-              <div className="text-muted-foreground text-center py-8">
+              <div className='text-muted-foreground py-8 text-center'>
                 <p>Klik &quot;Save Content&quot; untuk melihat preview</p>
               </div>
             )}
@@ -151,4 +157,4 @@ export const TextEditorDemo = () => {
       </div>
     </div>
   );
-}; 
+};

@@ -7,7 +7,10 @@ import type { Metadata, Viewport } from 'next';
 import { cookies } from 'next/headers';
 import NextTopLoader from 'nextjs-toploader';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
-import { ConfirmDialogProvider, ConfirmDialogInitializer } from '@/components/ui';
+import {
+  ConfirmDialogProvider,
+  ConfirmDialogInitializer
+} from '@/components/ui';
 import './globals.css';
 import './theme.css';
 
@@ -18,7 +21,8 @@ const META_THEME_COLORS = {
 
 export const metadata: Metadata = {
   title: 'Desa Banyuanyar',
-  description: 'Website resmi Green Smart Village Desa Banyuanyar Kecamatan Ampel Kabupaten Boyolali',
+  description:
+    'Website resmi Green Smart Village Desa Banyuanyar Kecamatan Ampel Kabupaten Boyolali',
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon.ico',

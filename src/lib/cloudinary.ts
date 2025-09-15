@@ -1,7 +1,7 @@
 import { v2 as cloudinary } from 'cloudinary';
 
 cloudinary.config({
-  url: process.env.CLOUDINARY_URL,
+  url: process.env.CLOUDINARY_URL
 });
 
 export interface UploadResult {
@@ -26,22 +26,29 @@ export interface UploadOptions {
   maxFileSize?: number; // in bytes
 }
 
-
 export async function uploadImage(
   file: File | Buffer,
   options: UploadOptions = {}
 ): Promise<UploadResult> {
   try {
     // Validate file size
-    if (options.maxFileSize && file instanceof File && file.size > options.maxFileSize) {
-      throw new Error(`File size exceeds maximum allowed size of ${options.maxFileSize} bytes`);
+    if (
+      options.maxFileSize &&
+      file instanceof File &&
+      file.size > options.maxFileSize
+    ) {
+      throw new Error(
+        `File size exceeds maximum allowed size of ${options.maxFileSize} bytes`
+      );
     }
 
     // Validate file format
     if (options.allowedFormats && file instanceof File) {
       const fileExtension = file.name.split('.').pop()?.toLowerCase();
       if (!fileExtension || !options.allowedFormats.includes(fileExtension)) {
-        throw new Error(`File format not allowed. Allowed formats: ${options.allowedFormats.join(', ')}`);
+        throw new Error(
+          `File format not allowed. Allowed formats: ${options.allowedFormats.join(', ')}`
+        );
       }
     }
 
@@ -57,27 +64,31 @@ export async function uploadImage(
     // Prepare upload parameters
     const uploadParams: any = {
       resource_type: 'image',
-      folder: options.folder || 'banyuanyar',
+      folder: options.folder || 'banyuanyar'
     };
 
     // Add transformations if specified
     if (options.transformation) {
       uploadParams.transformation = [];
-      
+
       if (options.transformation.width || options.transformation.height) {
         uploadParams.transformation.push({
           width: options.transformation.width,
           height: options.transformation.height,
-          crop: options.transformation.crop || 'fill',
+          crop: options.transformation.crop || 'fill'
         });
       }
-      
+
       if (options.transformation.quality) {
-        uploadParams.transformation.push({ quality: options.transformation.quality });
+        uploadParams.transformation.push({
+          quality: options.transformation.quality
+        });
       }
-      
+
       if (options.transformation.format) {
-        uploadParams.transformation.push({ format: options.transformation.format });
+        uploadParams.transformation.push({
+          format: options.transformation.format
+        });
       }
     }
 
@@ -90,7 +101,7 @@ export async function uploadImage(
             reject(error);
             return;
           }
-          
+
           if (!result) {
             reject(new Error('Upload failed - no result returned'));
             return;
@@ -102,7 +113,7 @@ export async function uploadImage(
             width: result.width,
             height: result.height,
             format: result.format,
-            size: result.bytes,
+            size: result.bytes
           });
         }
       );
@@ -113,7 +124,9 @@ export async function uploadImage(
     return result;
   } catch (error) {
     console.error('Error uploading image to Cloudinary:', error);
-    throw new Error(`Failed to upload image: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    throw new Error(
+      `Failed to upload image: ${error instanceof Error ? error.message : 'Unknown error'}`
+    );
   }
 }
 
@@ -121,7 +134,7 @@ export async function uploadMultipleImages(
   files: (File | Buffer)[],
   options: UploadOptions = {}
 ): Promise<UploadResult[]> {
-  const uploadPromises = files.map(file => uploadImage(file, options));
+  const uploadPromises = files.map((file) => uploadImage(file, options));
   return Promise.all(uploadPromises);
 }
 
@@ -147,17 +160,20 @@ export function getOptimizedImageUrl(
 ): string {
   const baseUrl = cloudinary.url(publicId, {
     transformation: [transformation],
-    secure: true,
+    secure: true
   });
-  
+
   return baseUrl;
 }
 
 export function isValidCloudinaryUrl(url: string): boolean {
   try {
     const urlObj = new URL(url);
-    return urlObj.hostname.includes('cloudinary.com') || urlObj.hostname.includes('res.cloudinary.com');
+    return (
+      urlObj.hostname.includes('cloudinary.com') ||
+      urlObj.hostname.includes('res.cloudinary.com')
+    );
   } catch {
     return false;
   }
-} 
+}

@@ -1,7 +1,7 @@
 /* Table styles */
 .minimal-tiptap-editor .ProseMirror table {
-  @apply border-collapse table-auto w-full;
-  @apply border border-border;
+  @apply w-full table-auto border-collapse;
+  @apply border-border border;
   @apply my-4;
 }
 
@@ -10,12 +10,12 @@
 }
 
 .minimal-tiptap-editor .ProseMirror .table-row-node {
-  @apply border-b border-border;
+  @apply border-border border-b;
 }
 
 .minimal-tiptap-editor .ProseMirror .table-cell-node,
 .minimal-tiptap-editor .ProseMirror .table-header-node {
-  @apply border-r border-border p-3;
+  @apply border-border border-r p-3;
   @apply relative;
   @apply min-w-[100px];
   @apply align-top;
@@ -41,7 +41,7 @@
 
 /* Table resize handle */
 .minimal-tiptap-editor .ProseMirror .column-resize-handle {
-  @apply absolute top-0 right-0 w-1 h-full;
+  @apply absolute top-0 right-0 h-full w-1;
   @apply bg-primary/50;
   @apply opacity-0;
   @apply cursor-col-resize;
@@ -66,7 +66,7 @@
 /* Table empty cell placeholder */
 .minimal-tiptap-editor .ProseMirror .table-cell-node.is-empty::before,
 .minimal-tiptap-editor .ProseMirror .table-header-node.is-empty::before {
-  @apply content-[''] absolute;
+  @apply absolute content-[''];
   @apply text-muted-foreground/50;
   @apply pointer-events-none;
 }
@@ -77,4 +77,4 @@
 
 .minimal-tiptap-editor .ProseMirror .table-header-node.is-empty::before {
   content: 'Header';
-} 
+}

@@ -8,14 +8,17 @@ export default async function CreateTourismPackagePage() {
   const categories = await getTourismCategories();
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <Heading
         title='Tambah Paket Wisata Baru'
         description='Buat paket wisata baru untuk destinasi'
       />
       <Separator />
-      
-      <TourismPackageForm createTourismPackage={createTourismPackage} categories={categories} />
+
+      <TourismPackageForm
+        createTourismPackage={createTourismPackage}
+        categories={categories}
+      />
     </div>
   );
-} 
+}

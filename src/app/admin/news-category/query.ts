@@ -14,7 +14,7 @@ export async function getNewsCategories() {
         name: 'asc'
       }
     });
-    
+
     return categories;
   } catch (error) {
     console.error('Error fetching news categories:', error);
@@ -34,10 +34,10 @@ export async function getNewsCategoryById(id: number) {
         }
       }
     });
-    
+
     return category;
   } catch (error) {
     console.error('Error fetching news category:', error);
     throw new Error('Failed to fetch news category');
   }
-} 
+}

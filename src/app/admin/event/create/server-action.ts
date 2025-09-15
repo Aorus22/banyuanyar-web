@@ -1,4 +1,4 @@
-'use server'
+'use server';
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
@@ -26,7 +26,7 @@ export async function createEvent(formData: FormData) {
         startTime: startTime || null,
         endTime: endTime || null,
         location: location || null,
-        organizer: organizer || null,
+        organizer: organizer || null
       }
     });
 
@@ -37,4 +37,4 @@ export async function createEvent(formData: FormData) {
     console.error('Error creating event:', error);
     return { success: false, error: 'Failed to create event' };
   }
-} 
+}

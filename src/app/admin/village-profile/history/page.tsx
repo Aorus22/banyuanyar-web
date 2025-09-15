@@ -7,17 +7,17 @@ export default async function HistoryPage() {
   const historyProfile = await getVillageProfileByKey('history');
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <Heading
-        title="Sejarah Desa"
-        description="Edit sejarah dan cerita rakyat desa Banyuanyar"
+        title='Sejarah Desa'
+        description='Edit sejarah dan cerita rakyat desa Banyuanyar'
       />
       <Separator />
-      
-      <HistoryForm 
+
+      <HistoryForm
         initialValue={historyProfile?.value || ''}
-        profileKey="history"
+        profileKey='history'
       />
     </div>
   );
-} 
+}

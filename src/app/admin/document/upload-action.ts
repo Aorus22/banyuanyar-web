@@ -1,8 +1,11 @@
-'use server'
+'use server';
 
 import { uploadToGDrive, deleteFromGDrive } from '@/lib/gdrive-api';
 
-export async function uploadDocumentToGoogleDrive(file: File, filename: string) {
+export async function uploadDocumentToGoogleDrive(
+  file: File,
+  filename: string
+) {
   return await uploadToGDrive(file, filename);
 }
 

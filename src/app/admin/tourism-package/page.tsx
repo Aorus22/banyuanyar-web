@@ -12,32 +12,28 @@ export default async function TourismPackagePage() {
   const packages = await getTourismPackages();
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <div className='flex items-start justify-between'>
         <Heading
           title='Tourism Packages'
           description='Kelola paket wisata dan destinasi'
         />
-        <Button asChild className="flex items-center gap-2 button-primary">
-          <Link href="/admin/tourism-package/create">
-            <Plus className="h-4 w-4" /> Tambah Paket
+        <Button asChild className='button-primary flex items-center gap-2'>
+          <Link href='/admin/tourism-package/create'>
+            <Plus className='h-4 w-4' /> Tambah Paket
           </Link>
         </Button>
       </div>
       <Separator />
-      
+
       <Card>
         <CardHeader>
           <CardTitle>Daftar Paket Wisata</CardTitle>
         </CardHeader>
-        <CardContent className="px-3 sm:px-6">
-          <DataTable 
-            columns={columns} 
-            data={packages}
-            hideToolbar={false}
-          />
+        <CardContent className='px-3 sm:px-6'>
+          <DataTable columns={columns} data={packages} hideToolbar={false} />
         </CardContent>
       </Card>
     </div>
   );
-} 
+}

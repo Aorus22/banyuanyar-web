@@ -1,5 +1,5 @@
-import { format, isValid, parseISO } from "date-fns"
-import { id } from "date-fns/locale"
+import { format, isValid, parseISO } from 'date-fns';
+import { id } from 'date-fns/locale';
 
 /**
  * Safely formats a date value, handling various input types and invalid dates
@@ -9,43 +9,43 @@ import { id } from "date-fns/locale"
  * @returns Formatted date string or fallback text
  */
 export const safeFormatDate = (
-  dateValue: any, 
-  formatString: string, 
-  fallback: string = "-"
+  dateValue: any,
+  formatString: string,
+  fallback: string = '-'
 ): string => {
-  if (!dateValue) return fallback
-  
-  let date: Date
-  
+  if (!dateValue) return fallback;
+
+  let date: Date;
+
   // If it's already a Date object
   if (dateValue instanceof Date) {
-    date = dateValue
+    date = dateValue;
   }
   // If it's a string, try to parse it
   else if (typeof dateValue === 'string') {
-    date = parseISO(dateValue)
+    date = parseISO(dateValue);
   }
   // If it's a number (timestamp), create Date from it
   else if (typeof dateValue === 'number') {
-    date = new Date(dateValue)
+    date = new Date(dateValue);
   }
   // Fallback to current date if invalid
   else {
-    date = new Date()
+    date = new Date();
   }
-  
+
   // Check if the date is valid
   if (!isValid(date)) {
-    return fallback
+    return fallback;
   }
-  
+
   try {
-    return format(date, formatString, { locale: id })
+    return format(date, formatString, { locale: id });
   } catch (error) {
-    console.error('Error formatting date:', error, dateValue)
-    return fallback
+    console.error('Error formatting date:', error, dateValue);
+    return fallback;
   }
-}
+};
 
 /**
  * Safely formats a date with time, handling various input types
@@ -54,11 +54,11 @@ export const safeFormatDate = (
  * @returns Formatted date string with time or fallback text
  */
 export const safeFormatDateTime = (
-  dateValue: any, 
-  fallback: string = "-"
+  dateValue: any,
+  fallback: string = '-'
 ): string => {
-  return safeFormatDate(dateValue, "dd MMM yyyy HH:mm", fallback)
-}
+  return safeFormatDate(dateValue, 'dd MMM yyyy HH:mm', fallback);
+};
 
 /**
  * Safely formats a date without time, handling various input types
@@ -67,11 +67,11 @@ export const safeFormatDateTime = (
  * @returns Formatted date string without time or fallback text
  */
 export const safeFormatDateOnly = (
-  dateValue: any, 
-  fallback: string = "-"
+  dateValue: any,
+  fallback: string = '-'
 ): string => {
-  return safeFormatDate(dateValue, "dd MMM yyyy", fallback)
-}
+  return safeFormatDate(dateValue, 'dd MMM yyyy', fallback);
+};
 
 /**
  * Safely formats a date with full month name, handling various input types
@@ -80,8 +80,8 @@ export const safeFormatDateOnly = (
  * @returns Formatted date string with full month or fallback text
  */
 export const safeFormatDateFullMonth = (
-  dateValue: any, 
-  fallback: string = "-"
+  dateValue: any,
+  fallback: string = '-'
 ): string => {
-  return safeFormatDate(dateValue, "dd MMMM yyyy", fallback)
-} 
+  return safeFormatDate(dateValue, 'dd MMMM yyyy', fallback);
+};

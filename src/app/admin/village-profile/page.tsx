@@ -1,6 +1,12 @@
 import { Heading } from '@/components/ui/heading';
 import { Separator } from '@/components/ui/separator';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card';
 import Link from 'next/link';
 import { Icons } from '@/components/icons';
 
@@ -33,28 +39,28 @@ export default function VillageProfilePage() {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <Heading
-        title="Profil Desa"
-        description="Kelola informasi profil dan identitas desa Banyuanyar"
+        title='Profil Desa'
+        description='Kelola informasi profil dan identitas desa Banyuanyar'
       />
       <Separator />
-      
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2">
+
+      <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-2'>
         {profileSections.map((section) => {
           const Icon = Icons[section.icon as keyof typeof Icons];
           return (
             <Link key={section.title} href={section.url}>
-              <Card className="hover:shadow-md transition-shadow cursor-pointer">
+              <Card className='cursor-pointer transition-shadow hover:shadow-md'>
                 <CardHeader>
-                  <div className="flex items-center space-x-3">
-                    {Icon && <Icon className="h-6 w-6 text-muted-foreground" />}
+                  <div className='flex items-center space-x-3'>
+                    {Icon && <Icon className='text-muted-foreground h-6 w-6' />}
                     <CardTitle>{section.title}</CardTitle>
                   </div>
                   <CardDescription>{section.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-muted-foreground">
+                  <p className='text-muted-foreground text-sm'>
                     Klik untuk mengedit {section.title.toLowerCase()}
                   </p>
                 </CardContent>
@@ -65,4 +71,4 @@ export default function VillageProfilePage() {
       </div>
     </div>
   );
-} 
+}

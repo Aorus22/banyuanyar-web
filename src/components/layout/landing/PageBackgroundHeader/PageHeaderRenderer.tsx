@@ -18,4 +18,4 @@ export function PageHeaderRenderer() {
       backgroundImage={headerData.backgroundImage}
     />
   );
-} 
+}

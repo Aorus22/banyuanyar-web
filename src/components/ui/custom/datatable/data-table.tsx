@@ -1,6 +1,6 @@
-"use client"
+'use client';
 
-import * as React from "react"
+import * as React from 'react';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,39 +13,39 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table"
+  useReactTable
+} from '@tanstack/react-table';
 
-import { Checkbox } from "@/components/ui/checkbox"
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+  TableRow
+} from '@/components/ui/table';
 
-import { DataTablePagination } from "./data-table-pagination"
-import { DataTableToolbar } from "./data-table-toolbar"
-import { DataTableSkeleton } from "./data-table-skeleton"
+import { DataTablePagination } from './data-table-pagination';
+import { DataTableToolbar } from './data-table-toolbar';
+import { DataTableSkeleton } from './data-table-skeleton';
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
-  hideToolbar?: boolean
-  isLoading?: boolean
-  currentPage?: number
-  lastPage?: number
-  perPage?: number
-  total?: number
-  isServerSide?: boolean
-  enableBulkActions?: boolean
-  onPageChange?: (page: number) => void
-  onPerPageChange?: (perPage: number) => void
-  onRowSelectionChange?: (selectedRows: TData[]) => void
-  bulkActions?: React.ReactNode
-  toolbarActions?: React.ReactNode
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  hideToolbar?: boolean;
+  isLoading?: boolean;
+  currentPage?: number;
+  lastPage?: number;
+  perPage?: number;
+  total?: number;
+  isServerSide?: boolean;
+  enableBulkActions?: boolean;
+  onPageChange?: (page: number) => void;
+  onPerPageChange?: (perPage: number) => void;
+  onRowSelectionChange?: (selectedRows: TData[]) => void;
+  bulkActions?: React.ReactNode;
+  toolbarActions?: React.ReactNode;
 }
 
 export function DataTable<TData, TValue>({
@@ -63,47 +63,54 @@ export function DataTable<TData, TValue>({
   onPerPageChange,
   onRowSelectionChange,
   bulkActions,
-  toolbarActions,
+  toolbarActions
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
-  const [rowSelection, setRowSelection] = React.useState<Record<string, boolean>>({})
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  );
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({});
+  const [rowSelection, setRowSelection] = React.useState<
+    Record<string, boolean>
+  >({});
 
   // Computed columns that will add select column if enableBulkActions = true
   const computedColumns = React.useMemo(() => {
     if (!enableBulkActions) {
-      return columns
+      return columns;
     }
 
     // Checkbox column for bulk selection
     const selectColumn: ColumnDef<TData, TValue> = {
-      id: "select",
+      id: 'select',
       header: ({ table }) => (
-        <div className="px-1">
+        <div className='px-1'>
           <Checkbox
             checked={table.getIsAllPageRowsSelected()}
-            onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-            aria-label="Select all"
+            onCheckedChange={(value) =>
+              table.toggleAllPageRowsSelected(!!value)
+            }
+            aria-label='Select all'
           />
         </div>
       ),
       cell: ({ row }) => (
-        <div className="px-1">
+        <div className='px-1'>
           <Checkbox
             checked={row.getIsSelected()}
             onCheckedChange={(value) => row.toggleSelected(!!value)}
-            aria-label="Select row"
+            aria-label='Select row'
           />
         </div>
       ),
       enableSorting: false,
       enableHiding: false,
-      size: 50,
-    }
+      size: 50
+    };
 
-    return [selectColumn, ...columns]
-  }, [columns, enableBulkActions])
+    return [selectColumn, ...columns];
+  }, [columns, enableBulkActions]);
 
   const table = useReactTable({
     data,
@@ -112,7 +119,7 @@ export function DataTable<TData, TValue>({
       sorting,
       columnFilters,
       columnVisibility,
-      rowSelection,
+      rowSelection
     },
     enableRowSelection: enableBulkActions,
     manualPagination: isServerSide,
@@ -128,72 +135,75 @@ export function DataTable<TData, TValue>({
     ...(isServerSide
       ? {}
       : {
-          getPaginationRowModel: getPaginationRowModel(),
-        }),
-  })
+          getPaginationRowModel: getPaginationRowModel()
+        })
+  });
 
   // Computed to get selected data
   const selectedRows = React.useMemo(() => {
     const selected = Object.keys(rowSelection).map(
       (key) => data[parseInt(key)]
-    )
-    return selected
-  }, [rowSelection, data])
+    );
+    return selected;
+  }, [rowSelection, data]);
 
   // Notify parent component when selected rows change
   React.useEffect(() => {
     if (typeof onRowSelectionChange === 'function') {
-      onRowSelectionChange(selectedRows)
+      onRowSelectionChange(selectedRows);
     }
-  }, [selectedRows, onRowSelectionChange])
+  }, [selectedRows, onRowSelectionChange]);
 
   // Computed to check if there are selected rows
   const hasSelectedRows = React.useMemo(() => {
-    const count = Object.keys(rowSelection).length
-    return count > 0
-  }, [rowSelection])
+    const count = Object.keys(rowSelection).length;
+    return count > 0;
+  }, [rowSelection]);
 
   // Function to clear selection
   const clearSelection = React.useCallback(() => {
-    setRowSelection({})
-  }, [])
+    setRowSelection({});
+  }, []);
 
   // Function to execute bulk action
-  const executeBulkAction = React.useCallback(async (action: (selectedRows: TData[]) => Promise<void>) => {
-    try {
-      await action(selectedRows)
-      clearSelection()
-    } catch (error) {
-      console.error('Bulk action failed:', error)
-    }
-  }, [selectedRows, clearSelection])
+  const executeBulkAction = React.useCallback(
+    async (action: (selectedRows: TData[]) => Promise<void>) => {
+      try {
+        await action(selectedRows);
+        clearSelection();
+      } catch (error) {
+        console.error('Bulk action failed:', error);
+      }
+    },
+    [selectedRows, clearSelection]
+  );
 
   if (isLoading) {
-    return <DataTableSkeleton columns={computedColumns.length} rows={5} />
+    return <DataTableSkeleton columns={computedColumns.length} rows={5} />;
   }
 
   return (
-    <div className="space-y-4">
+    <div className='space-y-4'>
       {!hideToolbar && (
         <DataTableToolbar table={table}>
           {enableBulkActions && hasSelectedRows ? (
-            <div className="lg:flex justify-center items-center gap-4">
-              <span className="text-sm text-muted-foreground block mb-2 lg:mb-0">
+            <div className='items-center justify-center gap-4 lg:flex'>
+              <span className='text-muted-foreground mb-2 block text-sm lg:mb-0'>
                 {Object.keys(rowSelection).length} item terpilih
               </span>
-              <div className="flex flex-wrap sm:flex-row sm:items-center gap-2 mr-4">
+              <div className='mr-4 flex flex-wrap gap-2 sm:flex-row sm:items-center'>
                 {bulkActions}
               </div>
             </div>
           ) : (
-            <div className="flex flex-wrap sm:flex-row sm:items-start justify-start items-center gap-2">
+            <div className='flex flex-wrap items-center justify-start gap-2 sm:flex-row sm:items-start'>
               {toolbarActions}
             </div>
           )}
         </DataTableToolbar>
       )}
 
-      <div className="rounded-md border">
+      <div className='rounded-md border'>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -216,7 +226,7 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -232,7 +242,7 @@ export function DataTable<TData, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={computedColumns.length}
-                  className="h-24 text-center"
+                  className='h-24 text-center'
                 >
                   No results.
                 </TableCell>
@@ -253,5 +263,5 @@ export function DataTable<TData, TValue>({
         onPerPageChange={onPerPageChange}
       />
     </div>
-  )
+  );
 }

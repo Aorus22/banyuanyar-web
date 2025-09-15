@@ -20,14 +20,14 @@ export default async function EditEventPage({ params }: EditEventPageProps) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <Heading
         title='Edit Event'
         description='Edit informasi event yang sudah ada'
       />
       <Separator />
-      
+
       <EventForm event={event} updateEvent={updateEvent} />
     </div>
   );
-} 
+}

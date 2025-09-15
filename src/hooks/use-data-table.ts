@@ -30,7 +30,10 @@ import {
 import * as React from 'react';
 
 import { useDebouncedCallback } from '@/hooks/use-debounced-callback';
-import { getSortingStateParser, type ExtendedColumnSort } from '@/components/ui/custom/datatable';
+import {
+  getSortingStateParser,
+  type ExtendedColumnSort
+} from '@/components/ui/custom/datatable';
 
 const PAGE_KEY = 'page';
 const PER_PAGE_KEY = 'perPage';

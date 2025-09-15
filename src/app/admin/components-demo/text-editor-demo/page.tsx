@@ -1,7 +1,7 @@
-"use client"
+'use client';
 
-import { TextEditorDemo } from "./text-editor-demo";
+import { TextEditorDemo } from './text-editor-demo';
 
 export default function TextEditorDemoPage() {
   return <TextEditorDemo />;
-} 
+}

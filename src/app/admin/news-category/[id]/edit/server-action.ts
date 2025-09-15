@@ -1,4 +1,4 @@
-'use server'
+'use server';
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
@@ -13,7 +13,10 @@ export async function updateNewsCategory(id: number, formData: FormData) {
       where: { id },
       data: {
         name,
-        slug: name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+        slug: name
+          .toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/[^a-z0-9-]/g, ''),
         description: description || null,
         color: color || '#000000'
       }
@@ -26,4 +29,4 @@ export async function updateNewsCategory(id: number, formData: FormData) {
     console.error('Error updating news category:', error);
     return { success: false, error: 'Failed to update news category' };
   }
-} 
+}

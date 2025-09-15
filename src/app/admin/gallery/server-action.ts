@@ -84,29 +84,44 @@ export async function deleteGalleryAction(id: number) {
   }
 }
 
-export async function uploadGalleryMediaAction(galleryId: number, formData: FormData) {
+export async function uploadGalleryMediaAction(
+  galleryId: number,
+  formData: FormData
+) {
   try {
     const file = formData.get('file') as File;
-    
+
     if (!file) {
       return { success: false, error: 'File tidak ditemukan' };
     }
 
     // Validate file type
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
+    const allowedTypes = [
+      'image/jpeg',
+      'image/jpg',
+      'image/png',
+      'image/webp',
+      'image/gif'
+    ];
     if (!allowedTypes.includes(file.type)) {
-      return { success: false, error: 'Tipe file tidak didukung. Gunakan JPG, PNG, WebP, atau GIF' };
+      return {
+        success: false,
+        error: 'Tipe file tidak didukung. Gunakan JPG, PNG, WebP, atau GIF'
+      };
     }
 
     // Validate file size (10MB max)
     const maxSize = 10 * 1024 * 1024;
     if (file.size > maxSize) {
-      return { success: false, error: 'Ukuran file terlalu besar. Maksimal 10MB' };
+      return {
+        success: false,
+        error: 'Ukuran file terlalu besar. Maksimal 10MB'
+      };
     }
 
     // Upload to Cloudinary
     const uploadResult = await uploadImage(file, { folder: 'gallery' });
-    
+
     // Save to database
     const media = await prisma.media.create({
       data: {
@@ -139,7 +154,7 @@ export async function deleteGalleryMediaAction(mediaId: number) {
 
     // Delete from Cloudinary
     const deleteResult = await deleteFromCloudinary(media.fileUrl);
-    
+
     if (!deleteResult.success) {
       console.warn('Failed to delete from Cloudinary:', deleteResult.error);
       // Continue with database deletion even if Cloudinary deletion fails
@@ -163,11 +178,11 @@ async function deleteFromCloudinary(fileUrl: string) {
     // Extract public_id from Cloudinary URL
     const urlParts = fileUrl.split('/');
     const publicId = urlParts[urlParts.length - 1].split('.')[0];
-    
+
     // This would require the cloudinary package to be properly configured
     // For now, we'll return success and handle Cloudinary deletion separately
     return { success: true };
   } catch (error) {
     return { success: false, error: 'Gagal menghapus dari Cloudinary' };
   }
-} 
+}

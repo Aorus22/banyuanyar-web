@@ -9,7 +9,11 @@ interface UsePageHeaderProps {
   backgroundImage?: string;
 }
 
-export function usePageHeaderEffect({ title, description, backgroundImage }: UsePageHeaderProps) {
+export function usePageHeaderEffect({
+  title,
+  description,
+  backgroundImage
+}: UsePageHeaderProps) {
   const { setHeaderData } = usePageHeader();
 
   useEffect(() => {
@@ -20,4 +24,4 @@ export function usePageHeaderEffect({ title, description, backgroundImage }: Use
       setHeaderData(null);
     };
   }, [title, description, backgroundImage, setHeaderData]);
-} 
+}

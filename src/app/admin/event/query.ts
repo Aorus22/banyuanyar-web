@@ -7,7 +7,7 @@ export async function getEvents() {
         createdAt: 'desc'
       }
     });
-    
+
     return events;
   } catch (error) {
     console.error('Error fetching events:', error);
@@ -20,10 +20,10 @@ export async function getEventById(id: number) {
     const event = await prisma.event.findUnique({
       where: { id }
     });
-    
+
     return event;
   } catch (error) {
     console.error('Error fetching event:', error);
     throw new Error('Failed to fetch event');
   }
-} 
+}

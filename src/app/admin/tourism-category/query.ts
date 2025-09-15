@@ -19,16 +19,16 @@ export async function getTourismCategories() {
         name: 'asc'
       }
     });
-    
+
     // Convert Decimal values to numbers for client components
-    const categoriesWithConvertedPrices = categories.map(category => ({
+    const categoriesWithConvertedPrices = categories.map((category) => ({
       ...category,
-      packages: category.packages.map(pkg => ({
+      packages: category.packages.map((pkg) => ({
         ...pkg,
         price: pkg.price ? Number(pkg.price) : null
       }))
     }));
-    
+
     return categoriesWithConvertedPrices;
   } catch (error) {
     console.error('Error fetching tourism categories:', error);
@@ -53,18 +53,18 @@ export async function getTourismCategoryById(id: number) {
         }
       }
     });
-    
+
     if (!category) return null;
-    
+
     // Convert Decimal values to numbers for client components
     const categoryWithConvertedPrices = {
       ...category,
-      packages: category.packages.map(pkg => ({
+      packages: category.packages.map((pkg) => ({
         ...pkg,
         price: pkg.price ? Number(pkg.price) : null
       }))
     };
-    
+
     return categoryWithConvertedPrices;
   } catch (error) {
     console.error('Error fetching tourism category:', error);
@@ -80,18 +80,18 @@ export async function getTourismPackageById(id: number) {
         category: true
       }
     });
-    
+
     if (!package_) return null;
-    
+
     // Convert Decimal values to numbers for client components
     const packageWithConvertedPrice = {
       ...package_,
       price: package_.price ? Number(package_.price) : null
     };
-    
+
     return packageWithConvertedPrice;
   } catch (error) {
     console.error('Error fetching tourism package:', error);
     throw new Error('Failed to fetch tourism package');
   }
-} 
+}

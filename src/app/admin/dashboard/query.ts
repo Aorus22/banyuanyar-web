@@ -68,14 +68,19 @@ export async function getDashboardStats(): Promise<DashboardData> {
       const date = new Date();
       date.setMonth(date.getMonth() - i);
       const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-      
-      const monthCount = monthlyNewsData.find((item: { createdAt: Date; _count: number }) => {
-        const itemMonth = `${item.createdAt.getFullYear()}-${String(item.createdAt.getMonth() + 1).padStart(2, '0')}`;
-        return itemMonth === monthKey;
-      });
+
+      const monthCount = monthlyNewsData.find(
+        (item: { createdAt: Date; _count: number }) => {
+          const itemMonth = `${item.createdAt.getFullYear()}-${String(item.createdAt.getMonth() + 1).padStart(2, '0')}`;
+          return itemMonth === monthKey;
+        }
+      );
 
       return {
-        month: date.toLocaleDateString('id-ID', { month: 'short', year: 'numeric' }),
+        month: date.toLocaleDateString('id-ID', {
+          month: 'short',
+          year: 'numeric'
+        }),
         count: monthCount?._count || 0
       };
     }).reverse();
@@ -105,4 +110,4 @@ export async function getDashboardStats(): Promise<DashboardData> {
     console.error('Error fetching dashboard stats:', error);
     throw new Error('Failed to fetch dashboard statistics');
   }
-} 
+}

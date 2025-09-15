@@ -1,9 +1,9 @@
-import * as React from "react"
-import { cn } from "@/lib/utils"
-import { getShortcutKey } from "../utils"
+import * as React from 'react';
+import { cn } from '@/lib/utils';
+import { getShortcutKey } from '../utils';
 
-export interface ShortcutKeyProps extends React.ComponentProps<"span"> {
-  keys?: string[]
+export interface ShortcutKeyProps extends React.ComponentProps<'span'> {
+  keys?: string[];
 }
 
 export const ShortcutKey = ({
@@ -14,18 +14,18 @@ export const ShortcutKey = ({
 }: ShortcutKeyProps) => {
   // Return null if no keys provided
   if (!keys || keys.length === 0) {
-    return null
+    return null;
   }
 
-  const modifiedKeys = keys.map((key) => getShortcutKey(key))
+  const modifiedKeys = keys.map((key) => getShortcutKey(key));
   const ariaLabel = modifiedKeys
     .map((shortcut) => shortcut.readable)
-    .join(" + ")
+    .join(' + ');
 
   return (
     <span
       aria-label={ariaLabel}
-      className={cn("inline-flex items-center gap-0.5", className)}
+      className={cn('inline-flex items-center gap-0.5', className)}
       {...props}
       ref={ref}
     >
@@ -33,7 +33,7 @@ export const ShortcutKey = ({
         <kbd
           key={shortcut.symbol}
           className={cn(
-            "inline-block min-w-2.5 text-center align-baseline font-sans text-xs font-medium text-[rgb(156,157,160)] capitalize",
+            'inline-block min-w-2.5 text-center align-baseline font-sans text-xs font-medium text-[rgb(156,157,160)] capitalize',
 
             className
           )}
@@ -44,7 +44,7 @@ export const ShortcutKey = ({
         </kbd>
       ))}
     </span>
-  )
-}
+  );
+};
 
-ShortcutKey.displayName = "ShortcutKey" 
+ShortcutKey.displayName = 'ShortcutKey';

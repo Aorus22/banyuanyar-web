@@ -3,11 +3,20 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Eye, Trash2, Download, Image as ImageIcon, Trash } from 'lucide-react';
 import { toast } from 'sonner';
-import { deleteMedia, deleteMultipleMedia } from '@/app/admin/media/universal-upload-action';
+import {
+  deleteMedia,
+  deleteMultipleMedia
+} from '@/app/admin/media/universal-upload-action';
 import { useRouter } from 'next/navigation';
 
 interface Media {
@@ -27,12 +36,12 @@ interface MediaGalleryProps {
   className?: string;
 }
 
-export function MediaGallery({ 
-  media, 
-  entityType, 
-  entityId, 
+export function MediaGallery({
+  media,
+  entityType,
+  entityId,
   onMediaDeleted,
-  className 
+  className
 }: MediaGalleryProps) {
   const [selectedMedia, setSelectedMedia] = useState<Media | null>(null);
   const [isDeleting, setIsDeleting] = useState<number | null>(null);
@@ -44,7 +53,7 @@ export function MediaGallery({
     if (selectedIds.size === media.length) {
       setSelectedIds(new Set());
     } else {
-      setSelectedIds(new Set(media.map(item => item.id)));
+      setSelectedIds(new Set(media.map((item) => item.id)));
     }
   };
 
@@ -64,25 +73,27 @@ export function MediaGallery({
       return;
     }
 
-    if (!confirm(`Apakah Anda yakin ingin menghapus ${selectedIds.size} media?`)) {
+    if (
+      !confirm(`Apakah Anda yakin ingin menghapus ${selectedIds.size} media?`)
+    ) {
       return;
     }
 
     setIsBatchDeleting(true);
     try {
       const result = await deleteMultipleMedia(Array.from(selectedIds));
-      
+
       if (result.success) {
         toast.success(`Berhasil hapus ${result.deletedCount} media`);
         if (result.error) {
           toast.warning(result.error);
         }
-        
+
         // Call individual delete callbacks
-        Array.from(selectedIds).forEach(id => {
+        Array.from(selectedIds).forEach((id) => {
           onMediaDeleted?.(id);
         });
-        
+
         setSelectedIds(new Set());
         router.refresh();
       } else {
@@ -103,7 +114,7 @@ export function MediaGallery({
     setIsDeleting(mediaId);
     try {
       const result = await deleteMedia(mediaId);
-      
+
       if (result.success) {
         toast.success('Media berhasil dihapus');
         onMediaDeleted?.(mediaId);
@@ -147,39 +158,41 @@ export function MediaGallery({
 
   if (media.length === 0) {
     return (
-      <div className={`text-center py-8 text-muted-foreground ${className || ''}`}>
-        <ImageIcon className="w-12 h-12 mx-auto mb-4 opacity-50" />
+      <div
+        className={`text-muted-foreground py-8 text-center ${className || ''}`}
+      >
+        <ImageIcon className='mx-auto mb-4 h-12 w-12 opacity-50' />
         <p>Belum ada media yang diupload</p>
-        <p className="text-sm">Upload gambar pertama untuk {entityType}</p>
+        <p className='text-sm'>Upload gambar pertama untuk {entityType}</p>
       </div>
     );
   }
 
   return (
     <div className={`space-y-4 ${className || ''}`}>
-      <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">Media ({media.length})</h3>
-        <div className="flex items-center gap-3">
+      <div className='flex items-center justify-between'>
+        <h3 className='text-lg font-semibold'>Media ({media.length})</h3>
+        <div className='flex items-center gap-3'>
           {/* <div className="text-sm text-muted-foreground">
             Entity: {entityType}
             {entityId && ` (ID: ${entityId})`}
           </div> */}
-          
+
           {selectedIds.size > 0 && (
             <Button
-              variant="destructive"
-              size="sm"
+              variant='destructive'
+              size='sm'
               onClick={handleBatchDelete}
               disabled={isBatchDeleting}
             >
               {isBatchDeleting ? (
                 <>
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                  <div className='mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent' />
                   Menghapus...
                 </>
               ) : (
                 <>
-                  <Trash className="w-4 h-4 mr-2" />
+                  <Trash className='mr-2 h-4 w-4' />
                   Hapus {selectedIds.size} Media
                 </>
               )}
@@ -190,84 +203,87 @@ export function MediaGallery({
 
       {/* Select All Checkbox */}
       {media.length > 0 && (
-        <div className="flex items-center space-x-2">
+        <div className='flex items-center space-x-2'>
           <Checkbox
-            id="select-all"
+            id='select-all'
             checked={selectedIds.size === media.length && media.length > 0}
             onCheckedChange={handleSelectAll}
           />
-          <label htmlFor="select-all" className="text-sm font-medium">
+          <label htmlFor='select-all' className='text-sm font-medium'>
             Pilih Semua ({selectedIds.size}/{media.length})
           </label>
         </div>
       )}
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className='grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4'>
         {media.map((item) => (
-          <Card key={item.id} className="group overflow-hidden">
-            <CardContent className="p-0">
+          <Card key={item.id} className='group overflow-hidden'>
+            <CardContent className='p-0'>
               {/* Selection Checkbox */}
-              <div className="absolute top-2 left-2 z-10">
+              <div className='absolute top-2 left-2 z-10'>
                 <Checkbox
                   checked={selectedIds.has(item.id)}
                   onCheckedChange={() => handleSelectItem(item.id)}
-                  className="bg-white/90 hover:bg-white"
+                  className='bg-white/90 hover:bg-white'
                 />
               </div>
 
               {/* Image Preview */}
-              <div className="relative aspect-square overflow-hidden">
+              <div className='relative aspect-square overflow-hidden'>
                 <img
                   src={item.fileUrl}
                   alt={item.fileName}
-                  className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                  className='h-full w-full object-cover transition-transform group-hover:scale-105'
                 />
-                
+
                 {/* Hover Actions */}
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                <div className='absolute inset-0 flex items-center justify-center gap-2 bg-black/60 opacity-0 transition-opacity group-hover:opacity-100'>
                   <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-white hover:text-white hover:bg-white/20"
+                    variant='ghost'
+                    size='sm'
+                    className='text-white hover:bg-white/20 hover:text-white'
                     onClick={() => setSelectedMedia(item)}
                   >
-                    <Eye className="w-4 h-4" />
+                    <Eye className='h-4 w-4' />
                   </Button>
-                  
+
                   <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-white hover:text-white hover:bg-white/20"
+                    variant='ghost'
+                    size='sm'
+                    className='text-white hover:bg-white/20 hover:text-white'
                     onClick={() => downloadImage(item.fileUrl, item.fileName)}
                   >
-                    <Download className="w-4 h-4" />
+                    <Download className='h-4 w-4' />
                   </Button>
-                  
+
                   <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-white hover:text-white hover:bg-white/20"
+                    variant='ghost'
+                    size='sm'
+                    className='text-white hover:bg-white/20 hover:text-white'
                     onClick={() => handleDelete(item.id)}
                     disabled={isDeleting === item.id}
                   >
                     {isDeleting === item.id ? (
-                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <div className='h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent' />
                     ) : (
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className='h-4 w-4' />
                     )}
                   </Button>
                 </div>
               </div>
 
               {/* Image Info */}
-              <div className="p-3 space-y-2">
-                <div className="space-y-1">
-                  <p className="text-sm font-medium truncate" title={item.fileName}>
+              <div className='space-y-2 p-3'>
+                <div className='space-y-1'>
+                  <p
+                    className='truncate text-sm font-medium'
+                    title={item.fileName}
+                  >
                     {item.fileName}
                   </p>
                 </div>
-                
-                <div className="flex items-center justify-between text-xs text-muted-foreground">
+
+                <div className='text-muted-foreground flex items-center justify-between text-xs'>
                   <span>{formatFileSize(item.fileSize)}</span>
                   <span>{formatDate(item.createdAt)}</span>
                 </div>
@@ -279,63 +295,76 @@ export function MediaGallery({
 
       {/* Image Preview Modal */}
       {selectedMedia && (
-        <Dialog open={!!selectedMedia} onOpenChange={() => setSelectedMedia(null)}>
-          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+        <Dialog
+          open={!!selectedMedia}
+          onOpenChange={() => setSelectedMedia(null)}
+        >
+          <DialogContent className='max-h-[90vh] max-w-4xl overflow-y-auto'>
             <DialogHeader>
               <DialogTitle>{selectedMedia.fileName}</DialogTitle>
             </DialogHeader>
-            
-            <div className="space-y-4">
+
+            <div className='space-y-4'>
               {/* Large Image */}
-              <div className="flex justify-center">
+              <div className='flex justify-center'>
                 <img
                   src={selectedMedia.fileUrl}
                   alt={selectedMedia.fileName}
-                  className="max-w-full max-h-[60vh] object-contain rounded-lg"
+                  className='max-h-[60vh] max-w-full rounded-lg object-contain'
                 />
               </div>
 
               {/* Image Details */}
-              <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className='grid grid-cols-2 gap-4 text-sm'>
                 <div>
-                  <span className="font-medium">Nama File:</span>
-                  <p className="text-muted-foreground">{selectedMedia.fileName}</p>
+                  <span className='font-medium'>Nama File:</span>
+                  <p className='text-muted-foreground'>
+                    {selectedMedia.fileName}
+                  </p>
                 </div>
-                
+
                 <div>
-                  <span className="font-medium">Ukuran:</span>
-                  <p className="text-muted-foreground">{formatFileSize(selectedMedia.fileSize)}</p>
+                  <span className='font-medium'>Ukuran:</span>
+                  <p className='text-muted-foreground'>
+                    {formatFileSize(selectedMedia.fileSize)}
+                  </p>
                 </div>
-                
+
                 <div>
-                  <span className="font-medium">Tipe File:</span>
-                  <p className="text-muted-foreground">{selectedMedia.mimeType}</p>
+                  <span className='font-medium'>Tipe File:</span>
+                  <p className='text-muted-foreground'>
+                    {selectedMedia.mimeType}
+                  </p>
                 </div>
-                
+
                 <div>
-                  <span className="font-medium">Tanggal Upload:</span>
-                  <p className="text-muted-foreground">{formatDate(selectedMedia.createdAt)}</p>
+                  <span className='font-medium'>Tanggal Upload:</span>
+                  <p className='text-muted-foreground'>
+                    {formatDate(selectedMedia.createdAt)}
+                  </p>
                 </div>
               </div>
 
               {/* Actions */}
-              <div className="flex justify-end space-x-3">
+              <div className='flex justify-end space-x-3'>
                 <Button
-                  variant="outline"
-                  onClick={() => downloadImage(selectedMedia.fileUrl, selectedMedia.fileName)}
+                  variant='outline'
+                  onClick={() =>
+                    downloadImage(selectedMedia.fileUrl, selectedMedia.fileName)
+                  }
                 >
-                  <Download className="w-4 h-4 mr-2" />
+                  <Download className='mr-2 h-4 w-4' />
                   Download
                 </Button>
-                
+
                 <Button
-                  variant="destructive"
+                  variant='destructive'
                   onClick={() => {
                     handleDelete(selectedMedia.id);
                     setSelectedMedia(null);
                   }}
                 >
-                  <Trash2 className="w-4 h-4 mr-2" />
+                  <Trash2 className='mr-2 h-4 w-4' />
                   Hapus
                 </Button>
               </div>
@@ -345,4 +374,4 @@ export function MediaGallery({
       )}
     </div>
   );
-} 
+}

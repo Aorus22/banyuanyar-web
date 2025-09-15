@@ -1,0 +1,21 @@
+name = "banyuanyar-web"
+compatibility_date = "2024-01-15"
+
+# Pages configuration
+pages_build_output_dir = ".next"
+
+# D1 Database binding
+[[d1_databases]]
+binding = "DB"
+database_name = "banyuanyar-db"
+database_id = "your-database-id-here"  # Replace with your actual D1 database ID
+
+# Environment variables (optional - can also be set via Cloudflare dashboard)
+[env.production.vars]
+# Add any additional environment variables here
+# CLOUDINARY_URL = "your-cloudinary-url"
+# GOOGLE_DRIVE_WORKER_URL = "your-worker-url"
+
+[env.development.vars]
+# Development environment variables
+# These won't affect the D1 database, which is only used in production

@@ -1,4 +1,4 @@
-'use server'
+'use server';
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
@@ -8,13 +8,16 @@ export async function createNews(formData: FormData) {
     const title = formData.get('title') as string;
     const content = formData.get('content') as string;
     const categoryId = formData.get('categoryId') as string;
-    const status = formData.get('status') as "DRAFT" | "PUBLISHED" | "ARCHIVED";
+    const status = formData.get('status') as 'DRAFT' | 'PUBLISHED' | 'ARCHIVED';
     const authorId = formData.get('authorId') as string;
 
     const news = await prisma.news.create({
       data: {
         title,
-        slug: title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+        slug: title
+          .toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/[^a-z0-9-]/g, ''),
         content,
         categoryId: categoryId ? parseInt(categoryId) : null,
         status,
@@ -29,4 +32,4 @@ export async function createNews(formData: FormData) {
     console.error('Error creating news:', error);
     return { success: false, error: 'Failed to create news' };
   }
-} 
+}

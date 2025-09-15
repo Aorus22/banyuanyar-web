@@ -2,7 +2,13 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/layout/ThemeToggle/theme-toggle';
 import { ThemeSelector } from '@/components/theme-selector';
-import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetHeader,
+  SheetTitle
+} from '@/components/ui/sheet';
 import { Menu } from 'lucide-react';
 import {
   NavigationMenu,
@@ -12,7 +18,12 @@ import {
   NavigationMenuContent,
   NavigationMenuLink
 } from '@/components/ui/navigation-menu';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from '@/components/ui/accordion';
 import Link from 'next/link';
 
 const menus = [
@@ -49,7 +60,7 @@ const menus = [
     label: 'UMKM',
     children: [
       { label: 'Paket Wisata', href: '/umkm/paket-wisata' },
-      { label: 'Lokasi UMKM', href: '/umkm/lokasi-umkm' },
+      { label: 'Lokasi UMKM', href: '/umkm/lokasi-umkm' }
       // { label: 'Omah Wisata', href: '/umkm/omah-wisata' }
     ]
   }
@@ -57,29 +68,39 @@ const menus = [
 
 export function LandingNavbar() {
   return (
-    <nav className='fixed z-50 top-6 inset-x-4 h-14 xs:h-16 bg-background/50 backdrop-blur-sm border dark:border-slate-700/70 max-w-screen-xl mx-auto rounded-full'>
-      <div className='h-full flex items-center justify-between mx-auto px-4'>
+    <nav className='xs:h-16 bg-background/50 fixed inset-x-4 top-6 z-50 mx-auto h-14 max-w-screen-xl rounded-full border backdrop-blur-sm dark:border-slate-700/70'>
+      <div className='mx-auto flex h-full items-center justify-between px-4'>
         {/* Logo */}
         <div className='flex items-center'>
           <Link href='/' className='flex items-center gap-2'>
-            <img src='/logo.png' alt='Logo Desa Banyuanyar' className='h-8 w-auto' />
+            <img
+              src='/logo.png'
+              alt='Logo Desa Banyuanyar'
+              className='h-8 w-auto'
+            />
             <span className='text-xl font-bold'>Banyuanyar</span>
           </Link>
         </div>
 
         {/* Desktop Menu */}
-        <div className='hidden md:flex items-center space-x-3'>
+        <div className='hidden items-center space-x-3 md:flex'>
           <NavigationMenu viewport={false}>
             <NavigationMenuList>
               {menus.map((menu) => (
                 <NavigationMenuItem key={menu.label}>
                   {'children' in menu && menu.children ? (
                     <>
-                      <NavigationMenuTrigger className='bg-transparent'>{menu.label}</NavigationMenuTrigger>
+                      <NavigationMenuTrigger className='bg-transparent'>
+                        {menu.label}
+                      </NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <div className='flex min-w-[220px] max-w-sm flex-col p-1'>
+                        <div className='flex max-w-sm min-w-[220px] flex-col p-1'>
                           {menu.children.map((child) => (
-                            <NavigationMenuLink key={child.href} href={child.href} className='flex items-start gap-2 rounded-md p-2 hover:bg-accent hover:text-accent-foreground'>
+                            <NavigationMenuLink
+                              key={child.href}
+                              href={child.href}
+                              className='hover:bg-accent hover:text-accent-foreground flex items-start gap-2 rounded-md p-2'
+                            >
                               <span>{child.label}</span>
                             </NavigationMenuLink>
                           ))}
@@ -87,7 +108,10 @@ export function LandingNavbar() {
                       </NavigationMenuContent>
                     </>
                   ) : (
-                    <NavigationMenuLink href={(menu as any).href} className='px-4 py-2 rounded-md text-sm font-medium hover:bg-accent hover:text-accent-foreground'>
+                    <NavigationMenuLink
+                      href={(menu as any).href}
+                      className='hover:bg-accent hover:text-accent-foreground rounded-md px-4 py-2 text-sm font-medium'
+                    >
                       {menu.label}
                     </NavigationMenuLink>
                   )}
@@ -119,7 +143,7 @@ export function LandingNavbar() {
                       <AccordionItem value={menu.label} key={menu.label}>
                         {'children' in menu && menu.children ? (
                           <>
-                            <AccordionTrigger className='text-base px-3 py-2 rounded-md hover:bg-accent hover:text-accent-foreground'>
+                            <AccordionTrigger className='hover:bg-accent hover:text-accent-foreground rounded-md px-3 py-2 text-base'>
                               {menu.label}
                             </AccordionTrigger>
                             <AccordionContent>
@@ -128,7 +152,7 @@ export function LandingNavbar() {
                                   <Link
                                     key={child.href}
                                     href={child.href}
-                                    className='text-sm px-3 py-2 rounded-md hover:bg-accent hover:text-accent-foreground'
+                                    className='hover:bg-accent hover:text-accent-foreground rounded-md px-3 py-2 text-sm'
                                   >
                                     {child.label}
                                   </Link>
@@ -137,7 +161,10 @@ export function LandingNavbar() {
                             </AccordionContent>
                           </>
                         ) : (
-                          <Link href={(menu as any).href} className='block px-3 py-2 text-base rounded-md hover:bg-accent hover:text-accent-foreground'>
+                          <Link
+                            href={(menu as any).href}
+                            className='hover:bg-accent hover:text-accent-foreground block rounded-md px-3 py-2 text-base'
+                          >
                             {menu.label}
                           </Link>
                         )}

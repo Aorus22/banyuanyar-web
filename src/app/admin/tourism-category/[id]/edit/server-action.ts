@@ -1,4 +1,4 @@
-'use server'
+'use server';
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
@@ -23,4 +23,4 @@ export async function updateTourismCategory(id: number, formData: FormData) {
     console.error('Error updating tourism category:', error);
     return { success: false, error: 'Failed to update tourism category' };
   }
-} 
+}

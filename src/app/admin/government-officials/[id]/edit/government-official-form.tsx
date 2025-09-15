@@ -16,7 +16,9 @@ interface GovernmentOfficialFormProps {
   initialData: GovernmentOfficial;
 }
 
-export function GovernmentOfficialForm({ initialData }: GovernmentOfficialFormProps) {
+export function GovernmentOfficialForm({
+  initialData
+}: GovernmentOfficialFormProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -54,38 +56,38 @@ export function GovernmentOfficialForm({ initialData }: GovernmentOfficialFormPr
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.name.trim() || !formData.position.trim()) {
-      toast.error("Nama dan jabatan harus diisi");
+      toast.error('Nama dan jabatan harus diisi');
       return;
     }
 
     setIsLoading(true);
     try {
       const result = await updateGovernmentOfficial(initialData.id, formData);
-      
+
       if (result.success) {
-        toast.success("Perangkat desa berhasil diperbarui");
+        toast.success('Perangkat desa berhasil diperbarui');
         router.push('/admin/government-officials');
       } else {
-        toast.error(result.error || "Gagal memperbarui perangkat desa");
+        toast.error(result.error || 'Gagal memperbarui perangkat desa');
       }
     } catch (error) {
-      toast.error("Terjadi kesalahan saat menyimpan");
+      toast.error('Terjadi kesalahan saat menyimpan');
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleInputChange = (field: string, value: string | number) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [field]: value
     }));
   };
 
   const handleSocialMediaChange = (platform: string, value: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       socialMedia: {
         ...prev.socialMedia,
@@ -95,69 +97,71 @@ export function GovernmentOfficialForm({ initialData }: GovernmentOfficialFormPr
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className='space-y-6'>
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Icons.users className="h-5 w-5" />
+          <CardTitle className='flex items-center gap-2'>
+            <Icons.users className='h-5 w-5' />
             Informasi Dasar
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Nama Lengkap *</Label>
+        <CardContent className='space-y-4'>
+          <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+            <div className='space-y-2'>
+              <Label htmlFor='name'>Nama Lengkap *</Label>
               <Input
-                id="name"
+                id='name'
                 value={formData.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
-                placeholder="Masukkan nama lengkap"
+                placeholder='Masukkan nama lengkap'
                 required
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="position">Jabatan *</Label>
+            <div className='space-y-2'>
+              <Label htmlFor='position'>Jabatan *</Label>
               <Input
-                id="position"
+                id='position'
                 value={formData.position}
                 onChange={(e) => handleInputChange('position', e.target.value)}
-                placeholder="Masukkan jabatan"
+                placeholder='Masukkan jabatan'
                 required
               />
             </div>
           </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="photoUrl">URL Foto</Label>
+
+          <div className='space-y-2'>
+            <Label htmlFor='photoUrl'>URL Foto</Label>
             <Input
-              id="photoUrl"
+              id='photoUrl'
               value={formData.photoUrl}
               onChange={(e) => handleInputChange('photoUrl', e.target.value)}
-              placeholder="https://example.com/photo.jpg"
-              type="url"
+              placeholder='https://example.com/photo.jpg'
+              type='url'
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="bio">Biografi</Label>
+          <div className='space-y-2'>
+            <Label htmlFor='bio'>Biografi</Label>
             <Textarea
-              id="bio"
+              id='bio'
               value={formData.bio}
               onChange={(e) => handleInputChange('bio', e.target.value)}
-              placeholder="Tulis biografi singkat..."
-              className="min-h-[100px] resize-none"
+              placeholder='Tulis biografi singkat...'
+              className='min-h-[100px] resize-none'
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="sortOrder">Urutan</Label>
+          <div className='space-y-2'>
+            <Label htmlFor='sortOrder'>Urutan</Label>
             <Input
-              id="sortOrder"
+              id='sortOrder'
               value={formData.sortOrder}
-              onChange={(e) => handleInputChange('sortOrder', parseInt(e.target.value) || 0)}
-              placeholder="0"
-              type="number"
-              min="0"
+              onChange={(e) =>
+                handleInputChange('sortOrder', parseInt(e.target.value) || 0)
+              }
+              placeholder='0'
+              type='number'
+              min='0'
             />
           </div>
         </CardContent>
@@ -165,75 +169,79 @@ export function GovernmentOfficialForm({ initialData }: GovernmentOfficialFormPr
 
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Icons.share className="h-5 w-5" />
+          <CardTitle className='flex items-center gap-2'>
+            <Icons.share className='h-5 w-5' />
             Media Sosial
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="facebook">Facebook</Label>
+        <CardContent className='space-y-4'>
+          <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+            <div className='space-y-2'>
+              <Label htmlFor='facebook'>Facebook</Label>
               <Input
-                id="facebook"
+                id='facebook'
                 value={formData.socialMedia.facebook}
-                onChange={(e) => handleSocialMediaChange('facebook', e.target.value)}
-                placeholder="Username atau URL Facebook"
+                onChange={(e) =>
+                  handleSocialMediaChange('facebook', e.target.value)
+                }
+                placeholder='Username atau URL Facebook'
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="instagram">Instagram</Label>
+            <div className='space-y-2'>
+              <Label htmlFor='instagram'>Instagram</Label>
               <Input
-                id="instagram"
+                id='instagram'
                 value={formData.socialMedia.instagram}
-                onChange={(e) => handleSocialMediaChange('instagram', e.target.value)}
-                placeholder="Username Instagram"
+                onChange={(e) =>
+                  handleSocialMediaChange('instagram', e.target.value)
+                }
+                placeholder='Username Instagram'
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="twitter">Twitter</Label>
+            <div className='space-y-2'>
+              <Label htmlFor='twitter'>Twitter</Label>
               <Input
-                id="twitter"
+                id='twitter'
                 value={formData.socialMedia.twitter}
-                onChange={(e) => handleSocialMediaChange('twitter', e.target.value)}
-                placeholder="Username Twitter"
+                onChange={(e) =>
+                  handleSocialMediaChange('twitter', e.target.value)
+                }
+                placeholder='Username Twitter'
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="whatsapp">WhatsApp</Label>
+            <div className='space-y-2'>
+              <Label htmlFor='whatsapp'>WhatsApp</Label>
               <Input
-                id="whatsapp"
+                id='whatsapp'
                 value={formData.socialMedia.whatsapp}
-                onChange={(e) => handleSocialMediaChange('whatsapp', e.target.value)}
-                placeholder="Nomor WhatsApp"
+                onChange={(e) =>
+                  handleSocialMediaChange('whatsapp', e.target.value)
+                }
+                placeholder='Nomor WhatsApp'
               />
             </div>
           </div>
         </CardContent>
       </Card>
 
-      <div className="flex justify-end gap-4">
+      <div className='flex justify-end gap-4'>
         <Button
-          type="button"
-          variant="outline"
+          type='button'
+          variant='outline'
           onClick={() => router.back()}
           disabled={isLoading}
         >
           Batal
         </Button>
-        <Button
-          type="submit"
-          disabled={isLoading}
-          className="min-w-[120px]"
-        >
+        <Button type='submit' disabled={isLoading} className='min-w-[120px]'>
           {isLoading ? (
             <>
-              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+              <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
               Menyimpan...
             </>
           ) : (
             <>
-              <Icons.check className="mr-2 h-4 w-4" />
+              <Icons.check className='mr-2 h-4 w-4' />
               Simpan
             </>
           )}
@@ -241,4 +249,4 @@ export function GovernmentOfficialForm({ initialData }: GovernmentOfficialFormPr
       </div>
     </form>
   );
-} 
+}

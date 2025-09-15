@@ -13,14 +13,17 @@ interface VisionMissionFormProps {
   missions: string[];
 }
 
-export function VisionMissionForm({ vision, missions }: VisionMissionFormProps) {
+export function VisionMissionForm({
+  vision,
+  missions
+}: VisionMissionFormProps) {
   const [visionContent, setVisionContent] = useState<string>(vision);
   const [missionContents, setMissionContents] = useState<string[]>(missions);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSave = async () => {
     if (!visionContent.trim()) {
-      toast.error("Visi tidak boleh kosong");
+      toast.error('Visi tidak boleh kosong');
       return;
     }
 
@@ -35,14 +38,14 @@ export function VisionMissionForm({ vision, missions }: VisionMissionFormProps) 
       ];
 
       const result = await updateMultipleVillageProfiles(updates);
-      
+
       if (result.success) {
-        toast.success("Visi & Misi desa berhasil diperbarui");
+        toast.success('Visi & Misi desa berhasil diperbarui');
       } else {
-        toast.error(result.error || "Gagal memperbarui visi & misi desa");
+        toast.error(result.error || 'Gagal memperbarui visi & misi desa');
       }
     } catch (error) {
-      toast.error("Terjadi kesalahan saat menyimpan");
+      toast.error('Terjadi kesalahan saat menyimpan');
     } finally {
       setIsLoading(false);
     }
@@ -66,12 +69,12 @@ export function VisionMissionForm({ vision, missions }: VisionMissionFormProps) 
   };
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       {/* Vision Section */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Icons.target className="h-5 w-5" />
+          <CardTitle className='flex items-center gap-2'>
+            <Icons.target className='h-5 w-5' />
             Visi Desa
           </CardTitle>
         </CardHeader>
@@ -79,8 +82,8 @@ export function VisionMissionForm({ vision, missions }: VisionMissionFormProps) 
           <Textarea
             value={visionContent}
             onChange={(e) => setVisionContent(e.target.value)}
-            placeholder="Tulis visi desa di sini..."
-            className="min-h-[200px] resize-none"
+            placeholder='Tulis visi desa di sini...'
+            className='min-h-[200px] resize-none'
           />
         </CardContent>
       </Card>
@@ -88,34 +91,30 @@ export function VisionMissionForm({ vision, missions }: VisionMissionFormProps) 
       {/* Missions Section */}
       <Card>
         <CardHeader>
-          <div className="flex items-center justify-between">
-            <CardTitle className="flex items-center gap-2">
-              <Icons.target className="h-5 w-5" />
+          <div className='flex items-center justify-between'>
+            <CardTitle className='flex items-center gap-2'>
+              <Icons.target className='h-5 w-5' />
               Misi Desa
             </CardTitle>
-            <Button
-              onClick={addMission}
-              variant="outline"
-              size="sm"
-            >
-              <Icons.add className="mr-2 h-4 w-4" />
+            <Button onClick={addMission} variant='outline' size='sm'>
+              <Icons.add className='mr-2 h-4 w-4' />
               Tambah Misi
             </Button>
           </div>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className='space-y-4'>
           {missionContents.map((mission, index) => (
-            <div key={index} className="space-y-2">
-              <div className="flex items-center justify-between">
-                <label className="text-sm font-medium">Misi {index + 1}</label>
+            <div key={index} className='space-y-2'>
+              <div className='flex items-center justify-between'>
+                <label className='text-sm font-medium'>Misi {index + 1}</label>
                 {missionContents.length > 1 && (
                   <Button
                     onClick={() => removeMission(index)}
-                    variant="ghost"
-                    size="sm"
-                    className="text-destructive hover:text-destructive"
+                    variant='ghost'
+                    size='sm'
+                    className='text-destructive hover:text-destructive'
                   >
-                    <Icons.trash className="h-4 w-4" />
+                    <Icons.trash className='h-4 w-4' />
                   </Button>
                 )}
               </div>
@@ -123,7 +122,7 @@ export function VisionMissionForm({ vision, missions }: VisionMissionFormProps) 
                 value={mission}
                 onChange={(e) => updateMission(index, e.target.value)}
                 placeholder={`Tulis misi ${index + 1} di sini...`}
-                className="min-h-[150px] resize-none"
+                className='min-h-[150px] resize-none'
               />
             </div>
           ))}
@@ -131,20 +130,20 @@ export function VisionMissionForm({ vision, missions }: VisionMissionFormProps) 
       </Card>
 
       {/* Save Button */}
-      <div className="flex justify-end">
+      <div className='flex justify-end'>
         <Button
           onClick={handleSave}
           disabled={isLoading}
-          className="min-w-[120px]"
+          className='min-w-[120px]'
         >
           {isLoading ? (
             <>
-              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+              <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
               Menyimpan...
             </>
           ) : (
             <>
-              <Icons.check className="mr-2 h-4 w-4" />
+              <Icons.check className='mr-2 h-4 w-4' />
               Simpan
             </>
           )}
@@ -152,4 +151,4 @@ export function VisionMissionForm({ vision, missions }: VisionMissionFormProps) 
       </div>
     </div>
   );
-} 
+}

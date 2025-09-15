@@ -19,23 +19,24 @@ export function HistoryForm({ initialValue, profileKey }: HistoryFormProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSave = async () => {
-    const contentText = typeof content === 'string' ? content : JSON.stringify(content);
+    const contentText =
+      typeof content === 'string' ? content : JSON.stringify(content);
     if (!contentText.trim()) {
-      toast.error("Konten tidak boleh kosong");
+      toast.error('Konten tidak boleh kosong');
       return;
     }
 
     setIsLoading(true);
     try {
       const result = await updateVillageProfile(profileKey, contentText);
-      
+
       if (result.success) {
-        toast.success("Sejarah desa berhasil diperbarui");
+        toast.success('Sejarah desa berhasil diperbarui');
       } else {
-        toast.error(result.error || "Gagal memperbarui sejarah desa");
+        toast.error(result.error || 'Gagal memperbarui sejarah desa');
       }
     } catch (error) {
-      toast.error("Terjadi kesalahan saat menyimpan");
+      toast.error('Terjadi kesalahan saat menyimpan');
     } finally {
       setIsLoading(false);
     }
@@ -44,34 +45,34 @@ export function HistoryForm({ initialValue, profileKey }: HistoryFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Icons.page className="h-5 w-5" />
+        <CardTitle className='flex items-center gap-2'>
+          <Icons.page className='h-5 w-5' />
           Edit Sejarah Desa
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="min-h-[400px] border rounded-lg">
+      <CardContent className='space-y-4'>
+        <div className='min-h-[400px] rounded-lg border'>
           <MinimalTiptapEditor
             value={content}
             onChange={setContent}
-            placeholder="Tulis sejarah desa di sini..."
+            placeholder='Tulis sejarah desa di sini...'
           />
         </div>
-        
-        <div className="flex justify-end space-x-2">
+
+        <div className='flex justify-end space-x-2'>
           <Button
             onClick={handleSave}
             disabled={isLoading}
-            className="min-w-[120px]"
+            className='min-w-[120px]'
           >
             {isLoading ? (
               <>
-                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
                 Menyimpan...
               </>
             ) : (
               <>
-                <Icons.check className="mr-2 h-4 w-4" />
+                <Icons.check className='mr-2 h-4 w-4' />
                 Simpan
               </>
             )}
@@ -80,4 +81,4 @@ export function HistoryForm({ initialValue, profileKey }: HistoryFormProps) {
       </CardContent>
     </Card>
   );
-} 
+}

@@ -16,24 +16,32 @@ export interface GDriveDeleteResult {
   error?: string;
 }
 
-export async function uploadToGDrive(file: File, filename: string): Promise<GDriveUploadResult> {
+export async function uploadToGDrive(
+  file: File,
+  filename: string
+): Promise<GDriveUploadResult> {
   try {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
     const uniqueFilename = await generateUniqueFilename(filename);
 
-    const response = await fetch(`${GOOGLE_DRIVE_WORKER_URL}/documents/${uniqueFilename}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': file.type,
-      },
-      body: new Uint8Array(buffer)
-    });
+    const response = await fetch(
+      `${GOOGLE_DRIVE_WORKER_URL}/documents/${uniqueFilename}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': file.type
+        },
+        body: new Uint8Array(buffer)
+      }
+    );
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`Upload failed: ${response.status} ${response.statusText} - ${errorText}`);
+      throw new Error(
+        `Upload failed: ${response.status} ${response.statusText} - ${errorText}`
+      );
     }
 
     return {
@@ -42,7 +50,7 @@ export async function uploadToGDrive(file: File, filename: string): Promise<GDri
         url: `${GOOGLE_DRIVE_WORKER_URL}/documents/${uniqueFilename}`,
         publicId: uniqueFilename,
         format: file.type,
-        size: file.size,
+        size: file.size
       }
     };
   } catch (error) {
@@ -54,15 +62,22 @@ export async function uploadToGDrive(file: File, filename: string): Promise<GDri
   }
 }
 
-export async function deleteFromGDrive(filename: string): Promise<GDriveDeleteResult> {
+export async function deleteFromGDrive(
+  filename: string
+): Promise<GDriveDeleteResult> {
   try {
-    const response = await fetch(`${GOOGLE_DRIVE_WORKER_URL}/documents/${filename}`, {
-      method: 'DELETE',
-    });
+    const response = await fetch(
+      `${GOOGLE_DRIVE_WORKER_URL}/documents/${filename}`,
+      {
+        method: 'DELETE'
+      }
+    );
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`Delete failed: ${response.status} ${response.statusText} - ${errorText}`);
+      throw new Error(
+        `Delete failed: ${response.status} ${response.statusText} - ${errorText}`
+      );
     }
 
     return { success: true };
@@ -75,15 +90,22 @@ export async function deleteFromGDrive(filename: string): Promise<GDriveDeleteRe
   }
 }
 
-export async function getFileInfo(filename: string): Promise<GDriveUploadResult> {
+export async function getFileInfo(
+  filename: string
+): Promise<GDriveUploadResult> {
   try {
-    const response = await fetch(`${GOOGLE_DRIVE_WORKER_URL}/documents/${filename}`, {
-      method: 'GET',
-    });
+    const response = await fetch(
+      `${GOOGLE_DRIVE_WORKER_URL}/documents/${filename}`,
+      {
+        method: 'GET'
+      }
+    );
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`Get failed: ${response.status} ${response.statusText} - ${errorText}`);
+      throw new Error(
+        `Get failed: ${response.status} ${response.statusText} - ${errorText}`
+      );
     }
 
     return {
@@ -92,7 +114,7 @@ export async function getFileInfo(filename: string): Promise<GDriveUploadResult>
         url: `${GOOGLE_DRIVE_WORKER_URL}/documents/${filename}`,
         publicId: filename,
         format: 'application/pdf',
-        size: 0,
+        size: 0
       }
     };
   } catch (error) {
@@ -104,40 +126,55 @@ export async function getFileInfo(filename: string): Promise<GDriveUploadResult>
   }
 }
 
-async function generateUniqueFilename(originalFilename: string): Promise<string> {
+async function generateUniqueFilename(
+  originalFilename: string
+): Promise<string> {
   const lastDotIndex = originalFilename.lastIndexOf('.');
-  const extension = lastDotIndex !== -1 ? originalFilename.slice(lastDotIndex) : '';
-  const nameWithoutExt = lastDotIndex !== -1 ? originalFilename.slice(0, lastDotIndex) : originalFilename;
-  
+  const extension =
+    lastDotIndex !== -1 ? originalFilename.slice(lastDotIndex) : '';
+  const nameWithoutExt =
+    lastDotIndex !== -1
+      ? originalFilename.slice(0, lastDotIndex)
+      : originalFilename;
+
   // Clean filename: remove special characters, replace spaces with hyphens
   const cleanName = nameWithoutExt
     .replace(/[^a-zA-Z0-9\s\-_]/g, '') // Remove special characters except spaces, hyphens, underscores
     .replace(/\s+/g, '-') // Replace spaces with hyphens
     .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
     .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
-  
+
   const timestamp = Date.now();
   let uniqueFilename = `${cleanName}_${timestamp}${extension}`;
-  
+
   try {
-    const response = await fetch(`${GOOGLE_DRIVE_WORKER_URL}/documents/${uniqueFilename}`, {
-      method: 'HEAD'
-    });
-    
+    const response = await fetch(
+      `${GOOGLE_DRIVE_WORKER_URL}/documents/${uniqueFilename}`,
+      {
+        method: 'HEAD'
+      }
+    );
+
     if (response.ok) {
       let counter = 1;
-        do {
-          uniqueFilename = `${cleanName}_${counter}${extension}`;
-          const checkResponse = await fetch(`${GOOGLE_DRIVE_WORKER_URL}/documents/${uniqueFilename}`, {
-          method: 'HEAD'
-        });
+      do {
+        uniqueFilename = `${cleanName}_${counter}${extension}`;
+        const checkResponse = await fetch(
+          `${GOOGLE_DRIVE_WORKER_URL}/documents/${uniqueFilename}`,
+          {
+            method: 'HEAD'
+          }
+        );
         if (!checkResponse.ok) break;
         counter++;
       } while (counter < 1000);
     }
   } catch (error) {
-    console.warn('Could not check filename uniqueness, using timestamp:', error);
+    console.warn(
+      'Could not check filename uniqueness, using timestamp:',
+      error
+    );
   }
-  
+
   return uniqueFilename;
 }

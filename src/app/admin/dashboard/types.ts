@@ -47,4 +47,4 @@ export interface DashboardData {
     month: string;
     count: number;
   }>;
-} 
+}

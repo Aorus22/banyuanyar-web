@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Pagination } from '@/components/ui/pagination';
@@ -10,11 +10,11 @@ interface ClientPaginationProps {
   className?: string;
 }
 
-export function ClientPagination({ 
-  currentPage, 
-  totalPages, 
-  baseUrl, 
-  className = "mt-8" 
+export function ClientPagination({
+  currentPage,
+  totalPages,
+  baseUrl,
+  className = 'mt-8'
 }: ClientPaginationProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -26,7 +26,7 @@ export function ClientPagination({
     } else {
       params.set('page', page.toString());
     }
-    
+
     const queryString = params.toString();
     const url = queryString ? `${baseUrl}?${queryString}` : baseUrl;
     router.push(url);
@@ -37,11 +37,11 @@ export function ClientPagination({
     <div className={className}>
       {totalPages <= 1 ? (
         // Single page - show disabled pagination
-        <div className="flex justify-center">
-          <div className="inline-flex rounded-md shadow-sm bg-muted/50 border">
+        <div className='flex justify-center'>
+          <div className='bg-muted/50 inline-flex rounded-md border shadow-sm'>
             <button
               disabled
-              className="px-3 py-2 text-sm font-medium text-muted-foreground bg-muted/50 border-r cursor-not-allowed"
+              className='text-muted-foreground bg-muted/50 cursor-not-allowed border-r px-3 py-2 text-sm font-medium'
             >
               1
             </button>
@@ -57,4 +57,4 @@ export function ClientPagination({
       )}
     </div>
   );
-} 
+}

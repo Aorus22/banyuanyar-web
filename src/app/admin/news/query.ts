@@ -11,7 +11,7 @@ export async function getNews() {
         createdAt: 'desc'
       }
     });
-    
+
     return news;
   } catch (error) {
     console.error('Error fetching news:', error);
@@ -28,7 +28,7 @@ export async function getNewsById(id: number) {
         category: true
       }
     });
-    
+
     return news;
   } catch (error) {
     console.error('Error fetching news:', error);
@@ -43,10 +43,10 @@ export async function getNewsCategories() {
         name: 'asc'
       }
     });
-    
+
     return categories;
   } catch (error) {
     console.error('Error fetching news categories:', error);
     throw new Error('Failed to fetch news categories');
   }
-} 
+}

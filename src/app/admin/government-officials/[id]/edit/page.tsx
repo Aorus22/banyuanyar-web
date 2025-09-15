@@ -11,7 +11,9 @@ interface EditGovernmentOfficialPageProps {
   }>;
 }
 
-export default async function EditGovernmentOfficialPage({ params }: EditGovernmentOfficialPageProps) {
+export default async function EditGovernmentOfficialPage({
+  params
+}: EditGovernmentOfficialPageProps) {
   const { id } = await params;
   const official = await getGovernmentOfficialById(parseInt(id));
 
@@ -20,14 +22,14 @@ export default async function EditGovernmentOfficialPage({ params }: EditGovernm
   }
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <Heading
-        title="Edit Perangkat Desa"
+        title='Edit Perangkat Desa'
         description={`Edit data ${official.name}`}
       />
       <Separator />
-      
+
       <GovernmentOfficialForm initialData={official} />
     </div>
   );
-} 
+}

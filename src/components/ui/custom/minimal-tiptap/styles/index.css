@@ -1,9 +1,9 @@
-@import "./partials/code.css";
-@import "./partials/placeholder.css";
-@import "./partials/lists.css";
-@import "./partials/typography.css";
-@import "./partials/zoom.css";
-@import "./partials/table.css";
+@import './partials/code.css';
+@import './partials/placeholder.css';
+@import './partials/lists.css';
+@import './partials/typography.css';
+@import './partials/zoom.css';
+@import './partials/table.css';
 
 @reference "../../../../../app/globals.css";
 
@@ -234,4 +234,4 @@
 
 .dark .minimal-tiptap-editor .border-border::-webkit-scrollbar-thumb:hover {
   background-color: #6b7280;
-} 
+}

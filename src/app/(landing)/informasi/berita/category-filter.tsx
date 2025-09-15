@@ -10,7 +10,10 @@ interface CategoryFilterProps {
   totalNews: number;
 }
 
-export default async function CategoryFilter({ selectedCategoryId, totalNews }: CategoryFilterProps) {
+export default async function CategoryFilter({
+  selectedCategoryId,
+  totalNews
+}: CategoryFilterProps) {
   // Get all categories with news count
   const categories = await prisma.newsCategory.findMany({
     include: {
@@ -28,37 +31,32 @@ export default async function CategoryFilter({ selectedCategoryId, totalNews }: 
   });
 
   // Get selected category info
-  const selectedCategory = selectedCategoryId 
-    ? categories.find(cat => cat.id === parseInt(selectedCategoryId))
+  const selectedCategory = selectedCategoryId
+    ? categories.find((cat) => cat.id === parseInt(selectedCategoryId))
     : null;
 
   return (
-    <div className="mb-8">
+    <div className='mb-8'>
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-3">
-          <Tag className="h-6 w-6 text-primary" />
+      <div className='mb-6 flex items-center justify-between'>
+        <div className='flex items-center gap-3'>
+          <Tag className='text-primary h-6 w-6' />
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+            <h2 className='text-2xl font-bold text-gray-900 dark:text-gray-100'>
               Kategori Berita
             </h2>
-            <p className="text-muted-foreground">
-              {selectedCategory 
+            <p className='text-muted-foreground'>
+              {selectedCategory
                 ? `Menampilkan berita dalam kategori "${selectedCategory.name}"`
-                : 'Pilih kategori untuk memfilter berita'
-              }
+                : 'Pilih kategori untuk memfilter berita'}
             </p>
           </div>
         </div>
-        
+
         {selectedCategory && (
-          <Button
-            variant="outline"
-            size="sm"
-            asChild
-          >
-            <Link href="/informasi/berita">
-              <X className="h-4 w-4 mr-2" />
+          <Button variant='outline' size='sm' asChild>
+            <Link href='/informasi/berita'>
+              <X className='mr-2 h-4 w-4' />
               Hapus Filter
             </Link>
           </Button>
@@ -66,25 +64,36 @@ export default async function CategoryFilter({ selectedCategoryId, totalNews }: 
       </div>
 
       {/* Category Pills */}
-      <div className="flex flex-wrap gap-3 mb-6">
-        <Link href="/informasi/berita">
-          <Badge 
-            variant={!selectedCategoryId ? "default" : "outline"}
-            className="px-4 py-2 text-sm font-medium cursor-pointer hover:scale-105 transition-transform"
+      <div className='mb-6 flex flex-wrap gap-3'>
+        <Link href='/informasi/berita'>
+          <Badge
+            variant={!selectedCategoryId ? 'default' : 'outline'}
+            className='cursor-pointer px-4 py-2 text-sm font-medium transition-transform hover:scale-105'
           >
             Semua ({totalNews})
           </Badge>
         </Link>
-        
+
         {categories.map((category) => (
-          <Link key={category.id} href={`/informasi/berita?category=${category.id}`}>
-            <Badge 
-              variant={selectedCategoryId === category.id.toString() ? "default" : "outline"}
-              className="px-4 py-2 text-sm font-medium cursor-pointer hover:scale-105 transition-transform"
-              style={selectedCategoryId !== category.id.toString() ? { 
-                borderColor: category.color, 
-                color: category.color 
-              } : {}}
+          <Link
+            key={category.id}
+            href={`/informasi/berita?category=${category.id}`}
+          >
+            <Badge
+              variant={
+                selectedCategoryId === category.id.toString()
+                  ? 'default'
+                  : 'outline'
+              }
+              className='cursor-pointer px-4 py-2 text-sm font-medium transition-transform hover:scale-105'
+              style={
+                selectedCategoryId !== category.id.toString()
+                  ? {
+                      borderColor: category.color,
+                      color: category.color
+                    }
+                  : {}
+              }
             >
               {category.name} ({category._count.news})
             </Badge>
@@ -95,18 +104,18 @@ export default async function CategoryFilter({ selectedCategoryId, totalNews }: 
       {/* Selected Category Info */}
       {selectedCategory && (
         <>
-          <Separator className="my-6" />
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
-            <div className="flex items-center gap-3">
-              <div 
-                className="w-4 h-4 rounded-full"
+          <Separator className='my-6' />
+          <div className='rounded-lg border border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 p-4 dark:border-blue-800 dark:from-blue-950/30 dark:to-indigo-950/30'>
+            <div className='flex items-center gap-3'>
+              <div
+                className='h-4 w-4 rounded-full'
                 style={{ backgroundColor: selectedCategory.color }}
               />
               <div>
-                <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                <h3 className='font-semibold text-gray-900 dark:text-gray-100'>
                   Kategori: {selectedCategory.name}
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className='text-muted-foreground text-sm'>
                   {selectedCategory._count.news} berita tersedia
                 </p>
               </div>
@@ -116,4 +125,4 @@ export default async function CategoryFilter({ selectedCategoryId, totalNews }: 
       )}
     </div>
   );
-} 
+}

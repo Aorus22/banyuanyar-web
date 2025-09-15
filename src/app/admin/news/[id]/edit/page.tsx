@@ -24,25 +24,25 @@ export default async function EditNewsPage({ params }: EditNewsPageProps) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <Heading
         title='Edit News'
         description='Edit informasi news yang sudah ada'
       />
       <Separator />
-      
+
       <NewsForm news={news} updateNews={updateNews} categories={categories} />
-      
+
       <Separator />
-      
+
       {/* Media Manager Example */}
       <MediaManager
-        entityType="news"
+        entityType='news'
         entityId={news.id}
-        title="Media untuk News"
-        description="Kelola gambar dan media untuk news ini"
+        title='Media untuk News'
+        description='Kelola gambar dan media untuk news ini'
         maxFiles={5}
       />
     </div>
   );
-} 
+}

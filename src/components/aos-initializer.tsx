@@ -11,9 +11,9 @@ export function AOSInitializer() {
       easing: 'ease-in-out',
       once: true,
       offset: 100,
-      delay: 0,
+      delay: 0
     });
   }, []);
 
   return null;
-} 
+}

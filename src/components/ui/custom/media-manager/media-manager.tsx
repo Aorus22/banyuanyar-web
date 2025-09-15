@@ -29,15 +29,21 @@ export function MediaManager({
   className,
   showUploadButton = true,
   maxFiles = 999, // Allow unlimited files
-  acceptedFileTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'],
-  maxFileSize = 10,
+  acceptedFileTypes = [
+    'image/jpeg',
+    'image/jpg',
+    'image/png',
+    'image/webp',
+    'image/gif'
+  ],
+  maxFileSize = 10
 }: MediaManagerProps) {
   const [media, setMedia] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchMedia = async () => {
     if (!entityId) return;
-    
+
     try {
       setIsLoading(true);
       const mediaData = await getMediaByEntity(entityType, entityId);
@@ -59,23 +65,21 @@ export function MediaManager({
   };
 
   const handleMediaDeleted = (mediaId: number) => {
-    setMedia(prev => prev.filter(item => item.id !== mediaId));
+    setMedia((prev) => prev.filter((item) => item.id !== mediaId));
   };
 
   return (
     <Card className={className}>
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <div className='flex items-center justify-between'>
           <div>
-            <CardTitle className="flex items-center gap-2">
-              <ImageIcon className="w-5 h-5" />
+            <CardTitle className='flex items-center gap-2'>
+              <ImageIcon className='h-5 w-5' />
               {title}
             </CardTitle>
-            <p className="text-sm text-muted-foreground mt-1">
-              {description}
-            </p>
+            <p className='text-muted-foreground mt-1 text-sm'>{description}</p>
           </div>
-          
+
           {showUploadButton && (
             <UniversalImageUploader
               entityType={entityType}
@@ -86,21 +90,21 @@ export function MediaManager({
               maxFileSize={maxFileSize}
             >
               <Button>
-                <Upload className="w-4 h-4 mr-2" />
+                <Upload className='mr-2 h-4 w-4' />
                 Upload Media
               </Button>
             </UniversalImageUploader>
           )}
         </div>
       </CardHeader>
-      
+
       <Separator />
-      
+
       <CardContent>
         {isLoading ? (
-          <div className="text-center py-8">
-            <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-2" />
-            <p className="text-sm text-muted-foreground">Memuat media...</p>
+          <div className='py-8 text-center'>
+            <div className='border-primary mx-auto mb-2 h-6 w-6 animate-spin rounded-full border-2 border-t-transparent' />
+            <p className='text-muted-foreground text-sm'>Memuat media...</p>
           </div>
         ) : (
           <MediaGallery
@@ -113,4 +117,4 @@ export function MediaManager({
       </CardContent>
     </Card>
   );
-} 
+}

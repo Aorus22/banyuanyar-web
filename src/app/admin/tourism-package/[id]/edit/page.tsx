@@ -11,7 +11,9 @@ interface EditTourismPackagePageProps {
   }>;
 }
 
-export default async function EditTourismPackagePage({ params }: EditTourismPackagePageProps) {
+export default async function EditTourismPackagePage({
+  params
+}: EditTourismPackagePageProps) {
   const { id } = await params;
   const [package_, categories] = await Promise.all([
     getTourismPackageById(parseInt(id)),
@@ -23,14 +25,18 @@ export default async function EditTourismPackagePage({ params }: EditTourismPack
   }
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <Heading
         title='Edit Paket Wisata'
         description='Edit informasi paket wisata yang sudah ada'
       />
       <Separator />
-      
-      <TourismPackageForm package_={package_} updateTourismPackage={updateTourismPackage} categories={categories} />
+
+      <TourismPackageForm
+        package_={package_}
+        updateTourismPackage={updateTourismPackage}
+        categories={categories}
+      />
     </div>
   );
-} 
+}

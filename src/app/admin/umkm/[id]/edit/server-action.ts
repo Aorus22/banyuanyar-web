@@ -1,4 +1,4 @@
-'use server'
+'use server';
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
@@ -24,8 +24,14 @@ export async function updateUmkm(id: number, formData: FormData) {
         address: address || null,
         phone: phone || null,
         email: email || null,
-        latitude: latitude && !isNaN(parseFloat(latitude)) ? parseFloat(latitude) : null,
-        longitude: longitude && !isNaN(parseFloat(longitude)) ? parseFloat(longitude) : null,
+        latitude:
+          latitude && !isNaN(parseFloat(latitude))
+            ? parseFloat(latitude)
+            : null,
+        longitude:
+          longitude && !isNaN(parseFloat(longitude))
+            ? parseFloat(longitude)
+            : null,
         socialMedia: socialMedia ? JSON.parse(socialMedia) : {}
       }
     });
@@ -37,4 +43,4 @@ export async function updateUmkm(id: number, formData: FormData) {
     console.error('Error updating UMKM:', error);
     return { success: false, error: 'Failed to update UMKM' };
   }
-} 
+}

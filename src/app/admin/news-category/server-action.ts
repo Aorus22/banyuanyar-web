@@ -1,4 +1,4 @@
-'use server'
+'use server';
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
@@ -18,9 +18,9 @@ export async function deleteNewsCategory(id: number) {
     });
 
     if (categoryWithNews && categoryWithNews._count.news > 0) {
-      return { 
-        success: false, 
-        error: `Kategori ini memiliki ${categoryWithNews._count.news} berita. Hapus semua berita terlebih dahulu.` 
+      return {
+        success: false,
+        error: `Kategori ini memiliki ${categoryWithNews._count.news} berita. Hapus semua berita terlebih dahulu.`
       };
     }
 
@@ -35,4 +35,4 @@ export async function deleteNewsCategory(id: number) {
     console.error('Error deleting news category:', error);
     return { success: false, error: 'Failed to delete news category' };
   }
-} 
+}

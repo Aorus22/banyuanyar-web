@@ -1,4 +1,4 @@
-'use server'
+'use server';
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
@@ -18,9 +18,9 @@ export async function deleteUmkm(id: number) {
     });
 
     if (umkmWithProducts && umkmWithProducts._count.products > 0) {
-      return { 
-        success: false, 
-        error: `UMKM ini memiliki ${umkmWithProducts._count.products} produk. Hapus semua produk terlebih dahulu.` 
+      return {
+        success: false,
+        error: `UMKM ini memiliki ${umkmWithProducts._count.products} produk. Hapus semua produk terlebih dahulu.`
       };
     }
 
@@ -34,4 +34,4 @@ export async function deleteUmkm(id: number) {
     console.error('Error deleting UMKM:', error);
     return { success: false, error: 'Failed to delete UMKM' };
   }
-} 
+}

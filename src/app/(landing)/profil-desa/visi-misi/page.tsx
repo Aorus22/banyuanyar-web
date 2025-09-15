@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import { prisma } from '@/lib/prisma';
 import { PageHeaderEffect } from '@/components/layout/landing/PageBackgroundHeader/PageHeaderEffect';
@@ -9,56 +7,71 @@ export const dynamic = 'force-dynamic';
 
 export default async function Page() {
   const vision = await prisma.villageProfile.findUnique({
-    where: { key: 'vision', isActive: true },
+    where: { key: 'vision', isActive: true }
   });
   const missions = await prisma.villageProfile.findMany({
     where: {
       key: { startsWith: 'mission_' },
-      isActive: true,
+      isActive: true
     },
-    orderBy: { key: 'asc' },
+    orderBy: { key: 'asc' }
   });
 
   return (
     <>
-      <PageHeaderEffect 
-        title="Visi & Misi"
-        description="Visi dan misi desa Banyuanyar"
+      <PageHeaderEffect
+        title='Visi & Misi'
+        description='Visi dan misi desa Banyuanyar'
       />
 
-      <div className="max-w-5xl mx-auto space-y-8">
-        <div className="bg-white dark:bg-muted rounded-xl shadow p-6 md:p-8">
-          <h2 className="text-xl font-semibold mb-4 text-primary">Visi</h2>
+      <div className='mx-auto max-w-5xl space-y-8'>
+        <div className='dark:bg-muted rounded-xl bg-white p-6 shadow md:p-8'>
+          <h2 className='text-primary mb-4 text-xl font-semibold'>Visi</h2>
           {vision?.value ? (
-            <div className="p-6 bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg border border-primary/20">
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <div className='from-primary/5 to-primary/10 border-primary/20 rounded-lg border bg-gradient-to-r p-6'>
+              <div className='flex items-start space-x-4'>
+                <div className='bg-primary flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-white'>
+                  <svg
+                    className='h-5 w-5'
+                    fill='none'
+                    stroke='currentColor'
+                    viewBox='0 0 24 24'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'
+                    />
                   </svg>
                 </div>
-                <div className="flex-1">
-                  <p className="text-gray-700 dark:text-gray-200 leading-relaxed text-lg font-medium">
+                <div className='flex-1'>
+                  <p className='text-lg leading-relaxed font-medium text-gray-700 dark:text-gray-200'>
                     {vision.value}
                   </p>
                 </div>
               </div>
             </div>
           ) : (
-            <span className="text-muted-foreground">Belum ada data visi desa.</span>
+            <span className='text-muted-foreground'>
+              Belum ada data visi desa.
+            </span>
           )}
         </div>
-        <div className="bg-white dark:bg-muted rounded-xl shadow p-6 md:p-8">
-          <h2 className="text-xl font-semibold mb-4 text-primary">Misi</h2>
+        <div className='dark:bg-muted rounded-xl bg-white p-6 shadow md:p-8'>
+          <h2 className='text-primary mb-4 text-xl font-semibold'>Misi</h2>
           {missions.length > 0 ? (
-            <div className="space-y-4">
+            <div className='space-y-4'>
               {missions.map((misi, index) => (
-                <div key={misi.key} className="flex items-start space-x-4 p-4 bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg border border-primary/20 hover:border-primary/30 transition-all duration-200">
-                  <div className="flex-shrink-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold text-sm">
+                <div
+                  key={misi.key}
+                  className='from-primary/5 to-primary/10 border-primary/20 hover:border-primary/30 flex items-start space-x-4 rounded-lg border bg-gradient-to-r p-4 transition-all duration-200'
+                >
+                  <div className='bg-primary flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold text-white'>
                     {index + 1}
                   </div>
-                  <div className="flex-1">
-                    <p className="text-gray-700 dark:text-gray-200 leading-relaxed text-base">
+                  <div className='flex-1'>
+                    <p className='text-base leading-relaxed text-gray-700 dark:text-gray-200'>
                       {misi.value || ''}
                     </p>
                   </div>
@@ -66,7 +79,9 @@ export default async function Page() {
               ))}
             </div>
           ) : (
-            <span className="text-muted-foreground">Belum ada data misi desa.</span>
+            <span className='text-muted-foreground'>
+              Belum ada data misi desa.
+            </span>
           )}
         </div>
       </div>

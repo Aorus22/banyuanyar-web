@@ -7,7 +7,7 @@ export async function getDocuments() {
         createdAt: 'desc'
       }
     });
-    
+
     return documents;
   } catch (error) {
     console.error('Error fetching documents:', error);
@@ -20,7 +20,7 @@ export async function getDocumentById(id: number) {
     const document = await prisma.document.findUnique({
       where: { id }
     });
-    
+
     return document;
   } catch (error) {
     console.error('Error fetching document:', error);

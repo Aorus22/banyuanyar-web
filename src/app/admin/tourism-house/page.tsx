@@ -12,32 +12,25 @@ export default async function TourismHousePage() {
   const houses = await getTourismHouses();
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <div className='flex items-start justify-between'>
-        <Heading
-          title='Tourism Houses'
-          description='Kelola omah wisata'
-        />
-        <Button asChild className="flex items-center gap-2 button-primary">
-          <Link href="/admin/tourism-house/create">
-            <Plus className="h-4 w-4" /> Tambah Omah Wisata
+        <Heading title='Tourism Houses' description='Kelola omah wisata' />
+        <Button asChild className='button-primary flex items-center gap-2'>
+          <Link href='/admin/tourism-house/create'>
+            <Plus className='h-4 w-4' /> Tambah Omah Wisata
           </Link>
         </Button>
       </div>
       <Separator />
-      
+
       <Card>
         <CardHeader>
           <CardTitle>Daftar Omah Wisata</CardTitle>
         </CardHeader>
-        <CardContent className="px-3 sm:px-6">
-          <DataTable 
-            columns={columns} 
-            data={houses}
-            hideToolbar={false}
-          />
+        <CardContent className='px-3 sm:px-6'>
+          <DataTable columns={columns} data={houses} hideToolbar={false} />
         </CardContent>
       </Card>
     </div>
   );
-} 
+}

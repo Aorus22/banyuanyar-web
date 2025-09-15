@@ -75,4 +75,4 @@ export function getValidFilters<TData>(
           filter.value !== null &&
           filter.value !== undefined)
   );
-} 
+}

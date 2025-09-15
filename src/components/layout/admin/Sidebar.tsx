@@ -75,15 +75,20 @@ export default function AppSidebar() {
   return (
     <Sidebar collapsible='icon'>
       <SidebarHeader>
-        <Link href='/' className='flex items-center gap-2 p-2 hover:bg-sidebar-accent rounded-md transition-colors'>
-          <Image 
-            src='/logo.png' 
-            alt='Logo Desa Banyuanyar' 
-            width={32} 
-            height={32} 
+        <Link
+          href='/'
+          className='hover:bg-sidebar-accent flex items-center gap-2 rounded-md p-2 transition-colors'
+        >
+          <Image
+            src='/logo.png'
+            alt='Logo Desa Banyuanyar'
+            width={32}
+            height={32}
             className='rounded-md'
           />
-          <span className='text-sm font-semibold text-sidebar-foreground'>Banyuanyar</span>
+          <span className='text-sidebar-foreground text-sm font-semibold'>
+            Banyuanyar
+          </span>
         </Link>
         {/* <OrgSwitcher
           tenants={tenants}
@@ -160,7 +165,6 @@ export default function AppSidebar() {
                   size='lg'
                   className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
                 >
-
                   <IconChevronsDown className='ml-auto size-4' />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
@@ -171,9 +175,7 @@ export default function AppSidebar() {
                 sideOffset={4}
               >
                 <DropdownMenuLabel className='p-0 font-normal'>
-                  <div className='px-1 py-1.5'>
-
-                  </div>
+                  <div className='px-1 py-1.5'></div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
 

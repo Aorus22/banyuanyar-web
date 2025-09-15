@@ -1,4 +1,4 @@
-'use server'
+'use server';
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
@@ -17,18 +17,24 @@ export async function updateTourismPackage(id: number, formData: FormData) {
       data: {
         name,
         description: description || null,
-        categoryId: categoryId && !isNaN(parseInt(categoryId)) ? parseInt(categoryId) : undefined,
+        categoryId:
+          categoryId && !isNaN(parseInt(categoryId))
+            ? parseInt(categoryId)
+            : undefined,
         price: price && !isNaN(parseFloat(price)) ? parseFloat(price) : null,
         duration: duration || null,
-        maxParticipants: maxParticipants && !isNaN(parseInt(maxParticipants)) ? parseInt(maxParticipants) : null
+        maxParticipants:
+          maxParticipants && !isNaN(parseInt(maxParticipants))
+            ? parseInt(maxParticipants)
+            : null
       }
     });
 
     revalidatePath('/admin/tourism-package');
-    
+
     // Convert Decimal to number for response
-    return { 
-      success: true, 
+    return {
+      success: true,
       data: {
         ...package_,
         price: package_.price ? Number(package_.price) : null
@@ -38,4 +44,4 @@ export async function updateTourismPackage(id: number, formData: FormData) {
     console.error('Error updating tourism package:', error);
     return { success: false, error: 'Failed to update tourism package' };
   }
-} 
+}

@@ -20,14 +20,11 @@ export default async function EditUmkmPage({ params }: EditUmkmPageProps) {
   }
 
   return (
-    <div className="space-y-6">
-      <Heading
-        title="Edit UMKM"
-        description={`Edit data UMKM: ${umkm.name}`}
-      />
+    <div className='space-y-6'>
+      <Heading title='Edit UMKM' description={`Edit data UMKM: ${umkm.name}`} />
       <Separator />
-      
+
       <UmkmForm umkm={umkm} updateUmkm={updateUmkm} />
     </div>
   );
-} 
+}

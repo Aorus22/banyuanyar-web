@@ -14,28 +14,32 @@ interface ObjectivesFormProps {
   profileKey: string;
 }
 
-export function ObjectivesForm({ initialValue, profileKey }: ObjectivesFormProps) {
+export function ObjectivesForm({
+  initialValue,
+  profileKey
+}: ObjectivesFormProps) {
   const [content, setContent] = useState<Content>(initialValue);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSave = async () => {
-    const contentText = typeof content === 'string' ? content : JSON.stringify(content);
+    const contentText =
+      typeof content === 'string' ? content : JSON.stringify(content);
     if (!contentText.trim()) {
-      toast.error("Konten tidak boleh kosong");
+      toast.error('Konten tidak boleh kosong');
       return;
     }
 
     setIsLoading(true);
     try {
       const result = await updateVillageProfile(profileKey, contentText);
-      
+
       if (result.success) {
-        toast.success("Tujuan & Sasaran desa berhasil diperbarui");
+        toast.success('Tujuan & Sasaran desa berhasil diperbarui');
       } else {
-        toast.error(result.error || "Gagal memperbarui tujuan & sasaran desa");
+        toast.error(result.error || 'Gagal memperbarui tujuan & sasaran desa');
       }
     } catch (error) {
-      toast.error("Terjadi kesalahan saat menyimpan");
+      toast.error('Terjadi kesalahan saat menyimpan');
     } finally {
       setIsLoading(false);
     }
@@ -44,34 +48,34 @@ export function ObjectivesForm({ initialValue, profileKey }: ObjectivesFormProps
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Icons.flag className="h-5 w-5" />
+        <CardTitle className='flex items-center gap-2'>
+          <Icons.flag className='h-5 w-5' />
           Edit Tujuan & Sasaran Desa
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="min-h-[400px] border rounded-lg">
+      <CardContent className='space-y-4'>
+        <div className='min-h-[400px] rounded-lg border'>
           <MinimalTiptapEditor
             value={content}
             onChange={setContent}
-            placeholder="Tulis tujuan dan sasaran pembangunan desa di sini..."
+            placeholder='Tulis tujuan dan sasaran pembangunan desa di sini...'
           />
         </div>
-        
-        <div className="flex justify-end space-x-2">
+
+        <div className='flex justify-end space-x-2'>
           <Button
             onClick={handleSave}
             disabled={isLoading}
-            className="min-w-[120px]"
+            className='min-w-[120px]'
           >
             {isLoading ? (
               <>
-                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
                 Menyimpan...
               </>
             ) : (
               <>
-                <Icons.check className="mr-2 h-4 w-4" />
+                <Icons.check className='mr-2 h-4 w-4' />
                 Simpan
               </>
             )}
@@ -80,4 +84,4 @@ export function ObjectivesForm({ initialValue, profileKey }: ObjectivesFormProps
       </CardContent>
     </Card>
   );
-} 
+}

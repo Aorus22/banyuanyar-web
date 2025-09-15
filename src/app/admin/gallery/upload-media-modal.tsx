@@ -1,1 +1,1 @@
-export { UploadMediaModal } from '../media/upload-media-modal'; 
+export { UploadMediaModal } from '../media/upload-media-modal';

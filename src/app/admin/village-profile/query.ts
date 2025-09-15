@@ -37,4 +37,4 @@ export async function getAllVillageProfiles() {
     console.error('Error fetching all village profiles:', error);
     return [];
   }
-} 
+}

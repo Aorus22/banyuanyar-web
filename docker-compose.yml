@@ -7,7 +7,7 @@ services:
     container_name: banyuanyar-web
     restart: always
     environment:
-      DATABASE_URL: "postgresql://banyuanyar_user:banyuanyar_password@postgres:5432/banyuanyardb?schema=public"
+      DATABASE_URL: 'postgresql://banyuanyar_user:banyuanyar_password@postgres:5432/banyuanyardb?schema=public'
     ports:
       - 7672:3000
     depends_on:

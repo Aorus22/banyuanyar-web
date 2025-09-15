@@ -3,10 +3,7 @@ import { z } from 'zod';
 
 import { dataTableConfig } from './config';
 
-import type {
-  ExtendedColumnFilter,
-  ExtendedColumnSort
-} from './types';
+import type { ExtendedColumnFilter, ExtendedColumnSort } from './types';
 
 const sortingItemSchema = z.object({
   id: z.string(),
@@ -96,4 +93,4 @@ export const getFiltersStateParser = <TData>(
           filter.operator === b[index]?.operator
       )
   });
-}; 
+};

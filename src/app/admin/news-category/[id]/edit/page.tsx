@@ -11,7 +11,9 @@ interface EditNewsCategoryPageProps {
   }>;
 }
 
-export default async function EditNewsCategoryPage({ params }: EditNewsCategoryPageProps) {
+export default async function EditNewsCategoryPage({
+  params
+}: EditNewsCategoryPageProps) {
   const { id } = await params;
   const category = await getNewsCategoryById(parseInt(id));
 
@@ -20,14 +22,17 @@ export default async function EditNewsCategoryPage({ params }: EditNewsCategoryP
   }
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <Heading
         title='Edit Kategori News'
         description='Edit informasi kategori yang sudah ada'
       />
       <Separator />
-      
-      <NewsCategoryForm category={category} updateNewsCategory={updateNewsCategory} />
+
+      <NewsCategoryForm
+        category={category}
+        updateNewsCategory={updateNewsCategory}
+      />
     </div>
   );
-} 
+}

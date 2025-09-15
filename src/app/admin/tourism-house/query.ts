@@ -7,7 +7,7 @@ export async function getTourismHouses() {
         createdAt: 'desc'
       }
     });
-    
+
     return houses;
   } catch (error) {
     console.error('Error fetching tourism houses:', error);
@@ -20,10 +20,10 @@ export async function getTourismHouseById(id: number) {
     const house = await prisma.tourismHouse.findUnique({
       where: { id }
     });
-    
+
     return house;
   } catch (error) {
     console.error('Error fetching tourism house:', error);
     throw new Error('Failed to fetch tourism house');
   }
-} 
+}

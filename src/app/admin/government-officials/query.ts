@@ -22,4 +22,4 @@ export async function getGovernmentOfficialById(id: number) {
     console.error('Error fetching government official:', error);
     return null;
   }
-} 
+}

@@ -15,18 +15,17 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-
   const cookieStore = await cookies();
-  const defaultOpen = cookieStore.get("sidebar_state")?.value === "true"
+  const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
   return (
     <KBar>
       <SidebarProvider defaultOpen={defaultOpen}>
         <AppSidebar />
-        <SidebarInset className="w-full max-w-full overflow-hidden flex flex-col h-screen">
-          <div className="sticky top-0 z-40 bg-background border-b">
+        <SidebarInset className='flex h-screen w-full max-w-full flex-col overflow-hidden'>
+          <div className='bg-background sticky top-0 z-40 border-b'>
             <Header />
           </div>
-          <div className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8">
+          <div className='flex-1 overflow-auto p-4 sm:p-6 lg:p-8'>
             {children}
           </div>
         </SidebarInset>

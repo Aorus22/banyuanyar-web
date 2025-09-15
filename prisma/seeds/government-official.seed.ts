@@ -5,97 +5,106 @@ export async function seedGovernmentOfficial(prisma: PrismaClient) {
 
   const governmentOfficialData = [
     {
-      name: "Komarudin, ST",
-      position: "Kepala Desa",
-      photoUrl: "https://desabanyuanyar.com/wp-content/uploads/2024/10/Poster-Ucapan-Selamat-Hari-Ibu-Ilustratif-Hijau-dan-Biru-9-1.jpg.webp",
-      bio: "Kepala Desa yang visioner dalam mengembangkan Green Smart Village",
+      name: 'Komarudin, ST',
+      position: 'Kepala Desa',
+      photoUrl:
+        'https://desabanyuanyar.com/wp-content/uploads/2024/10/Poster-Ucapan-Selamat-Hari-Ibu-Ilustratif-Hijau-dan-Biru-9-1.jpg.webp',
+      bio: 'Kepala Desa yang visioner dalam mengembangkan Green Smart Village',
       socialMedia: {
-        facebook: "komarudin.st",
-        twitter: "@komarudin_st",
-        instagram: "komarudin.st",
-        tiktok: "@komarudin.st"
+        facebook: 'komarudin.st',
+        twitter: '@komarudin_st',
+        instagram: 'komarudin.st',
+        tiktok: '@komarudin.st'
       },
       sortOrder: 1
     },
     {
-      name: "Alif Komarudin, ST",
-      position: "Kasi Kesra & Pelayanan",
-      photoUrl: "https://desabanyuanyar.com/wp-content/uploads/2021/01/ALIF-K.jpg.webp",
-      bio: "Bertanggung jawab atas kesejahteraan sosial dan pelayanan masyarakat",
+      name: 'Alif Komarudin, ST',
+      position: 'Kasi Kesra & Pelayanan',
+      photoUrl:
+        'https://desabanyuanyar.com/wp-content/uploads/2021/01/ALIF-K.jpg.webp',
+      bio: 'Bertanggung jawab atas kesejahteraan sosial dan pelayanan masyarakat',
       socialMedia: {
-        facebook: "alif.komarudin",
-        twitter: "@alif_komarudin"
+        facebook: 'alif.komarudin',
+        twitter: '@alif_komarudin'
       },
       sortOrder: 2
     },
     {
-      name: "Sriyono, A.Md",
-      position: "Sekretaris Desa",
-      photoUrl: "https://desabanyuanyar.com/wp-content/uploads/2021/01/SRIYONO.jpg.webp",
-      bio: "Sekretaris desa yang handal dalam administrasi dan koordinasi",
+      name: 'Sriyono, A.Md',
+      position: 'Sekretaris Desa',
+      photoUrl:
+        'https://desabanyuanyar.com/wp-content/uploads/2021/01/SRIYONO.jpg.webp',
+      bio: 'Sekretaris desa yang handal dalam administrasi dan koordinasi',
       socialMedia: {
-        facebook: "sriyono.amd",
-        twitter: "@sriyono_amd"
+        facebook: 'sriyono.amd',
+        twitter: '@sriyono_amd'
       },
       sortOrder: 3
     },
     {
-      name: "Bella Sita K, S.Pd",
-      position: "Kaur Keuangan",
-      photoUrl: "https://desabanyuanyar.com/wp-content/uploads/2021/01/BELLA.jpg.webp",
-      bio: "Bertanggung jawab atas pengelolaan keuangan desa",
+      name: 'Bella Sita K, S.Pd',
+      position: 'Kaur Keuangan',
+      photoUrl:
+        'https://desabanyuanyar.com/wp-content/uploads/2021/01/BELLA.jpg.webp',
+      bio: 'Bertanggung jawab atas pengelolaan keuangan desa',
       socialMedia: {
-        instagram: "bella.sita"
+        instagram: 'bella.sita'
       },
       sortOrder: 4
     },
     {
-      name: "Srigiyatmi, S.Pd",
-      position: "Kasi Pemerintahan",
-      photoUrl: "https://desabanyuanyar.com/wp-content/uploads/2021/01/SRI-GIYATMI.jpg.webp",
-      bio: "Bertanggung jawab atas urusan pemerintahan desa",
+      name: 'Srigiyatmi, S.Pd',
+      position: 'Kasi Pemerintahan',
+      photoUrl:
+        'https://desabanyuanyar.com/wp-content/uploads/2021/01/SRI-GIYATMI.jpg.webp',
+      bio: 'Bertanggung jawab atas urusan pemerintahan desa',
       socialMedia: {
-        facebook: "srigiyatmi.spd"
+        facebook: 'srigiyatmi.spd'
       },
       sortOrder: 5
     },
     {
-      name: "Fathurrohman, S.Pd",
-      position: "Kaur Umum & Perencanaan",
-      photoUrl: "https://desabanyuanyar.com/wp-content/uploads/2024/10/Desain-tanpa-judul-6.png.webp",
-      bio: "Bertanggung jawab atas urusan umum dan perencanaan desa",
+      name: 'Fathurrohman, S.Pd',
+      position: 'Kaur Umum & Perencanaan',
+      photoUrl:
+        'https://desabanyuanyar.com/wp-content/uploads/2024/10/Desain-tanpa-judul-6.png.webp',
+      bio: 'Bertanggung jawab atas urusan umum dan perencanaan desa',
       socialMedia: {
-        instagram: "fathurrohman.spd"
+        instagram: 'fathurrohman.spd'
       },
       sortOrder: 6
     },
     {
-      name: "Waluyo, S.Pd",
-      position: "Kepala Dusun I",
-      photoUrl: "https://desabanyuanyar.com/wp-content/uploads/2021/01/WALUYO.jpg.webp",
-      bio: "Kepala Dusun I yang bertanggung jawab atas wilayah dusun pertama",
+      name: 'Waluyo, S.Pd',
+      position: 'Kepala Dusun I',
+      photoUrl:
+        'https://desabanyuanyar.com/wp-content/uploads/2021/01/WALUYO.jpg.webp',
+      bio: 'Kepala Dusun I yang bertanggung jawab atas wilayah dusun pertama',
       socialMedia: {
-        facebook: "waluyo.spd"
+        facebook: 'waluyo.spd'
       },
       sortOrder: 7
     },
     {
-      name: "Suyamto, SH",
-      position: "Kepala Dusun II",
-      photoUrl: "https://desabanyuanyar.com/wp-content/uploads/2021/01/SUYAMTO.jpg.webp",
-      bio: "Kepala Dusun II yang bertanggung jawab atas wilayah dusun kedua",
+      name: 'Suyamto, SH',
+      position: 'Kepala Dusun II',
+      photoUrl:
+        'https://desabanyuanyar.com/wp-content/uploads/2021/01/SUYAMTO.jpg.webp',
+      bio: 'Kepala Dusun II yang bertanggung jawab atas wilayah dusun kedua',
       socialMedia: {
-        instagram: "suyamto.sh"
+        instagram: 'suyamto.sh'
       },
       sortOrder: 8
     },
     {
-      name: "Joko Triyono, S.Pd",
-      position: "Kepala Dusun III",
-      photoUrl: "https://desabanyuanyar.com/wp-content/uploads/2021/01/JOKO-TRYONO.jpg.webp",
-      bio: "Kepala Dusun III yang bertanggung jawab atas wilayah dusun ketiga",
+      name: 'Joko Triyono, S.Pd',
+      position: 'Kepala Dusun III',
+      photoUrl:
+        'https://desabanyuanyar.com/wp-content/uploads/2021/01/JOKO-TRYONO.jpg.webp',
+      bio: 'Kepala Dusun III yang bertanggung jawab atas wilayah dusun ketiga',
       socialMedia: {
-        facebook: "joko.triyono.spd"
+        facebook: 'joko.triyono.spd'
       },
       sortOrder: 9
     }
@@ -108,4 +117,4 @@ export async function seedGovernmentOfficial(prisma: PrismaClient) {
 
   console.log(`✅ Government officials seeded: ${result.count} records`);
   return result;
-} 
+}

@@ -1,4 +1,4 @@
-'use server'
+'use server';
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
@@ -27,7 +27,7 @@ export async function updateEvent(id: number, formData: FormData) {
         startTime: startTime || null,
         endTime: endTime || null,
         location: location || null,
-        organizer: organizer || null,
+        organizer: organizer || null
       }
     });
 
@@ -39,4 +39,4 @@ export async function updateEvent(id: number, formData: FormData) {
     console.error('Error updating event:', error);
     return { success: false, error: 'Failed to update event' };
   }
-} 
+}

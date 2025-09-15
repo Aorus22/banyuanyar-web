@@ -5,14 +5,14 @@ import { Separator } from '@/components/ui/separator';
 
 export default function CreateTourismHousePage() {
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <Heading
         title='Tambah Omah Wisata Baru'
         description='Buat omah wisata baru'
       />
       <Separator />
-      
+
       <TourismHouseForm createTourismHouse={createTourismHouse} />
     </div>
   );
-} 
+}

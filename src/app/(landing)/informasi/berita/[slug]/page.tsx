@@ -47,88 +47,89 @@ export default async function NewsPage({ params }: NewsPageProps) {
   });
 
   return (
-    <div className="container mx-auto px-4 py-8 mt-24 max-w-7xl">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div className='container mx-auto mt-24 max-w-7xl px-4 py-8'>
+      <div className='grid grid-cols-1 gap-8 lg:grid-cols-3'>
         {/* Main Content */}
-        <div className="lg:col-span-2">
+        <div className='lg:col-span-2'>
           {/* Header */}
-          <div className="mb-8">
-        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-          <Tag className="h-4 w-4" />
-          {news.category ? (
-            <Link href={`/informasi/berita?category=${news.category.id}`}>
-              <Badge 
-                variant="outline" 
-                style={{ borderColor: news.category.color, color: news.category.color }}
-                className="cursor-pointer hover:scale-105 transition-transform"
-              >
-                {news.category.name}
-              </Badge>
-            </Link>
-          ) : (
-            <span>Tanpa Kategori</span>
-          )}
-        </div>
-        
-        <h1 className="text-4xl font-bold mb-4 leading-tight">{news.title}</h1>
-        
-        <div className="flex items-center gap-6 text-sm text-muted-foreground mb-6">
-          <div className="flex items-center gap-2">
-            <User className="h-4 w-4" />
-            <span>{news.author?.name || 'Anonymous'}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Calendar className="h-4 w-4" />
-            <span>
-              {news.publishedAt 
-                ? safeFormatDateFullMonth(news.publishedAt)
-                : safeFormatDateFullMonth(news.createdAt)
-              }
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Eye className="h-4 w-4" />
-            <span>{news.viewCount} kali dibaca</span>
-          </div>
-        </div>
+          <div className='mb-8'>
+            <div className='text-muted-foreground mb-4 flex items-center gap-2 text-sm'>
+              <Tag className='h-4 w-4' />
+              {news.category ? (
+                <Link href={`/informasi/berita?category=${news.category.id}`}>
+                  <Badge
+                    variant='outline'
+                    style={{
+                      borderColor: news.category.color,
+                      color: news.category.color
+                    }}
+                    className='cursor-pointer transition-transform hover:scale-105'
+                  >
+                    {news.category.name}
+                  </Badge>
+                </Link>
+              ) : (
+                <span>Tanpa Kategori</span>
+              )}
+            </div>
 
-        {/* Media Gallery */}
-        {newsMedia.length > 0 ? (
-          <div className="mb-6">            
-            <ImagePreviewCarousel 
-              images={newsMedia.map(media => media.fileUrl)}
-              autoPlay={true}
-              interval={5000}
-              className='h-full'
-              thumbnailSize="md"
-            />
-          </div>
-        ) : (
-          // No media available
-          <div className="mb-6">
-            <div className="flex items-center gap-2 mb-3">
-              <ImageIcon className="h-5 w-5 text-muted-foreground" />
-              <span className="text-sm font-medium text-muted-foreground">
-                Belum ada media tersedia
-              </span>
+            <h1 className='mb-4 text-4xl leading-tight font-bold'>
+              {news.title}
+            </h1>
+
+            <div className='text-muted-foreground mb-6 flex items-center gap-6 text-sm'>
+              <div className='flex items-center gap-2'>
+                <User className='h-4 w-4' />
+                <span>{news.author?.name || 'Anonymous'}</span>
+              </div>
+              <div className='flex items-center gap-2'>
+                <Calendar className='h-4 w-4' />
+                <span>
+                  {news.publishedAt
+                    ? safeFormatDateFullMonth(news.publishedAt)
+                    : safeFormatDateFullMonth(news.createdAt)}
+                </span>
+              </div>
+              <div className='flex items-center gap-2'>
+                <Eye className='h-4 w-4' />
+                <span>{news.viewCount} kali dibaca</span>
+              </div>
             </div>
-            <div className="w-full h-64 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center">
-              <ImageIcon className="w-16 h-16 text-blue-400" />
-            </div>
+
+            {/* Media Gallery */}
+            {newsMedia.length > 0 ? (
+              <div className='mb-6'>
+                <ImagePreviewCarousel
+                  images={newsMedia.map((media) => media.fileUrl)}
+                  autoPlay={true}
+                  interval={5000}
+                  className='h-full'
+                  thumbnailSize='md'
+                />
+              </div>
+            ) : (
+              // No media available
+              <div className='mb-6'>
+                <div className='mb-3 flex items-center gap-2'>
+                  <ImageIcon className='text-muted-foreground h-5 w-5' />
+                  <span className='text-muted-foreground text-sm font-medium'>
+                    Belum ada media tersedia
+                  </span>
+                </div>
+                <div className='flex h-64 w-full items-center justify-center rounded-lg bg-gradient-to-br from-blue-100 to-blue-200'>
+                  <ImageIcon className='h-16 w-16 text-blue-400' />
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
 
           {/* Content */}
-          <TiptapViewer 
-            content={news.content}
-            className="min-h-[200px]"
-          />
+          <TiptapViewer content={news.content} className='min-h-[200px]' />
         </div>
 
         {/* Sidebar - Related News */}
-        <div className="lg:col-span-1">
-          <RelatedNews 
+        <div className='lg:col-span-1'>
+          <RelatedNews
             currentNewsId={news.id}
             currentCategoryId={news.categoryId || undefined}
           />
@@ -136,4 +137,4 @@ export default async function NewsPage({ params }: NewsPageProps) {
       </div>
     </div>
   );
-} 
+}

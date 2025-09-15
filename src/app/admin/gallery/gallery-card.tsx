@@ -5,9 +5,9 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { 
-  MoreVertical, 
-  Trash2, 
+import {
+  MoreVertical,
+  Trash2,
   Edit,
   Eye,
   Image as ImageIcon,
@@ -17,7 +17,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 import { deleteGalleryAction } from './server-action';
 import { toast } from 'sonner';
@@ -50,60 +50,64 @@ export function GalleryCard({ gallery }: GalleryCardProps) {
   };
 
   const handleDelete = async () => {
-    if (!confirm('Apakah Anda yakin ingin menghapus galeri ini? Semua foto dalam galeri ini juga akan dihapus.')) {
+    if (
+      !confirm(
+        'Apakah Anda yakin ingin menghapus galeri ini? Semua foto dalam galeri ini juga akan dihapus.'
+      )
+    ) {
       return;
     }
 
     setIsDeleting(true);
     try {
       const result = await deleteGalleryAction(gallery.id);
-      
+
       if (result.success) {
-        toast.success("Galeri berhasil dihapus");
+        toast.success('Galeri berhasil dihapus');
         router.refresh();
       } else {
-        toast.error(result.error || "Gagal menghapus galeri");
+        toast.error(result.error || 'Gagal menghapus galeri');
       }
     } catch (error) {
-      toast.error("Terjadi kesalahan yang tidak terduga");
+      toast.error('Terjadi kesalahan yang tidak terduga');
     } finally {
       setIsDeleting(false);
     }
   };
 
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow pt-0">
+    <Card className='overflow-hidden pt-0 transition-shadow hover:shadow-lg'>
       {/* Gallery Images */}
-      <div className="relative aspect-video bg-gray-100">
+      <div className='relative aspect-video bg-gray-100'>
         {gallery.imageUrls.length > 0 ? (
-          <div className="relative w-full h-full">
+          <div className='relative h-full w-full'>
             {/* Show first image as main */}
             <Image
               src={gallery.imageUrls[0]}
               alt={gallery.title}
               fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+              className='object-cover'
+              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw'
             />
-            
+
             {/* Show image count overlay if more than 1 image */}
             {gallery.imageUrls.length > 1 && (
-              <div className="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded-full">
+              <div className='absolute top-2 left-2 rounded-full bg-black/70 px-2 py-1 text-xs text-white'>
                 +{gallery.imageUrls.length - 1} foto
               </div>
             )}
           </div>
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <ImageIcon className="w-16 h-16 text-gray-400" />
+          <div className='absolute inset-0 flex items-center justify-center'>
+            <ImageIcon className='h-16 w-16 text-gray-400' />
           </div>
         )}
-        
-        <Badge 
-          variant="secondary" 
+
+        <Badge
+          variant='secondary'
           className={`absolute top-2 right-2 ${
-            gallery.isActive 
-              ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 
+            gallery.isActive
+              ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
               : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
           }`}
         >
@@ -111,63 +115,63 @@ export function GalleryCard({ gallery }: GalleryCardProps) {
         </Badge>
       </div>
 
-      <CardContent className="p-4">
-        <div className="space-y-3">
+      <CardContent className='p-4'>
+        <div className='space-y-3'>
           {/* Title */}
-          <div className="flex items-start justify-between">
-            <h3 className="font-medium text-sm leading-tight line-clamp-2 flex-1">
+          <div className='flex items-start justify-between'>
+            <h3 className='line-clamp-2 flex-1 text-sm leading-tight font-medium'>
               {gallery.title}
             </h3>
           </div>
 
           {/* Description */}
           {gallery.description && (
-            <p className="text-xs text-muted-foreground line-clamp-2">
+            <p className='text-muted-foreground line-clamp-2 text-xs'>
               {gallery.description}
             </p>
           )}
 
           {/* Event Date */}
-          <div className="flex items-center text-xs text-muted-foreground">
-            <Calendar className="w-3 h-3 mr-1" />
+          <div className='text-muted-foreground flex items-center text-xs'>
+            <Calendar className='mr-1 h-3 w-3' />
             <span>{formatDate(gallery.eventDate)}</span>
           </div>
 
           {/* Actions */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
+          <div className='flex items-center justify-between'>
+            <div className='flex items-center space-x-2'>
               <Link href={`/admin/gallery/${gallery.id}`}>
-                <Button variant="outline" size="sm" className="h-7 px-2">
-                  <Eye className="w-3 h-3 mr-1" />
+                <Button variant='outline' size='sm' className='h-7 px-2'>
+                  <Eye className='mr-1 h-3 w-3' />
                   Lihat
                 </Button>
               </Link>
             </div>
-            
+
             {/* Actions Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-6 w-6 p-0 hover:bg-muted"
+                  variant='ghost'
+                  size='sm'
+                  className='hover:bg-muted h-6 w-6 p-0'
                 >
-                  <MoreVertical className="h-3 w-3" />
+                  <MoreVertical className='h-3 w-3' />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
+              <DropdownMenuContent align='end'>
                 <DropdownMenuItem asChild>
                   <Link href={`/admin/gallery/${gallery.id}/edit`}>
-                    <Edit className="mr-2 h-3 w-3" />
+                    <Edit className='mr-2 h-3 w-3' />
                     Edit
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem 
+                <DropdownMenuItem
                   onClick={handleDelete}
                   disabled={isDeleting}
-                  className="text-red-600 focus:text-red-600"
+                  className='text-red-600 focus:text-red-600'
                 >
-                  <Trash2 className="mr-2 h-3 w-3" />
+                  <Trash2 className='mr-2 h-3 w-3' />
                   {isDeleting ? 'Menghapus...' : 'Hapus'}
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -177,4 +181,4 @@ export function GalleryCard({ gallery }: GalleryCardProps) {
       </CardContent>
     </Card>
   );
-} 
+}

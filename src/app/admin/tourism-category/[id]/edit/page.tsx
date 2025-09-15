@@ -11,7 +11,9 @@ interface EditTourismCategoryPageProps {
   }>;
 }
 
-export default async function EditTourismCategoryPage({ params }: EditTourismCategoryPageProps) {
+export default async function EditTourismCategoryPage({
+  params
+}: EditTourismCategoryPageProps) {
   const { id } = await params;
   const category = await getTourismCategoryById(parseInt(id));
 
@@ -20,14 +22,17 @@ export default async function EditTourismCategoryPage({ params }: EditTourismCat
   }
 
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <Heading
         title='Edit Kategori Wisata'
         description='Edit informasi kategori yang sudah ada'
       />
       <Separator />
-      
-      <TourismCategoryForm category={category} updateTourismCategory={updateTourismCategory} />
+
+      <TourismCategoryForm
+        category={category}
+        updateTourismCategory={updateTourismCategory}
+      />
     </div>
   );
-} 
+}

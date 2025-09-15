@@ -6,4 +6,4 @@ export * from './data-table-toolbar';
 export * from './types';
 export * from './config';
 export * from './parsers';
-export * from './utils'; 
+export * from './utils';

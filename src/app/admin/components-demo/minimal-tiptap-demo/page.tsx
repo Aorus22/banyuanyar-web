@@ -1,143 +1,156 @@
-"use client"
+'use client';
 
-import { MinimalTiptapEditor } from "@/components/ui/custom/minimal-tiptap"
-import { TiptapViewer } from "@/components/ui/custom/tiptap-viewer/tiptap-viewer"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { MinimalTiptapEditor } from '@/components/ui/custom/minimal-tiptap';
+import { TiptapViewer } from '@/components/ui/custom/tiptap-viewer/tiptap-viewer';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { cn } from "@/lib/utils"
-import { useCallback, useRef, useState, useEffect } from "react"
-import type { Editor } from "@tiptap/react"
+  FormMessage
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { cn } from '@/lib/utils';
+import { useCallback, useRef, useState, useEffect } from 'react';
+import type { Editor } from '@tiptap/react';
 
 const formSchema = z.object({
-  title: z.string().min(1, "Title is required"),
+  title: z.string().min(1, 'Title is required'),
   description: z
     .string({
-      required_error: "Description is required",
+      required_error: 'Description is required'
     })
-    .min(1, "Description is required"),
-})
+    .min(1, 'Description is required')
+});
 
-type FormValues = z.infer<typeof formSchema>
+type FormValues = z.infer<typeof formSchema>;
 
 export default function MinimalTiptapDemoPage() {
-  const editorRef = useRef<Editor | null>(null)
-  const [rawHtml, setRawHtml] = useState("")
-  const [renderedContent, setRenderedContent] = useState("")
-  
+  const editorRef = useRef<Editor | null>(null);
+  const [rawHtml, setRawHtml] = useState('');
+  const [renderedContent, setRenderedContent] = useState('');
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      description: "",
-    },
-  })
+      title: '',
+      description: ''
+    }
+  });
 
   const handleCreate = useCallback(
     ({ editor }: { editor: Editor }) => {
-      if (form.getValues("description") && editor.isEmpty) {
-        editor.commands.setContent(form.getValues("description"))
+      if (form.getValues('description') && editor.isEmpty) {
+        editor.commands.setContent(form.getValues('description'));
       }
-      editorRef.current = editor
-      
+      editorRef.current = editor;
+
       // Debug: Check if extensions are loaded
-      console.log('=== EDITOR DEBUG ===')
-      console.log('Editor extensions:', editor.extensionManager.extensions.map(ext => ext.name))
-      
-      const imageExtension = editor.extensionManager.extensions.find(ext => ext.name === 'image')
-      console.log('Image extension found:', !!imageExtension)
-      
-      const tableExtension = editor.extensionManager.extensions.find(ext => ext.name === 'table')
-      console.log('Table extension found:', !!tableExtension)
-      
+      console.log('=== EDITOR DEBUG ===');
+      console.log(
+        'Editor extensions:',
+        editor.extensionManager.extensions.map((ext) => ext.name)
+      );
+
+      const imageExtension = editor.extensionManager.extensions.find(
+        (ext) => ext.name === 'image'
+      );
+      console.log('Image extension found:', !!imageExtension);
+
+      const tableExtension = editor.extensionManager.extensions.find(
+        (ext) => ext.name === 'table'
+      );
+      console.log('Table extension found:', !!tableExtension);
+
       if (imageExtension) {
-        console.log('Image extension options:', imageExtension.options)
+        console.log('Image extension options:', imageExtension.options);
       }
-      
+
       if (tableExtension) {
-        console.log('Table extension options:', tableExtension.options)
+        console.log('Table extension options:', tableExtension.options);
       }
-      
-      console.log('Current content:', editor.getHTML())
-      console.log('Current JSON:', editor.getJSON())
-      console.log('====================')
+
+      console.log('Current content:', editor.getHTML());
+      console.log('Current JSON:', editor.getJSON());
+      console.log('====================');
     },
     [form]
-  )
+  );
 
   const onSubmit = (values: FormValues) => {
-    console.log("==Form Values==")
-    console.log(values)
-    
+    console.log('==Form Values==');
+    console.log(values);
+
     // Get raw HTML from editor
     if (editorRef.current && editorRef.current.isEditable) {
-      const html = editorRef.current.getHTML()
-      setRawHtml(html)
-      
+      const html = editorRef.current.getHTML();
+      setRawHtml(html);
+
       // Get rendered content (text only)
-      const text = editorRef.current.getText()
-      setRenderedContent(text)
-      
-      console.log("==Raw HTML==")
-      console.log(html)
-      console.log("==Rendered Content==")
-      console.log(text)
+      const text = editorRef.current.getText();
+      setRenderedContent(text);
+
+      console.log('==Raw HTML==');
+      console.log(html);
+      console.log('==Rendered Content==');
+      console.log(text);
     } else {
-      console.log("Editor not ready yet")
+      console.log('Editor not ready yet');
     }
-  }
+  };
 
   const handleEditorChange = (content: any) => {
     // Update raw HTML when editor content changes
     if (editorRef.current && editorRef.current.isEditable) {
-      const html = editorRef.current.getHTML()
-      setRawHtml(html)
-      
+      const html = editorRef.current.getHTML();
+      setRawHtml(html);
+
       // Also update rendered content
-      const text = editorRef.current.getText()
-      setRenderedContent(text)
-      
+      const text = editorRef.current.getText();
+      setRenderedContent(text);
+
       // Update form field value
-      form.setValue("description", html)
+      form.setValue('description', html);
     }
-  }
+  };
 
   // Monitor editor changes and update HTML
   useEffect(() => {
     const updateHTML = () => {
       if (editorRef.current && editorRef.current.isEditable) {
-        const html = editorRef.current.getHTML() || ""
-        const text = editorRef.current.getText() || ""
-        setRawHtml(html)
-        setRenderedContent(text)
+        const html = editorRef.current.getHTML() || '';
+        const text = editorRef.current.getText() || '';
+        setRawHtml(html);
+        setRenderedContent(text);
       }
-    }
+    };
 
     // Update immediately
-    updateHTML()
+    updateHTML();
 
     // Set up interval to check for changes
-    const interval = setInterval(updateHTML, 1000)
+    const interval = setInterval(updateHTML, 1000);
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
-      <div className="space-y-2">
-        <h1 className="text-3xl font-bold">Minimal Tiptap Editor Demo</h1>
-        <p className="text-muted-foreground">
+    <div className='container mx-auto space-y-6 p-6'>
+      <div className='space-y-2'>
+        <h1 className='text-3xl font-bold'>Minimal Tiptap Editor Demo</h1>
+        <p className='text-muted-foreground'>
           A rich text editor component built with Tiptap and Shadcn UI
         </p>
       </div>
@@ -151,8 +164,8 @@ export default function MinimalTiptapDemoPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            <div className="text-sm text-muted-foreground space-y-1">
+          <div className='space-y-4'>
+            <div className='text-muted-foreground space-y-1 text-sm'>
               <p>• Text formatting (bold, italic, underline, strikethrough)</p>
               <p>• Headings (H1-H6)</p>
               <p>• Lists (ordered and unordered)</p>
@@ -164,11 +177,11 @@ export default function MinimalTiptapDemoPage() {
               <p>• Tables with resizable columns</p>
               <p>• Text color customization</p>
             </div>
-            
-            <div className="border rounded-lg">
+
+            <div className='rounded-lg border'>
               <MinimalTiptapEditor
-                placeholder="Start typing your content here..."
-                className="min-h-[400px]"
+                placeholder='Start typing your content here...'
+                className='min-h-[400px]'
               />
             </div>
           </div>
@@ -180,29 +193,33 @@ export default function MinimalTiptapDemoPage() {
         <CardHeader>
           <CardTitle>Form Integration with Shadcn Form</CardTitle>
           <CardDescription>
-            Example of integrating the editor with React Hook Form and Zod validation
+            Example of integrating the editor with React Hook Form and Zod
+            validation
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className='w-full space-y-6'
+            >
               <FormField
                 control={form.control}
-                name="title"
+                name='title'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter title..." {...field} />
+                      <Input placeholder='Enter title...' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
-                name="description"
+                name='description'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Description</FormLabel>
@@ -210,30 +227,30 @@ export default function MinimalTiptapDemoPage() {
                       <MinimalTiptapEditor
                         value={field.value}
                         onChange={(content) => {
-                          handleEditorChange(content)
-                          field.onChange(content)
+                          handleEditorChange(content);
+                          field.onChange(content);
                         }}
                         throttleDelay={0}
-                        className={cn("w-full", {
-                          "border-destructive focus-within:border-destructive":
-                            form.formState.errors.description,
+                        className={cn('w-full', {
+                          'border-destructive focus-within:border-destructive':
+                            form.formState.errors.description
                         })}
-                        output="html"
-                        placeholder="Type your description here..."
+                        output='html'
+                        placeholder='Type your description here...'
                         onCreate={handleCreate}
                         autofocus={true}
                         immediatelyRender={false}
                         editable={true}
                         injectCSS={true}
-                        editorClassName="focus:outline-hidden"
+                        editorClassName='focus:outline-hidden'
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              
-              <Button type="submit" size="lg" className="w-full">
+
+              <Button type='submit' size='lg' className='w-full'>
                 Submit Form
               </Button>
             </form>
@@ -250,9 +267,9 @@ export default function MinimalTiptapDemoPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
-            <pre className="text-sm overflow-x-auto whitespace-pre-wrap">
-              {rawHtml || "No content yet. Start typing in the editor above..."}
+          <div className='rounded-lg bg-gray-100 p-4 dark:bg-gray-800'>
+            <pre className='overflow-x-auto text-sm whitespace-pre-wrap'>
+              {rawHtml || 'No content yet. Start typing in the editor above...'}
             </pre>
           </div>
         </CardContent>
@@ -267,11 +284,14 @@ export default function MinimalTiptapDemoPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="prose prose-sm max-w-none dark:prose-invert">
-            <div className="min-h-[100px] border rounded-lg">
-              <TiptapViewer 
-                content={rawHtml || "<p>No content yet. Start typing in the editor above...</p>"}
-                className="min-h-[100px]"
+          <div className='prose prose-sm dark:prose-invert max-w-none'>
+            <div className='min-h-[100px] rounded-lg border'>
+              <TiptapViewer
+                content={
+                  rawHtml ||
+                  '<p>No content yet. Start typing in the editor above...</p>'
+                }
+                className='min-h-[100px]'
               />
             </div>
           </div>
@@ -282,53 +302,54 @@ export default function MinimalTiptapDemoPage() {
       <Card>
         <CardHeader>
           <CardTitle>Form Values</CardTitle>
-          <CardDescription>
-            Current form state and values
-          </CardDescription>
+          <CardDescription>Current form state and values</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
+          <div className='space-y-4'>
             <div>
-              <h4 className="font-semibold mb-2">Title:</h4>
-              <p className="text-sm bg-gray-100 dark:bg-gray-800 p-2 rounded">
-                {form.watch("title") || "No title entered"}
+              <h4 className='mb-2 font-semibold'>Title:</h4>
+              <p className='rounded bg-gray-100 p-2 text-sm dark:bg-gray-800'>
+                {form.watch('title') || 'No title entered'}
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-2">Description (Form Field Value):</h4>
-              <div className="text-sm bg-gray-100 dark:bg-gray-800 p-2 rounded min-h-[50px]">
-                <pre className="whitespace-pre-wrap overflow-x-auto">
-                  {form.watch("description") || "No description entered"}
+              <h4 className='mb-2 font-semibold'>
+                Description (Form Field Value):
+              </h4>
+              <div className='min-h-[50px] rounded bg-gray-100 p-2 text-sm dark:bg-gray-800'>
+                <pre className='overflow-x-auto whitespace-pre-wrap'>
+                  {form.watch('description') || 'No description entered'}
                 </pre>
               </div>
             </div>
             <div>
-              <h4 className="font-semibold mb-2">Description (Rendered HTML):</h4>
-              <div className="text-sm bg-gray-100 dark:bg-gray-800 p-2 rounded min-h-[50px] prose prose-sm max-w-none">
-                <TiptapViewer 
-                  content={rawHtml || "<p>No description entered</p>"}
-                  className="min-h-[50px]"
+              <h4 className='mb-2 font-semibold'>
+                Description (Rendered HTML):
+              </h4>
+              <div className='prose prose-sm min-h-[50px] max-w-none rounded bg-gray-100 p-2 text-sm dark:bg-gray-800'>
+                <TiptapViewer
+                  content={rawHtml || '<p>No description entered</p>'}
+                  className='min-h-[50px]'
                 />
               </div>
             </div>
             <div>
-              <h4 className="font-semibold mb-2">Description (Text Only):</h4>
-              <p className="text-sm bg-gray-100 dark:bg-gray-800 p-2 rounded min-h-[50px]">
-                {renderedContent || "No description entered"}
+              <h4 className='mb-2 font-semibold'>Description (Text Only):</h4>
+              <p className='min-h-[50px] rounded bg-gray-100 p-2 text-sm dark:bg-gray-800'>
+                {renderedContent || 'No description entered'}
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-2">Form Errors:</h4>
-              <p className="text-sm bg-red-50 dark:bg-red-900/20 p-2 rounded">
-                {Object.keys(form.formState.errors).length > 0 
+              <h4 className='mb-2 font-semibold'>Form Errors:</h4>
+              <p className='rounded bg-red-50 p-2 text-sm dark:bg-red-900/20'>
+                {Object.keys(form.formState.errors).length > 0
                   ? JSON.stringify(form.formState.errors, null, 2)
-                  : "No errors"
-                }
+                  : 'No errors'}
               </p>
             </div>
           </div>
         </CardContent>
       </Card>
     </div>
-  )
-} 
+  );
+}

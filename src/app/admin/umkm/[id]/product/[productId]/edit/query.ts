@@ -13,9 +13,9 @@ export async function getUmkmProductById(id: number) {
         }
       }
     });
-    
+
     if (!product) return null;
-    
+
     // Convert Decimal to number for client components
     return {
       ...product,
@@ -25,4 +25,4 @@ export async function getUmkmProductById(id: number) {
     console.error('Error fetching UMKM product:', error);
     throw new Error('Failed to fetch UMKM product');
   }
-} 
+}

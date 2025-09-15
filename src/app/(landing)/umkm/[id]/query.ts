@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma'
+import { prisma } from '@/lib/prisma';
 
 export async function getUmkmById(id: number) {
   try {
@@ -13,58 +13,58 @@ export async function getUmkmById(id: number) {
           select: { products: true }
         }
       }
-    })
-    
-    if (!umkm) return null
-    
+    });
+
+    if (!umkm) return null;
+
     // Get media for products
-    const productIds = umkm.products.map(p => p.id)
+    const productIds = umkm.products.map((p) => p.id);
     const productMedia = await prisma.media.findMany({
-      where: { 
+      where: {
         entityType: 'umkm_product',
         entityId: { in: productIds }
       },
       orderBy: { id: 'asc' }
-    })
-    
+    });
+
     // Create map of product ID to media URLs (array for carousel)
-    const productIdToMedia = new Map<number, string[]>()
+    const productIdToMedia = new Map<number, string[]>();
     for (const m of productMedia) {
       if (!productIdToMedia.has(m.entityId)) {
-        productIdToMedia.set(m.entityId, [])
+        productIdToMedia.set(m.entityId, []);
       }
-      productIdToMedia.get(m.entityId)!.push(m.fileUrl)
+      productIdToMedia.get(m.entityId)!.push(m.fileUrl);
     }
-    
+
     // Convert Decimal to number for client components
     return {
       ...umkm,
-      products: umkm.products.map(product => ({
+      products: umkm.products.map((product) => ({
         ...product,
         price: Number(product.price),
         imageUrls: productIdToMedia.get(product.id) || []
       }))
-    }
+    };
   } catch (error) {
-    console.error('Error fetching UMKM:', error)
-    throw new Error('Failed to fetch UMKM')
+    console.error('Error fetching UMKM:', error);
+    throw new Error('Failed to fetch UMKM');
   }
 }
 
 export async function getUmkmMedia(umkmId: number) {
   try {
     const media = await prisma.media.findMany({
-      where: { 
+      where: {
         entityType: 'umkm',
         entityId: umkmId
       },
       orderBy: { id: 'asc' }
-    })
-    
+    });
+
     // Return fileUrl directly since we're using Cloudinary
-    return media.map(m => m.fileUrl)
+    return media.map((m) => m.fileUrl);
   } catch (error) {
-    console.error('Error fetching UMKM media:', error)
-    return []
+    console.error('Error fetching UMKM media:', error);
+    return [];
   }
-} 
+}

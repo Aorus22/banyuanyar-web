@@ -17,37 +17,41 @@ export default async function Page({ params }: Props) {
   if (isNaN(galleryId)) return notFound();
 
   const galeri = await prisma.gallery.findUnique({
-    where: { id: galleryId },
+    where: { id: galleryId }
   });
   if (!galeri) return notFound();
 
   const media = await prisma.media.findMany({
     where: { entityType: 'gallery', entityId: galleryId },
-    orderBy: { id: 'asc' },
+    orderBy: { id: 'asc' }
   });
 
-  const imageUrls = media.map(m => m.fileUrl);
+  const imageUrls = media.map((m) => m.fileUrl);
 
   return (
     <>
-      <PageHeaderEffect 
+      <PageHeaderEffect
         title={galeri.title}
         description={galeri.description || 'Galeri foto desa'}
       />
 
-      <div className="max-w-6xl mx-auto px-4 space-y-8">
+      <div className='mx-auto max-w-6xl space-y-8 px-4'>
         {/* Gallery Info */}
-        <div className="bg-gradient-to-r from-primary to-primary/80 rounded-2xl p-8 md:p-10 text-center text-primary-foreground shadow">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">{galeri.title}</h1>
+        <div className='from-primary to-primary/80 text-primary-foreground rounded-2xl bg-gradient-to-r p-8 text-center shadow md:p-10'>
+          <h1 className='mb-2 text-3xl font-bold tracking-tight md:text-4xl'>
+            {galeri.title}
+          </h1>
           {galeri.description && (
-            <p className="text-base md:text-lg opacity-90">{galeri.description}</p>
+            <p className='text-base opacity-90 md:text-lg'>
+              {galeri.description}
+            </p>
           )}
           {galeri.eventDate && (
-            <div className="text-sm opacity-90 mt-4">
-              {new Date(galeri.eventDate).toLocaleDateString('id-ID', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
+            <div className='mt-4 text-sm opacity-90'>
+              {new Date(galeri.eventDate).toLocaleDateString('id-ID', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
               })}
             </div>
           )}
@@ -55,24 +59,24 @@ export default async function Page({ params }: Props) {
 
         {/* Gallery Images */}
         <div>
-          <h2 className="text-2xl font-bold text-center mb-6">Foto Galeri</h2>
-          
+          <h2 className='mb-6 text-center text-2xl font-bold'>Foto Galeri</h2>
+
           {imageUrls.length === 0 ? (
-            <div className="text-center py-12 text-muted-foreground">
-              <ImageIcon className="h-16 w-16 mx-auto mb-4 opacity-50" />
-              <p className="text-lg">Belum ada foto pada galeri ini.</p>
+            <div className='text-muted-foreground py-12 text-center'>
+              <ImageIcon className='mx-auto mb-4 h-16 w-16 opacity-50' />
+              <p className='text-lg'>Belum ada foto pada galeri ini.</p>
             </div>
           ) : (
-            <div className="space-y-6">
+            <div className='space-y-6'>
               {/* Main Image Carousel */}
-              <div className="rounded-lg overflow-hidden border shadow-lg">
+              <div className='overflow-hidden rounded-lg border shadow-lg'>
                 <ImagePreviewCarousel
                   images={imageUrls}
                   showThumbnails={true}
                   showSmallImages={true}
                   autoPlay={true}
                   interval={4000}
-                  className="w-full h-96 md:h-[500px]"
+                  className='h-96 w-full md:h-[500px]'
                 />
               </div>
             </div>

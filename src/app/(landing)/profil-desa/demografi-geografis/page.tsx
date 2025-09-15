@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { prisma } from '@/lib/prisma';
 import { PageHeaderEffect } from '@/components/layout/landing/PageBackgroundHeader/PageHeaderEffect';
@@ -8,26 +7,30 @@ export const dynamic = 'force-dynamic';
 
 export default async function Page() {
   const demographicsData = await prisma.villageProfile.findUnique({
-    where: { key: 'demographics_data', isActive: true },
+    where: { key: 'demographics_data', isActive: true }
   });
 
   return (
     <>
-      <PageHeaderEffect 
-        title="Demografi & Geografis"
-        description="Informasi demografi dan geografis desa Banyuanyar"
+      <PageHeaderEffect
+        title='Demografi & Geografis'
+        description='Informasi demografi dan geografis desa Banyuanyar'
       />
 
-      <div className="max-w-5xl mx-auto space-y-8">
-        <div className="bg-white dark:bg-muted rounded-xl shadow p-6 md:p-8">
-          <h2 className="text-xl font-semibold mb-4 text-primary">Data Demografi & Geografis</h2>
+      <div className='mx-auto max-w-5xl space-y-8'>
+        <div className='dark:bg-muted rounded-xl bg-white p-6 shadow md:p-8'>
+          <h2 className='text-primary mb-4 text-xl font-semibold'>
+            Data Demografi & Geografis
+          </h2>
           {demographicsData?.value ? (
-            <TiptapViewer 
+            <TiptapViewer
               content={demographicsData.value}
-              className="min-h-[400px] border-none"
+              className='min-h-[400px] border-none'
             />
           ) : (
-            <span className="text-muted-foreground">Belum ada data demografi dan geografis desa.</span>
+            <span className='text-muted-foreground'>
+              Belum ada data demografi dan geografis desa.
+            </span>
           )}
         </div>
       </div>

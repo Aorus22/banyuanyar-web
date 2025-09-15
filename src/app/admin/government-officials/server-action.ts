@@ -1,4 +1,4 @@
-'use server'
+'use server';
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
@@ -27,14 +27,17 @@ export async function createGovernmentOfficial(data: {
   }
 }
 
-export async function updateGovernmentOfficial(id: number, data: {
-  name: string;
-  position: string;
-  photoUrl?: string;
-  bio?: string;
-  socialMedia?: any;
-  sortOrder?: number;
-}) {
+export async function updateGovernmentOfficial(
+  id: number,
+  data: {
+    name: string;
+    position: string;
+    photoUrl?: string;
+    bio?: string;
+    socialMedia?: any;
+    sortOrder?: number;
+  }
+) {
   try {
     const official = await prisma.governmentOfficial.update({
       where: { id },
@@ -88,4 +91,4 @@ export async function toggleGovernmentOfficialStatus(id: number) {
     console.error('Error toggling government official status:', error);
     return { success: false, error: 'Failed to toggle status' };
   }
-} 
+}

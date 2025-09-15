@@ -9,21 +9,23 @@ interface CreateUmkmProductPageProps {
   }>;
 }
 
-export default async function CreateUmkmProductPage({ params }: CreateUmkmProductPageProps) {
+export default async function CreateUmkmProductPage({
+  params
+}: CreateUmkmProductPageProps) {
   const { id: umkmId } = await params;
-  
+
   return (
-    <div className="space-y-6">
+    <div className='space-y-6'>
       <Heading
-        title="Tambah Produk UMKM"
-        description="Buat produk baru untuk UMKM ini"
+        title='Tambah Produk UMKM'
+        description='Buat produk baru untuk UMKM ini'
       />
       <Separator />
-      
-      <UmkmProductForm 
+
+      <UmkmProductForm
         umkmId={parseInt(umkmId)}
-        createProduct={createUmkmProduct} 
+        createProduct={createUmkmProduct}
       />
     </div>
   );
-} 
+}
