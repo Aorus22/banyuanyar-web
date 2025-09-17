@@ -1,0 +1,36 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "main": ".open-next/worker.js",
+  "name": "banyuanyar-web",
+  "compatibility_date": "2024-12-30",
+  "compatibility_flags": [
+    // Enable Node.js API
+    // see https://developers.cloudflare.com/workers/configuration/compatibility-flags/#nodejs-compatibility-flag
+    "nodejs_compat",
+    // Allow to fetch URLs in your app
+    // see https://developers.cloudflare.com/workers/configuration/compatibility-flags/#global-fetch-strictly-public
+    "global_fetch_strictly_public"
+  ],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      // The service should match the "name" of your worker
+      "service": "banyuanyar-web"
+    }
+  ],
+  "r2_buckets": [
+    // R2 cache disabled for now
+    // To enable R2 cache:
+    // 1. Enable R2 in Cloudflare Dashboard
+    // 2. Create bucket: wrangler r2 bucket create banyuanyar-web-cache
+    // 3. Uncomment below and update open-next.config.ts
+    // {
+    //   "binding": "NEXT_INC_CACHE_R2_BUCKET",
+    //   "bucket_name": "banyuanyar-web-cache"
+    // }
+  ]
+}
