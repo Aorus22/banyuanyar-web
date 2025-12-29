@@ -2,8 +2,11 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { requireAuth } from '@/lib/auth';
 
 export async function deleteNewsCategory(id: number) {
+  await requireAuth();
+
   try {
     // Check if category has news
     const categoryWithNews = await prisma.newsCategory.findUnique({
@@ -18,9 +21,9 @@ export async function deleteNewsCategory(id: number) {
     });
 
     if (categoryWithNews && categoryWithNews._count.news > 0) {
-      return { 
-        success: false, 
-        error: `Kategori ini memiliki ${categoryWithNews._count.news} berita. Hapus semua berita terlebih dahulu.` 
+      return {
+        success: false,
+        error: `Kategori ini memiliki ${categoryWithNews._count.news} berita. Hapus semua berita terlebih dahulu.`
       };
     }
 

@@ -3,8 +3,11 @@
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { uploadImage } from '@/lib/cloudinary';
+import { requireAuth } from '@/lib/auth';
 
 export async function createGalleryAction(formData: FormData) {
+  await requireAuth();
+
   try {
     const title = formData.get('title') as string;
     const description = formData.get('description') as string;
@@ -32,6 +35,8 @@ export async function createGalleryAction(formData: FormData) {
 }
 
 export async function updateGalleryAction(id: number, formData: FormData) {
+  await requireAuth();
+
   try {
     const title = formData.get('title') as string;
     const description = formData.get('description') as string;
@@ -62,6 +67,8 @@ export async function updateGalleryAction(id: number, formData: FormData) {
 }
 
 export async function deleteGalleryAction(id: number) {
+  await requireAuth();
+
   try {
     // First delete all media associated with this gallery
     await prisma.media.deleteMany({
@@ -85,9 +92,11 @@ export async function deleteGalleryAction(id: number) {
 }
 
 export async function uploadGalleryMediaAction(galleryId: number, formData: FormData) {
+  await requireAuth();
+
   try {
     const file = formData.get('file') as File;
-    
+
     if (!file) {
       return { success: false, error: 'File tidak ditemukan' };
     }
@@ -106,7 +115,7 @@ export async function uploadGalleryMediaAction(galleryId: number, formData: Form
 
     // Upload to Cloudinary
     const uploadResult = await uploadImage(file, { folder: 'gallery' });
-    
+
     // Save to database
     const media = await prisma.media.create({
       data: {
@@ -128,6 +137,8 @@ export async function uploadGalleryMediaAction(galleryId: number, formData: Form
 }
 
 export async function deleteGalleryMediaAction(mediaId: number) {
+  await requireAuth();
+
   try {
     const media = await prisma.media.findUnique({
       where: { id: mediaId }
@@ -139,7 +150,7 @@ export async function deleteGalleryMediaAction(mediaId: number) {
 
     // Delete from Cloudinary
     const deleteResult = await deleteFromCloudinary(media.fileUrl);
-    
+
     if (!deleteResult.success) {
       console.warn('Failed to delete from Cloudinary:', deleteResult.error);
       // Continue with database deletion even if Cloudinary deletion fails
@@ -163,7 +174,7 @@ async function deleteFromCloudinary(fileUrl: string) {
     // Extract public_id from Cloudinary URL
     const urlParts = fileUrl.split('/');
     const publicId = urlParts[urlParts.length - 1].split('.')[0];
-    
+
     // This would require the cloudinary package to be properly configured
     // For now, we'll return success and handle Cloudinary deletion separately
     return { success: true };

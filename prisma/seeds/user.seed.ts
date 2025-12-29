@@ -11,17 +11,17 @@ export async function seedUser(prisma: PrismaClient) {
 
   const userData = [
     {
-      email: "admin@desabanyuanyar.com",
+      email: "admin@desabanyuanyar.id",
       username: "admin",
-      password: hashed("admin123"),
+      password: hashed("Banyuanyar&KKN-UNS2025"),
       name: "Administrator",
       phone: "081234567890",
       role: UserRole.ADMIN
     },
     {
-      email: "staff@desabanyuanyar.com",
+      email: "staff@desabanyuanyar.id",
       username: "staff",
-      password: hashed("staff123"),
+      password: hashed("Banyuanyar&KKN-UNS2025"),
       name: "Staff Desa",
       phone: "081234567891",
       role: UserRole.USER

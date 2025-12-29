@@ -4,6 +4,7 @@ import Header from '@/components/layout/admin/Header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
+import { requireAuth } from '@/lib/auth';
 
 export const metadata: Metadata = {
   title: 'Next Shadcn Dashboard Starter',
@@ -15,6 +16,8 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // Require authentication - will redirect to sign-in if not authenticated
+  await requireAuth();
 
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar_state")?.value === "true"
@@ -34,3 +37,4 @@ export default async function DashboardLayout({
     </KBar>
   );
 }
+

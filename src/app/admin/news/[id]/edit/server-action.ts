@@ -2,8 +2,11 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { requireAuth } from '@/lib/auth';
 
 export async function updateNews(id: number, formData: FormData) {
+  await requireAuth();
+
   try {
     const title = formData.get('title') as string;
     const content = formData.get('content') as string;

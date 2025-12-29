@@ -5,15 +5,6 @@ import {
   CollapsibleTrigger
 } from '@/components/ui/collapsible';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
-import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
@@ -31,42 +22,38 @@ import {
 
 import { navItems } from '@/constants/data';
 import { useMediaQuery } from '@/hooks/use-media-query';
+import { useConfirmDialog } from '@/components/ui/confirmation-dialog';
 import {
-  IconBell,
   IconChevronRight,
-  IconChevronsDown,
-  IconCreditCard,
   IconLogout,
-  IconPhotoUp,
-  IconUserCircle
+  IconPhotoUp
 } from '@tabler/icons-react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import * as React from 'react';
 import { Icons } from '../../icons';
-import { OrgSwitcher } from '../../org-switcher';
 import Image from 'next/image';
 export const company = {
-  name: 'Acme Inc',
+  name: 'Desa Banyuanyar',
   logo: IconPhotoUp,
-  plan: 'Enterprise'
+  plan: 'Admin Panel'
 };
-
-const tenants = [
-  { id: '1', name: 'Acme Inc' },
-  { id: '2', name: 'Beta Corp' },
-  { id: '3', name: 'Gamma Ltd' }
-];
 
 export default function AppSidebar() {
   const pathname = usePathname();
   const { isOpen } = useMediaQuery();
-  const router = useRouter();
-  const handleSwitchTenant = (_tenantId: string) => {
-    // Tenant switching functionality would be implemented here
-  };
+  const showConfirm = useConfirmDialog();
 
-  const activeTenant = tenants[0];
+  const handleLogout = async () => {
+    const confirmed = await showConfirm(
+      'Konfirmasi Logout',
+      'Apakah Anda yakin ingin keluar dari sistem?'
+    );
+    if (confirmed) {
+      const { logout } = await import('@/app/auth/logout/server-action');
+      await logout();
+    }
+  };
 
   React.useEffect(() => {
     // Side effects based on sidebar state changes
@@ -76,11 +63,11 @@ export default function AppSidebar() {
     <Sidebar collapsible='icon'>
       <SidebarHeader>
         <Link href='/' className='flex items-center gap-2 p-2 hover:bg-sidebar-accent rounded-md transition-colors'>
-          <Image 
-            src='/logo.png' 
-            alt='Logo Desa Banyuanyar' 
-            width={32} 
-            height={32} 
+          <Image
+            src='/logo.png'
+            alt='Logo Desa Banyuanyar'
+            width={32}
+            height={32}
             className='rounded-md'
           />
           <span className='text-sm font-semibold text-sidebar-foreground'>Banyuanyar</span>
@@ -154,51 +141,15 @@ export default function AppSidebar() {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton
-                  size='lg'
-                  className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
-                >
-
-                  <IconChevronsDown className='ml-auto size-4' />
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className='w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg'
-                side='bottom'
-                align='end'
-                sideOffset={4}
-              >
-                <DropdownMenuLabel className='p-0 font-normal'>
-                  <div className='px-1 py-1.5'>
-
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-
-                <DropdownMenuGroup>
-                  <DropdownMenuItem
-                    onClick={() => router.push('/dashboard/profile')}
-                  >
-                    <IconUserCircle className='mr-2 h-4 w-4' />
-                    Profile
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <IconCreditCard className='mr-2 h-4 w-4' />
-                    Billing
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <IconBell className='mr-2 h-4 w-4' />
-                    Notifications
-                  </DropdownMenuItem>
-                </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <IconLogout className='mr-2 h-4 w-4' />
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <SidebarMenuButton
+              size='lg'
+              tooltip='Logout'
+              onClick={handleLogout}
+              className='text-destructive hover:text-destructive hover:bg-destructive/10'
+            >
+              <IconLogout />
+              <span>Logout</span>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>

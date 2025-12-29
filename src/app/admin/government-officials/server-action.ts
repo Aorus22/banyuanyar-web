@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { requireAuth } from '@/lib/auth';
 
 export async function createGovernmentOfficial(data: {
   name: string;
@@ -11,6 +12,8 @@ export async function createGovernmentOfficial(data: {
   socialMedia?: any;
   sortOrder?: number;
 }) {
+  await requireAuth();
+
   try {
     const official = await prisma.governmentOfficial.create({
       data: {
@@ -35,6 +38,8 @@ export async function updateGovernmentOfficial(id: number, data: {
   socialMedia?: any;
   sortOrder?: number;
 }) {
+  await requireAuth();
+
   try {
     const official = await prisma.governmentOfficial.update({
       where: { id },
@@ -53,6 +58,8 @@ export async function updateGovernmentOfficial(id: number, data: {
 }
 
 export async function deleteGovernmentOfficial(id: number) {
+  await requireAuth();
+
   try {
     await prisma.governmentOfficial.update({
       where: { id },
@@ -68,6 +75,8 @@ export async function deleteGovernmentOfficial(id: number) {
 }
 
 export async function toggleGovernmentOfficialStatus(id: number) {
+  await requireAuth();
+
   try {
     const official = await prisma.governmentOfficial.findUnique({
       where: { id }

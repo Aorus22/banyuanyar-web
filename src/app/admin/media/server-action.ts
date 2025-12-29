@@ -3,8 +3,11 @@
 import { prisma } from '@/lib/prisma';
 import { uploadImage, deleteImage } from '@/lib/cloudinary';
 import { revalidatePath } from 'next/cache';
+import { requireAuth } from '@/lib/auth';
 
 export async function uploadMediaAction(formData: FormData) {
+  await requireAuth();
+
   try {
     const file = formData.get('file') as File;
     const entityType = formData.get('entityType') as string;
@@ -40,14 +43,16 @@ export async function uploadMediaAction(formData: FormData) {
     return { success: true, data: media };
   } catch (error) {
     console.error('Error uploading media:', error);
-    return { 
-      success: false, 
-      error: error instanceof Error ? error.message : 'Failed to upload media' 
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to upload media'
     };
   }
 }
 
 export async function deleteMediaAction(id: number) {
+  await requireAuth();
+
   try {
     // Get media info first
     const media = await prisma.media.findUnique({
@@ -74,18 +79,20 @@ export async function deleteMediaAction(id: number) {
     return { success: true };
   } catch (error) {
     console.error('Error deleting media:', error);
-    return { 
-      success: false, 
-      error: error instanceof Error ? error.message : 'Failed to delete media' 
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to delete media'
     };
   }
 }
 
 export async function updateMediaEntityAction(
-  id: number, 
-  entityType: string, 
+  id: number,
+  entityType: string,
   entityId: number
 ) {
+  await requireAuth();
+
   try {
     const media = await prisma.media.update({
       where: { id },
@@ -99,9 +106,9 @@ export async function updateMediaEntityAction(
     return { success: true, data: media };
   } catch (error) {
     console.error('Error updating media entity:', error);
-    return { 
-      success: false, 
-      error: error instanceof Error ? error.message : 'Failed to update media' 
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to update media'
     };
   }
 } 

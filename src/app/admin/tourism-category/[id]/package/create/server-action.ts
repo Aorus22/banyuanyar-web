@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
+import { requireAuth } from '@/lib/auth'
 
 interface CreateTourismPackageData {
   name: string
@@ -13,6 +14,8 @@ interface CreateTourismPackageData {
 }
 
 export async function createTourismPackage(data: CreateTourismPackageData) {
+  await requireAuth();
+
   try {
     // Validate required fields
     if (!data.name.trim()) {
@@ -48,16 +51,16 @@ export async function createTourismPackage(data: CreateTourismPackageData) {
     revalidatePath(`/admin/tourism-category/${data.categoryId}`)
     revalidatePath('/admin/tourism-category')
 
-    return { 
-      success: true, 
-      data: tourismPackage 
+    return {
+      success: true,
+      data: tourismPackage
     }
 
   } catch (error) {
     console.error('Error creating tourism package:', error)
-    return { 
-      success: false, 
-      error: 'Terjadi kesalahan saat membuat paket wisata' 
+    return {
+      success: false,
+      error: 'Terjadi kesalahan saat membuat paket wisata'
     }
   }
 } 

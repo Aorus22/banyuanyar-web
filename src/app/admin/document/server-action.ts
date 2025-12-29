@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { deleteDocumentFromGoogleDrive } from './upload-action';
+import { requireAuth } from '@/lib/auth';
 
 export async function createDocument(data: {
   title: string;
@@ -12,6 +13,8 @@ export async function createDocument(data: {
   fileSize?: bigint;
   fileType?: string;
 }) {
+  await requireAuth();
+
   try {
     const document = await prisma.document.create({
       data
@@ -26,6 +29,8 @@ export async function createDocument(data: {
 }
 
 export async function deleteDocument(id: number) {
+  await requireAuth();
+
   try {
     // Get document info before deleting
     const document = await prisma.document.findUnique({

@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
+import { requireAuth } from '@/lib/auth'
 
 interface UpdateTourismPackageData {
   id: number
@@ -14,6 +15,8 @@ interface UpdateTourismPackageData {
 }
 
 export async function updateTourismPackage(data: UpdateTourismPackageData) {
+  await requireAuth();
+
   try {
     // Validate required fields
     if (!data.name.trim()) {
@@ -26,7 +29,7 @@ export async function updateTourismPackage(data: UpdateTourismPackageData) {
 
     // Check if package exists and belongs to the category
     const existingPackage = await prisma.tourismPackage.findFirst({
-      where: { 
+      where: {
         id: data.id,
         categoryId: data.categoryId
       }
@@ -62,16 +65,16 @@ export async function updateTourismPackage(data: UpdateTourismPackageData) {
     revalidatePath(`/admin/tourism-category/${data.categoryId}`)
     revalidatePath('/admin/tourism-category')
 
-    return { 
-      success: true, 
-      data: updatedPackage 
+    return {
+      success: true,
+      data: updatedPackage
     }
 
   } catch (error) {
     console.error('Error updating tourism package:', error)
-    return { 
-      success: false, 
-      error: 'Terjadi kesalahan saat memperbarui paket wisata' 
+    return {
+      success: false,
+      error: 'Terjadi kesalahan saat memperbarui paket wisata'
     }
   }
 } 

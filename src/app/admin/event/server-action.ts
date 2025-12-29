@@ -2,8 +2,11 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { requireAuth } from '@/lib/auth';
 
 export async function deleteEvent(id: number) {
+  await requireAuth();
+
   try {
     await prisma.event.delete({
       where: { id }

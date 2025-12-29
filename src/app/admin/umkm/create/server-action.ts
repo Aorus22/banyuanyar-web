@@ -2,8 +2,11 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { requireAuth } from '@/lib/auth';
 
 export async function createUmkm(formData: FormData) {
+  await requireAuth();
+
   try {
     const name = formData.get('name') as string;
     const ownerName = formData.get('ownerName') as string;

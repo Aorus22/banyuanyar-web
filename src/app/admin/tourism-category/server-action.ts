@@ -2,8 +2,11 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { requireAuth } from '@/lib/auth';
 
 export async function createTourismCategory(formData: FormData) {
+  await requireAuth();
+
   try {
     const name = formData.get('name') as string
     const description = formData.get('description') as string
@@ -42,6 +45,8 @@ export async function createTourismCategory(formData: FormData) {
 }
 
 export async function updateTourismCategory(id: number, formData: FormData) {
+  await requireAuth();
+
   try {
     const name = formData.get('name') as string
     const description = formData.get('description') as string
@@ -95,6 +100,8 @@ export async function updateTourismCategory(id: number, formData: FormData) {
 }
 
 export async function deleteTourismCategory(id: number) {
+  await requireAuth();
+
   try {
     // Check if category has packages
     const categoryWithPackages = await prisma.tourismCategory.findUnique({

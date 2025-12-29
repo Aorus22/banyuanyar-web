@@ -2,8 +2,11 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { requireAuth } from '@/lib/auth';
 
 export async function deleteUmkm(id: number) {
+  await requireAuth();
+
   try {
     // Check if UMKM has products
     const umkmWithProducts = await prisma.umkm.findUnique({
@@ -18,9 +21,9 @@ export async function deleteUmkm(id: number) {
     });
 
     if (umkmWithProducts && umkmWithProducts._count.products > 0) {
-      return { 
-        success: false, 
-        error: `UMKM ini memiliki ${umkmWithProducts._count.products} produk. Hapus semua produk terlebih dahulu.` 
+      return {
+        success: false,
+        error: `UMKM ini memiliki ${umkmWithProducts._count.products} produk. Hapus semua produk terlebih dahulu.`
       };
     }
 

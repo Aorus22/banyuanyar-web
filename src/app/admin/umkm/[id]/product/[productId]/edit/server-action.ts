@@ -2,8 +2,11 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { requireAuth } from '@/lib/auth';
 
 export async function createUmkmProduct(umkmId: number, formData: FormData) {
+  await requireAuth();
+
   try {
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
@@ -32,6 +35,8 @@ export async function createUmkmProduct(umkmId: number, formData: FormData) {
 }
 
 export async function updateUmkmProduct(id: number, formData: FormData) {
+  await requireAuth();
+
   try {
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
@@ -61,6 +66,8 @@ export async function updateUmkmProduct(id: number, formData: FormData) {
 }
 
 export async function deleteUmkmProduct(id: number) {
+  await requireAuth();
+
   try {
     const product = await prisma.umkmProduct.findUnique({
       where: { id },

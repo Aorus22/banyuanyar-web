@@ -2,8 +2,11 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { requireAuth } from '@/lib/auth';
 
 export async function updateTourismPackage(id: number, formData: FormData) {
+  await requireAuth();
+
   try {
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
@@ -25,10 +28,10 @@ export async function updateTourismPackage(id: number, formData: FormData) {
     });
 
     revalidatePath('/admin/tourism-package');
-    
+
     // Convert Decimal to number for response
-    return { 
-      success: true, 
+    return {
+      success: true,
       data: {
         ...package_,
         price: package_.price ? Number(package_.price) : null
