@@ -20,26 +20,26 @@ enum UserRole {
 }
 
 model User {
-  id           Int            @id @default(autoincrement())
-  username     String         @unique
-  email        String         @unique
-  password     String
-  name         String
-  phone        String
-  avatar       String?
-  role         UserRole       @default(USER)
+  id       Int      @id @default(autoincrement())
+  username String   @unique
+  email    String   @unique
+  password String
+  name     String
+  phone    String
+  avatar   String?
+  role     UserRole @default(USER)
 
-  news         News[]
+  news News[]
 }
 
 model VillageProfile {
-  id          Int      @id @default(autoincrement())
-  key         String   @unique
-  value       String?  @db.Text
-  name        String?  @db.Text
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  value     String?  @db.Text
+  name      String?  @db.Text
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model GovernmentOfficial {
@@ -74,39 +74,39 @@ model NewsCategory {
 }
 
 model News {
-  id            Int          @id @default(autoincrement())
-  title         String
-  slug          String       @unique
-  content       String       @db.Text
-  authorId      Int?
-  categoryId    Int?
-  status        NewsStatus   @default(DRAFT)
-  publishedAt   DateTime?
-  viewCount     Int          @default(0)
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  id          Int        @id @default(autoincrement())
+  title       String
+  slug        String     @unique
+  content     String     @db.Text
+  authorId    Int?
+  categoryId  Int?
+  status      NewsStatus @default(DRAFT)
+  publishedAt DateTime?
+  viewCount   Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 
-  author   User?        @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  author   User?         @relation(fields: [authorId], references: [id], onDelete: SetNull)
   category NewsCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
 }
 
 model Event {
-  id            Int           @id @default(autoincrement())
-  title         String
-  description   String?       @db.Text
-  date          DateTime
-  startTime     String?       // Format: "HH:mm" (e.g., "09:00")
-  endTime       String?       // Format: "HH:mm" (e.g., "17:00")
-  location      String?
-  organizer     String?
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-}
-
-model Gallery {
   id          Int      @id @default(autoincrement())
   title       String
   description String?  @db.Text
+  date        DateTime
+  startTime   String? // Format: "HH:mm" (e.g., "09:00")
+  endTime     String? // Format: "HH:mm" (e.g., "17:00")
+  location    String?
+  organizer   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Gallery {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String?   @db.Text
   eventDate   DateTime?
   isActive    Boolean   @default(true)
   createdAt   DateTime  @default(now())
@@ -114,16 +114,16 @@ model Gallery {
 }
 
 model Document {
-  id            Int      @id @default(autoincrement())
-  title         String
-  fileUrl       String
-  description   String?  @db.Text
-  filename      String
-  fileSize      BigInt?
-  fileType      String?
-  isActive      Boolean  @default(true)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id          Int      @id @default(autoincrement())
+  title       String
+  fileUrl     String
+  description String?  @db.Text
+  filename    String
+  fileSize    BigInt?
+  fileType    String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model TourismCategory {
@@ -137,16 +137,16 @@ model TourismCategory {
 }
 
 model TourismPackage {
-  id               Int              @id @default(autoincrement())
-  name             String
-  description      String?          @db.Text
-  price            Decimal?         @db.Decimal(10, 2)
-  duration         String?
-  maxParticipants  Int?
-  categoryId       Int
-  isActive         Boolean          @default(true)
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
+  id              Int      @id @default(autoincrement())
+  name            String
+  description     String?  @db.Text
+  price           Decimal? @db.Decimal(10, 2)
+  duration        String?
+  maxParticipants Int?
+  categoryId      Int
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   category TourismCategory @relation(fields: [categoryId], references: [id])
 }
@@ -186,8 +186,8 @@ model UmkmProduct {
   id          Int      @id @default(autoincrement())
   name        String
   description String?  @db.Text
-  price       Decimal?  @db.Decimal(10, 2)
-  unit        String?   // satuan: kg, pcs, pack, dll
+  price       Decimal? @db.Decimal(10, 2)
+  unit        String? // satuan: kg, pcs, pack, dll
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -207,8 +207,8 @@ model Media {
   updatedAt   DateTime @updatedAt
 
   // Polymorphic relationship
-  entityType  String   // 'gallery', 'umkm', 'umkm_product', 'news', 'tourism_package', etc.
-  entityId    Int      // ID of the related entity
+  entityType String // 'gallery', 'umkm', 'umkm_product', 'news', 'tourism_package', etc.
+  entityId   Int // ID of the related entity
 
   @@index([entityType, entityId])
 }

@@ -21,30 +21,30 @@ export default async function LandingHero() {
       orderBy: { publishedAt: 'desc' },
       take: 3
     }),
-    
+
     // Latest events (3 items)
     prisma.event.findMany({
       orderBy: { date: 'desc' },
       take: 3
     }),
-    
+
     // Top 3 village officials
     prisma.governmentOfficial.findMany({
       where: { isActive: true },
       orderBy: { sortOrder: 'asc' },
       take: 3
     }),
-    
+
     // Top 3 UMKM
     prisma.umkm.findMany({
       where: { isActive: true },
       orderBy: { createdAt: 'desc' },
       take: 3
     }),
-    
+
     // Gallery photos (4 items)
     prisma.media.findMany({
-      where: { 
+      where: {
         entityType: 'gallery',
         mimeType: { startsWith: 'image/' }
       },
@@ -110,16 +110,16 @@ export default async function LandingHero() {
       <div className='relative w-full mb-16' data-aos="fade-up">
         <div className='relative overflow-hidden rounded-2xl min-h-[60vh]'>
           {/* Background Image */}
-          <div 
+          <div
             className='absolute inset-0 bg-cover bg-center bg-no-repeat'
             style={{
-              backgroundImage: `url("https://desabanyuanyar.com/wp-content/uploads/2024/11/WhatsApp-Image-2024-11-04-at-19.31.32-1-1-637x427.jpeg")`,
+              backgroundImage: `url("https://google-drive-storage.banyuanyardrive.workers.dev/custom/1739420838_banyuanyar.jpg")`,
             }}
           />
-          
+
           {/* Dark Overlay for better text readability */}
           <div className='absolute inset-0 bg-black/50' />
-          
+
           {/* Hero Content */}
           <div className='relative z-10 flex items-center justify-center min-h-[60vh] p-8'>
             <div className='text-center max-w-3xl'>
@@ -130,7 +130,7 @@ export default async function LandingHero() {
                 Desa Banyuanyar
               </h1>
               <p className='max-w-[70ch] xs:text-lg text-white/90 mb-8' data-aos="fade-up" data-aos-delay="300">
-                Selamat datang di website resmi Green Smart Village Desa Banyuanyar Kecamatan Ampel Kabupaten Boyolali. 
+                Selamat datang di website resmi Green Smart Village Desa Banyuanyar Kecamatan Ampel Kabupaten Boyolali.
                 Temukan keindahan alam, budaya, dan keramahan masyarakat desa kami yang kaya akan tradisi dan potensi wisata.
               </p>
               <div className='flex flex-col sm:flex-row items-center sm:justify-center gap-4' data-aos="fade-up" data-aos-delay="400">
@@ -157,14 +157,14 @@ export default async function LandingHero() {
           </div>
         </div>
       </div>
-      
+
       {/* Village Highlights */}
       <div className='max-w-6xl mx-auto' data-aos="fade-up">
         <div className='text-center mb-12'>
           <h2 className='text-2xl font-semibold mb-4' data-aos="fade-down" data-aos-delay="100">Keunggulan Desa Banyuanyar</h2>
           <p className='text-muted-foreground' data-aos="fade-up" data-aos-delay="200">Green Smart Village dengan berbagai potensi wisata dan UMKM</p>
         </div>
-        
+
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
           <div className='text-center p-6 bg-primary border border-primary rounded-xl hover:shadow-lg transition-shadow hover:bg-primary/90' data-aos="zoom-in" data-aos-delay="50">
             <div className='h-16 w-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4'>
@@ -173,7 +173,7 @@ export default async function LandingHero() {
             <h3 className='font-semibold mb-2 text-white'>Wisata Alam</h3>
             <p className='text-sm text-white/90'>Pemandangan sawah hijau dan udara pegunungan yang sejuk</p>
           </div>
-          
+
           <div className='text-center p-6 bg-primary border border-primary rounded-xl hover:shadow-lg transition-shadow hover:bg-primary/90' data-aos="zoom-in" data-aos-delay="100">
             <div className='h-16 w-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4'>
               <Coffee className='h-8 w-8 text-primary' />
@@ -181,7 +181,7 @@ export default async function LandingHero() {
             <h3 className='font-semibold mb-2 text-white'>Kampus Kopi</h3>
             <p className='text-sm text-white/90'>Nikmati kopi berkualitas dari kebun kopi lokal</p>
           </div>
-          
+
           <div className='text-center p-6 bg-primary border border-primary rounded-xl hover:shadow-lg transition-shadow hover:bg-primary/90' data-aos="zoom-in" data-aos-delay="150">
             <div className='h-16 w-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4'>
               <Users className='h-8 w-8 text-primary' />
@@ -189,7 +189,7 @@ export default async function LandingHero() {
             <h3 className='font-semibold mb-2 text-white'>Budaya Lokal</h3>
             <p className='text-sm text-white/90'>Kesenian tradisional dan ritual adat yang unik</p>
           </div>
-          
+
           <div className='text-center p-6 bg-primary border border-primary rounded-xl hover:shadow-lg transition-shadow hover:bg-primary/90' data-aos="zoom-in" data-aos-delay="200">
             <div className='h-16 w-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 Davenport, IA'>
               <Camera className='h-8 w-8 text-primary' />
@@ -199,7 +199,7 @@ export default async function LandingHero() {
           </div>
         </div>
       </div>
-      
+
       {/* Village Stats Section */}
       <div className='mt-20 max-w-4xl mx-auto' data-aos="fade-up">
         <div className='text-center mb-8'>
@@ -231,7 +231,7 @@ export default async function LandingHero() {
           <h2 className='text-2xl font-semibold mb-4' data-aos="fade-down" data-aos-delay="100">Keindahan Alam Desa Banyuanyar</h2>
           <p className='text-muted-foreground' data-aos="fade-up" data-aos-delay="200">Nikmati pemandangan alam yang memukau sepanjang hari</p>
         </div>
-        
+
         <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
           <div className='text-center p-6 bg-gradient-to-br from-yellow- decimal-to-orange-100 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-xl border border-yellow-200 dark:border-yellow-800' data-aos="flip-left" data-aos-delay="50">
             <div className='h-16 w-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-4'>
@@ -240,7 +240,7 @@ export default async function LandingHero() {
             <h3 className='font-semibold mb-2 text-yellow-800 dark:text-yellow-200'>Pagi Hari</h3>
             <p className='text-sm text-yellow-700 dark:text-yellow-300'>Matahari terbit di balik pegunungan dengan kabut tipis yang menutupi sawah hijau</p>
           </div>
-          
+
           <div className='text-center p-6 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl border border-green-200 dark:border-green-800' data-aos="flip-left" data-aos-delay="100">
             <div className='h-16 w-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4'>
               <Trees className='h-8 w-8 text-green-600' />
@@ -248,7 +248,7 @@ export default async function LandingHero() {
             <h3 className='font-semibold mb-2 text-green-800 dark:text-green-200'>Siang Hari</h3>
             <p className='text-sm text-green-700 dark:text-green-300'>Sawah hijau yang luas dengan aktivitas petani yang sibuk mengurus tanaman</p>
           </div>
-          
+
           <div className='text-center p-6 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-blue-200 dark:border-blue-800' data-aos="flip-left" data-aos-delay="150">
             <div className='h-16 w-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4'>
               <Moon className='h-8 w-8 text-blue-600' />
@@ -263,7 +263,7 @@ export default async function LandingHero() {
       <div className='mt-20 w-full' data-aos="zoom-in">
         <div className='relative h-[75vh] w-full overflow-hidden rounded-2xl'>
           {/* Background Image with Overlay */}
-          <div 
+          <div
             className='absolute inset-0 bg-cover bg-center bg-no-repeat'
             style={{
               backgroundImage: `url('/images/village-landscape.jpg')`,
@@ -271,7 +271,7 @@ export default async function LandingHero() {
           >
             {/* Dark Overlay for better text readability */}
             <div className='absolute inset-0 bg-black/40'></div>
-            
+
             {/* Content Overlay */}
             <div className='absolute inset-0 flex items-center justify-center'>
               <div className='text-center text-white max-w-4xl px-6'>
@@ -281,7 +281,7 @@ export default async function LandingHero() {
                   <span className='text-yellow-300'>Desa Banyuanyar</span>
                 </h2>
                 <p className='text-lg md:text-xl mb-8 opacity-90 max-w-2xl mx-auto' data-aos="fade-up" data-aos-delay="200">
-                  Nikmati pemandangan sawah hijau yang membentang luas, udara pegunungan yang sejuk, 
+                  Nikmati pemandangan sawah hijau yang membentang luas, udara pegunungan yang sejuk,
                   dan keramahan masyarakat yang hangat
                 </p>
                 <div className='flex flex-col sm:flex-row items-center justify-center gap-4' data-aos="fade-up" data-aos-delay="300">
@@ -301,7 +301,7 @@ export default async function LandingHero() {
               </div>
             </div>
           </div>
-          
+
           {/* Fallback if image doesn't exist */}
           <div className='absolute inset-0 bg-gradient-to-br from-primary via-primary/80 to-primary/60 flex items-center justify-center'>
             <div className='text-center text-white max-w-4xl px-6'>
@@ -311,7 +311,7 @@ export default async function LandingHero() {
                 <span className='text-yellow-300'>Desa Banyuanyar</span>
               </h2>
               <p className='text-lg md:text-xl mb-8 opacity-90 max-w-2xl mx-auto'>
-                Nikmati pemandangan sawah hijau yang membentang luas, udara pegunungan yang sejuk, 
+                Nikmati pemandangan sawah hijau yang membentang luas, udara pegunungan yang sejuk,
                 dan keramahan masyarakat yang hangat
               </p>
               <div className='flex flex-col sm:flex-row items-center justify-center gap-4'>
@@ -335,7 +335,7 @@ export default async function LandingHero() {
 
       {/* Data Showcase Sections */}
       <div className='mt-20 w-full max-w-7xl mx-auto px-6 space-y-20'>
-        
+
         {/* Latest News Section */}
         <div className='text-center' data-aos="fade-up">
           <h2 className='text-3xl font-bold mb-4' data-aos="fade-down" data-aos-delay="100">Berita Terbaru Desa</h2>
@@ -428,7 +428,7 @@ export default async function LandingHero() {
                       </div>
                     )}
                   </div>
-                  
+
                   <CardHeader className='flex-1'>
                     <div className='flex items-center gap-2 mb-3'>
                       <Calendar className='h-4 w-4 text-green-500' />
@@ -438,7 +438,7 @@ export default async function LandingHero() {
                     </div>
                     <CardTitle className='text-lg leading-tight'>{event.title}</CardTitle>
                   </CardHeader>
-                  
+
                   <CardContent className='pt-0'>
                     <p className='text-sm text-muted-foreground line-clamp-3 mb-4'>{event.description}</p>
                     <div className='flex items-center gap-2 text-sm text-muted-foreground'>

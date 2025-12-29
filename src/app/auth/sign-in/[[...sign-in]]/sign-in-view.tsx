@@ -16,6 +16,7 @@ export default function SignInViewPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -26,14 +27,16 @@ export default function SignInViewPage() {
       const result = await login(usernameOrEmail, password);
 
       if (result.success) {
+        setIsLoading(false);
+        setIsRedirecting(true);
         router.push('/admin/dashboard');
         router.refresh();
       } else {
         setError(result.error || 'Login gagal');
+        setIsLoading(false);
       }
     } catch (err) {
       setError('Terjadi kesalahan');
-    } finally {
       setIsLoading(false);
     }
   }
@@ -45,7 +48,7 @@ export default function SignInViewPage() {
         <div
           className='absolute inset-0 bg-cover bg-center bg-no-repeat'
           style={{
-            backgroundImage: `url("https://desabanyuanyar.com/wp-content/uploads/2024/11/WhatsApp-Image-2024-11-04-at-19.31.32-1-1-637x427.jpeg")`,
+            backgroundImage: `url("https://google-drive-storage.banyuanyardrive.workers.dev/custom/1739420838_banyuanyar.jpg")`,
           }}
         />
         <div className='absolute inset-0 bg-black/50' />
@@ -135,9 +138,14 @@ export default function SignInViewPage() {
                 <Button
                   type='submit'
                   className='w-full h-11 text-base'
-                  disabled={isLoading}
+                  disabled={isLoading || isRedirecting}
                 >
-                  {isLoading ? (
+                  {isRedirecting ? (
+                    <>
+                      <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                      Mengalihkan...
+                    </>
+                  ) : isLoading ? (
                     <>
                       <Loader2 className='mr-2 h-4 w-4 animate-spin' />
                       Memproses...
