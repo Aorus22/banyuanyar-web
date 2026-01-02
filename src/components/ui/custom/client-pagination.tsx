@@ -10,26 +10,27 @@ interface ClientPaginationProps {
   className?: string;
 }
 
-export function ClientPagination({ 
-  currentPage, 
-  totalPages, 
-  baseUrl, 
-  className = "mt-8" 
+export function ClientPagination({
+  currentPage,
+  totalPages,
+  baseUrl,
+  className = "mt-8"
 }: ClientPaginationProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const handlePageChange = (page: number) => {
+  // Determine if we should use Link or manual navigation
+  // If we can construct the URL synchronously, use getPageHref (Link)
+  // Otherwise fallback to onPageChange (useRouter) if needed (though getPageHref covers most cases here)
+  const getPageHref = (page: number) => {
     const params = new URLSearchParams(searchParams || '');
     if (page === 1) {
       params.delete('page');
     } else {
       params.set('page', page.toString());
     }
-    
     const queryString = params.toString();
-    const url = queryString ? `${baseUrl}?${queryString}` : baseUrl;
-    router.push(url);
+    return queryString ? `${baseUrl}?${queryString}` : baseUrl;
   };
 
   // Always show pagination, but with different styling for single page
@@ -52,7 +53,7 @@ export function ClientPagination({
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
-          onPageChange={handlePageChange}
+          getPageHref={getPageHref}
         />
       )}
     </div>

@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -8,7 +9,8 @@ import { Button } from "@/components/ui/button"
 interface PaginationProps {
   currentPage: number
   totalPages: number
-  onPageChange: (page: number) => void
+  onPageChange?: (page: number) => void
+  getPageHref?: (page: number) => string
   className?: string
   maxVisiblePages?: number
   showFirstLast?: boolean
@@ -19,6 +21,7 @@ export function Pagination({
   currentPage,
   totalPages,
   onPageChange,
+  getPageHref,
   className,
   maxVisiblePages = 5,
   showFirstLast = true,
@@ -58,7 +61,7 @@ export function Pagination({
 
   const handlePageChange = React.useCallback((page: number) => {
     if (page >= 1 && page <= totalPages && page !== currentPage) {
-      onPageChange(page)
+      onPageChange?.(page)
     }
   }, [currentPage, totalPages, onPageChange])
 
@@ -66,35 +69,50 @@ export function Pagination({
     return null
   }
 
+  const renderPageButton = (page: number, content: React.ReactNode, isActive: boolean = false, isDisabled: boolean = false) => {
+    const button = (
+      <Button
+        variant="ghost"
+        size="sm"
+        className={cn(
+          "border-r last:border-r-0",
+          isActive && "bg-primary text-primary-foreground hover:bg-primary/90",
+          isDisabled && "opacity-50 cursor-not-allowed"
+        )}
+        disabled={isDisabled}
+        onClick={getPageHref ? undefined : () => handlePageChange(page)}
+      >
+        {content}
+      </Button>
+    );
+
+    if (getPageHref && !isDisabled) {
+      return (
+        <Link href={getPageHref(page)} prefetch={true}>
+          {button}
+        </Link>
+      );
+    }
+
+    return button;
+  };
+
   return (
     <div className={cn("flex justify-center py-8", className)}>
       <div className="inline-flex rounded-md shadow-sm bg-card border">
         {/* Previous page button */}
-        <Button
-          variant="ghost"
-          size="sm"
-          className="rounded-l-md border-r"
-          disabled={currentPage <= 1}
-          onClick={() => handlePageChange(currentPage - 1)}
-        >
-          <ChevronLeft className="w-4 h-4" />
-          <span className="sr-only">Previous page</span>
-        </Button>
+        {renderPageButton(
+          currentPage - 1,
+          <>
+            <ChevronLeft className="w-4 h-4" />
+            <span className="sr-only">Previous page</span>
+          </>,
+          false,
+          currentPage <= 1
+        )}
 
         {/* First page when not in view */}
-        {showFirstPageButton && (
-          <Button
-            variant="ghost"
-            size="sm"
-            className={cn(
-              "border-r",
-              currentPage === 1 && "bg-primary text-primary-foreground hover:bg-primary/90"
-            )}
-            onClick={() => handlePageChange(1)}
-          >
-            1
-          </Button>
-        )}
+        {showFirstPageButton && renderPageButton(1, "1")}
 
         {/* Ellipsis for skipped pages at start */}
         {showLeftEllipsis && (
@@ -106,18 +124,9 @@ export function Pagination({
 
         {/* Page number buttons */}
         {visiblePages.map((page) => (
-          <Button
-            key={page}
-            variant="ghost"
-            size="sm"
-            className={cn(
-              "border-r",
-              currentPage === page && "bg-primary text-primary-foreground hover:bg-primary/90"
-            )}
-            onClick={() => handlePageChange(page)}
-          >
-            {page}
-          </Button>
+          <React.Fragment key={page}>
+            {renderPageButton(page, page.toString(), currentPage === page, currentPage === page)}
+          </React.Fragment>
         ))}
 
         {/* Ellipsis for skipped pages at end */}
@@ -129,31 +138,18 @@ export function Pagination({
         )}
 
         {/* Last page when not in view */}
-        {showLastPageButton && (
-          <Button
-            variant="ghost"
-            size="sm"
-            className={cn(
-              "border-r",
-              currentPage === totalPages && "bg-primary text-primary-foreground hover:bg-primary/90"
-            )}
-            onClick={() => handlePageChange(totalPages)}
-          >
-            {totalPages}
-          </Button>
-        )}
+        {showLastPageButton && renderPageButton(totalPages, totalPages.toString())}
 
         {/* Next page button */}
-        <Button
-          variant="ghost"
-          size="sm"
-          className="rounded-r-md"
-          disabled={currentPage >= totalPages}
-          onClick={() => handlePageChange(currentPage + 1)}
-        >
-          <ChevronRight className="w-4 h-4" />
-          <span className="sr-only">Next page</span>
-        </Button>
+        {renderPageButton(
+          currentPage + 1,
+          <>
+            <ChevronRight className="w-4 h-4" />
+            <span className="sr-only">Next page</span>
+          </>,
+          false,
+          currentPage >= totalPages
+        )}
       </div>
     </div>
   )
