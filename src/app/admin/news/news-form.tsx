@@ -28,7 +28,6 @@ const formSchema = z.object({
   content: z.string().min(1, "Konten news harus diisi"),
   categoryId: z.string().optional(),
   status: z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]).default("DRAFT"),
-  authorId: z.string().optional()
 })
 
 type FormValues = z.infer<typeof formSchema>
@@ -40,7 +39,6 @@ interface NewsFormProps {
     content: string
     categoryId: number | null
     status: "DRAFT" | "PUBLISHED" | "ARCHIVED"
-    authorId: number | null
   }
   categories: Array<{
     id: number
@@ -55,7 +53,7 @@ export function NewsForm({ news, categories, createNews, updateNews }: NewsFormP
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const editorRef = useRef<Editor | null>(null)
-  
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -63,7 +61,6 @@ export function NewsForm({ news, categories, createNews, updateNews }: NewsFormP
       content: news?.content || "",
       categoryId: news?.categoryId?.toString() || "",
       status: news?.status || "DRAFT",
-      authorId: news?.authorId?.toString() || ""
     },
   })
 
@@ -93,7 +90,6 @@ export function NewsForm({ news, categories, createNews, updateNews }: NewsFormP
       formData.append('content', values.content)
       formData.append('categoryId', values.categoryId || '')
       formData.append('status', values.status)
-      formData.append('authorId', values.authorId || '')
 
       let result
       if (news && updateNews) {
